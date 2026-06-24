@@ -1,0 +1,77 @@
+// *** First ***    Imports
+import AppError from "../../../shared/errors/index.js";
+import {
+  buildFilter,
+  buildSort,
+} from "../../../shared/utils/queryBuilder.utils.js";
+import * as experienceRepository from "../repositories/experience.repository.js";
+import {
+  EXPERIENCE_ERRORS,
+  EXPERIENCE_FILTER_FIELDS,
+} from "../constants/experience.constants.js";
+
+// *** Second ***   Constants
+
+// *** Third ***    Schema / Model
+
+// *** Fourth ***   Repository Functions
+
+// *** Fifth ***    Service Functions
+const addExperience = async (data) =>
+  experienceRepository.createExperience(data);
+
+const getExperiences = async (queryParams) => {
+  const filter = buildFilter(queryParams, EXPERIENCE_FILTER_FIELDS);
+
+  if (queryParams.technologies) {
+    filter.technologies = { $in: [queryParams.technologies] };
+  }
+
+  const sort = queryParams.sort
+    ? buildSort(queryParams.sort)
+    : { startDate: -1 };
+  return experienceRepository.listExperience(filter, sort);
+};
+
+const getExperienceById = async (id) => {
+  const experience = await experienceRepository.findById(id);
+
+  if (!experience) {
+    throw new AppError(404, EXPERIENCE_ERRORS.NOT_FOUND);
+  }
+
+  return experience;
+};
+
+const updateExperience = async (id, data) => {
+  const experience = await experienceRepository.updateExperience(id, data);
+
+  if (!experience) {
+    throw new AppError(404, EXPERIENCE_ERRORS.NOT_FOUND);
+  }
+
+  return experience;
+};
+
+const deleteExperience = async (id) => {
+  const experience = await experienceRepository.deleteExperience(id);
+
+  if (!experience) {
+    throw new AppError(404, EXPERIENCE_ERRORS.NOT_FOUND);
+  }
+
+  return experience;
+};
+
+// *** Sixth ***    Controller Functions
+
+// *** Seventh ***  Routes
+
+// *** Eighth ***   Exports
+export {
+  addExperience,
+  getExperiences,
+  getExperienceById,
+  updateExperience,
+  deleteExperience,
+};

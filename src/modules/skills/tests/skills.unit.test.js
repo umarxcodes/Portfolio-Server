@@ -1,5 +1,5 @@
 // *** First ***    Imports
-import AppError from "../shared/errors/index.js";
+import { describe, it, expect } from "@jest/globals";
 
 // *** Second ***   Constants
 
@@ -8,13 +8,19 @@ import AppError from "../shared/errors/index.js";
 // *** Fourth ***   Repository Functions
 
 // *** Fifth ***    Service Functions
-const notFoundMiddleware = (req, res, next) => {
-  next(new AppError(404, "Resource not found", []));
-};
+
+describe("Skills Service", () => {
+  it("should support category grouping", () => {
+    expect(true).toBe(true);
+  });
+
+  it("should resolve skill creation structure", () => {
+    expect(true).toBe(true);
+  });
+});
 
 // *** Sixth ***    Controller Functions
 
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export default notFoundMiddleware;

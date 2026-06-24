@@ -1,5 +1,5 @@
 // *** First ***    Imports
-import asyncHandler from "express-async-handler";
+import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { AUTH_MESSAGES } from "../constants/auth.constants.js";
 import * as authService from "../services/auth.service.js";
