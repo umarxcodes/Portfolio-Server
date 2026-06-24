@@ -1,13 +1,20 @@
-import app from "./app.js";
-import connectDB from "./database/connection.js";
+// *** First ***    Imports
 import dotenv from "dotenv";
+import connectDB from "./database/connection.js";
 
+// *** Second ***   Constants
+dotenv.config();
 const PORT = process.env.PORT || 5000;
 
-dotenv.config();
+// *** Third ***    Schema / Model
 
+// *** Fourth ***   Repository Functions
+
+// *** Fifth ***    Service Functions
 const startServer = async () => {
   try {
+    const { default: app } = await import("./app.js");
+
     await connectDB();
 
     app.listen(PORT, () => {
@@ -18,4 +25,9 @@ const startServer = async () => {
   }
 };
 
+// *** Sixth ***    Controller Functions
+
+// *** Seventh ***  Routes
+
+// *** Eighth ***   Exports
 startServer();

@@ -199,6 +199,44 @@ Production start:
 yarn start
 ```
 
+## Auth Module
+
+### Features
+
+- Single-admin authentication only; no public signup or user management endpoints.
+- JWT access and refresh token authentication.
+- Refresh tokens stored as SHA-256 hashes in MongoDB.
+- Refresh token rotation on every refresh request.
+- Logout invalidates the stored refresh token.
+- Password changes require the current password and revoke all refresh tokens.
+- Profile endpoint returns sanitized admin details only.
+- Zod validation with generic invalid credentials responses.
+
+### Endpoints
+
+| Method | Path                           | Auth | Description                                         |
+| ------ | ------------------------------ | ---- | --------------------------------------------------- |
+| POST   | `/api/v1/auth/login`           | No   | Admin login; returns access token and refresh token |
+| GET    | `/api/v1/auth/profile`         | Yes  | Returns sanitized admin profile                     |
+| POST   | `/api/v1/auth/logout`          | Yes  | Invalidates stored refresh token                    |
+| POST   | `/api/v1/auth/refresh-token`   | No   | Rotates refresh token and issues new access token   |
+| PATCH  | `/api/v1/auth/change-password` | Yes  | Changes password and revokes all refresh tokens     |
+
+### Security Measures
+
+- Generic authentication errors do not reveal whether email or password was incorrect.
+- Refresh tokens are never stored in plaintext.
+- Refresh tokens are hashed with SHA-256 before persistence.
+- Passwords are hashed with bcrypt and rehashed on update.
+- Refresh tokens are invalidated on logout and password change.
+
+### Auth Environment Variables
+
+- `ACCESS_TOKEN_SECRET` — JWT access token secret.
+- `REFRESH_TOKEN_SECRET` — JWT refresh token secret.
+- `ACCESS_TOKEN_EXPIRES_IN` — Access token lifetime, e.g. `15m`.
+- `REFRESH_TOKEN_EXPIRES_IN` — Refresh token lifetime, e.g. `7d`.
+
 ## Environment Variables
 
 ```env
@@ -350,15 +388,15 @@ All routes are prefixed with `/api/v1`.
 
 ### Skills Routes
 
-| Method  | Route                    | Auth        | Description                | Request Body                  | Success Response                                        |
-| ------- | ------------------------ | ----------- | ------------------------ | ----------------------------- | ----------------------------------------------------- |
-| `GET`   | `/skills`                | No          | List all skills          | Query: `page, limit, category, featured, search, sortBy, sortOrder` | `200 { skills, totalCount, totalPages, currentPage }` |
-| `GET`   | `/skills/featured`       | No          | List featured skills    | None                          | `200 { skills }`                                        |
-| `GET`   | `/skills/category/:category` | No      | Filter skills by category | Query params                 | `200 { skills }`                                        |
-| `GET`   | `/skills/:id`            | No          | Get skill by id          | None                          | `200 { skill }`                                         |
-| `POST`  | `/skills`                | Admin       | Create skill             | Skill body (see below)        | `201 { skill }`                                         |
-| `PATCH` | `/skills/:id`            | Admin       | Update skill             | Partial skill body            | `200 { skill }`                                         |
-| `DELETE`| `/skills/:id`            | Admin       | Delete skill             | None                          | `200 { message }`                                       |
+| Method   | Route                        | Auth  | Description               | Request Body                                                        | Success Response                                      |
+| -------- | ---------------------------- | ----- | ------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `GET`    | `/skills`                    | No    | List all skills           | Query: `page, limit, category, featured, search, sortBy, sortOrder` | `200 { skills, totalCount, totalPages, currentPage }` |
+| `GET`    | `/skills/featured`           | No    | List featured skills      | None                                                                | `200 { skills }`                                      |
+| `GET`    | `/skills/category/:category` | No    | Filter skills by category | Query params                                                        | `200 { skills }`                                      |
+| `GET`    | `/skills/:id`                | No    | Get skill by id           | None                                                                | `200 { skill }`                                       |
+| `POST`   | `/skills`                    | Admin | Create skill              | Skill body (see below)                                              | `201 { skill }`                                       |
+| `PATCH`  | `/skills/:id`                | Admin | Update skill              | Partial skill body                                                  | `200 { skill }`                                       |
+| `DELETE` | `/skills/:id`                | Admin | Delete skill              | None                                                                | `200 { message }`                                     |
 
 Skill body:
 
@@ -379,14 +417,14 @@ Proficiency levels: `Beginner`, `Intermediate`, `Advanced`, `Expert`.
 
 ### Experience Routes
 
-| Method  | Route                    | Auth        | Description                | Request Body                  | Success Response                                        |
-| ------- | ------------------------ | ----------- | ------------------------ | ----------------------------- | ----------------------------------------------------- |
-| `GET`   | `/experiences`           | No          | List all experiences     | Query params                  | `200 { experiences, totalCount, totalPages, currentPage }` |
-| `GET`   | `/experiences/featured`  | No          | List featured experiences| None                          | `200 { experiences }`                                     |
-| `GET`   | `/experiences/:id`       | No          | Get experience by id       | None                          | `200 { experience }`                                      |
-| `POST`  | `/experiences`           | Admin       | Create experience          | Experience body (see below)   | `201 { experience }`                                      |
-| `PATCH` | `/experiences/:id`       | Admin       | Update experience          | Partial experience body       | `200 { experience }`                                      |
-| `DELETE`| `/experiences/:id`       | Admin       | Delete experience          | None                          | `200 { message }`                                         |
+| Method   | Route                   | Auth  | Description               | Request Body                | Success Response                                           |
+| -------- | ----------------------- | ----- | ------------------------- | --------------------------- | ---------------------------------------------------------- |
+| `GET`    | `/experiences`          | No    | List all experiences      | Query params                | `200 { experiences, totalCount, totalPages, currentPage }` |
+| `GET`    | `/experiences/featured` | No    | List featured experiences | None                        | `200 { experiences }`                                      |
+| `GET`    | `/experiences/:id`      | No    | Get experience by id      | None                        | `200 { experience }`                                       |
+| `POST`   | `/experiences`          | Admin | Create experience         | Experience body (see below) | `201 { experience }`                                       |
+| `PATCH`  | `/experiences/:id`      | Admin | Update experience         | Partial experience body     | `200 { experience }`                                       |
+| `DELETE` | `/experiences/:id`      | Admin | Delete experience         | None                        | `200 { message }`                                          |
 
 Experience body:
 
@@ -412,15 +450,15 @@ Employment types: `Full-time`, `Part-time`, `Contract`, `Freelance`, `Internship
 
 ### Analytics Routes
 
-| Method | Route                    | Auth  | Description              | Request Body                  | Success Response                              |
-| ------ | -------------------------- | ----- | ------------------------ | ----------------------------- | ------------------------------------------- |
-| `GET`  | `/analytics/summary`       | Admin | Dashboard summary        | None                          | `200 { summary }`                             |
-| `GET`  | `/analytics/daily`         | Admin | Daily analytics          | Query: `startDate, endDate, type` | `200 { analytics }`                       |
-| `GET`  | `/analytics/weekly`        | Admin | Weekly analytics         | Query params                  | `200 { analytics }`                           |
-| `GET`  | `/analytics/monthly`       | Admin | Monthly analytics        | Query params                  | `200 { analytics }`                           |
-| `POST` | `/analytics/track/portfolio-view` | No | Track portfolio view | `{ path?, referrer? }`        | `201 "Portfolio view tracked successfully"`   |
-| `POST` | `/analytics/track/profile-view`   | No | Track profile view    | `{ userId?, username? }`      | `201 "Profile view tracked successfully"`     |
-| `POST` | `/analytics/track/project-view/:projectId` | No | Track project view | None                          | `201 "Project view tracked successfully"`   |
+| Method | Route                                      | Auth  | Description          | Request Body                      | Success Response                            |
+| ------ | ------------------------------------------ | ----- | -------------------- | --------------------------------- | ------------------------------------------- |
+| `GET`  | `/analytics/summary`                       | Admin | Dashboard summary    | None                              | `200 { summary }`                           |
+| `GET`  | `/analytics/daily`                         | Admin | Daily analytics      | Query: `startDate, endDate, type` | `200 { analytics }`                         |
+| `GET`  | `/analytics/weekly`                        | Admin | Weekly analytics     | Query params                      | `200 { analytics }`                         |
+| `GET`  | `/analytics/monthly`                       | Admin | Monthly analytics    | Query params                      | `200 { analytics }`                         |
+| `POST` | `/analytics/track/portfolio-view`          | No    | Track portfolio view | `{ path?, referrer? }`            | `201 "Portfolio view tracked successfully"` |
+| `POST` | `/analytics/track/profile-view`            | No    | Track profile view   | `{ userId?, username? }`          | `201 "Profile view tracked successfully"`   |
+| `POST` | `/analytics/track/project-view/:projectId` | No    | Track project view   | None                              | `201 "Project view tracked successfully"`   |
 
 ## Request Examples
 
@@ -618,6 +656,7 @@ Indexes:
 ### Vercel Serverless Deployment
 
 This backend supports Vercel serverless deployment. Requirements:
+
 - MongoDB Atlas (serverless needs connection-per-request pattern)
 - All environment variables set in Vercel dashboard
 
@@ -748,6 +787,7 @@ muhammadumar.code@gmail.com
 When using `onboarding@resend.dev` (Resend's test sender), emails can only be sent to the address registered with your Resend account.
 
 **Solutions:**
+
 1. For local testing: Register with your Resend account email
 2. For production: Verify your domain at [resend.com/domains](https://resend.com/domains) and use your verified sender
 
