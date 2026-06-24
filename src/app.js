@@ -1,10 +1,25 @@
+// *** First ***    Imports
 import express from "express";
+import routes from "./routes/index.js";
 
-// Create the Express application instance.
+// *** Second ***   Constants
 const app = express();
+
+// *** Third ***    Schema / Model
+
+// *** Fourth ***   Repository Functions
+
+// *** Fifth ***    Service Functions
+app.use(express.json());
+
+// *** Sixth ***    Controller Functions
+
+// *** Seventh ***  Routes
+app.use(routes);
 
 app.get("/", (req, res) => {
   res.status(200).send("Api is Working Fine 🫰");
 });
-// Export the configured Express app for the server entrypoint and tests.
+
+// *** Eighth ***   Exports
 export default app;

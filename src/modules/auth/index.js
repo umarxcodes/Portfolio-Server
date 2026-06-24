@@ -1,9 +1,8 @@
 // *** First ***    Imports
-import express from "express";
-import { authRoutes } from "../modules/auth/index.js";
+import authRoutes from "./routes/auth.routes.js";
+import Admin from "./models/admin.model.js";
 
 // *** Second ***   Constants
-const router = express.Router();
 
 // *** Third ***    Schema / Model
 
@@ -14,7 +13,6 @@ const router = express.Router();
 // *** Sixth ***    Controller Functions
 
 // *** Seventh ***  Routes
-router.use("/api/v1/auth", authRoutes);
 
 // *** Eighth ***   Exports
-export default router;
+export { authRoutes, Admin as adminModel };
