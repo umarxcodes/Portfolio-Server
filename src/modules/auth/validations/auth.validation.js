@@ -1,9 +1,8 @@
 // *** First ***    Imports
 import { z } from "zod";
-import AppError from "../../../shared/errors/index.js";
+import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
 // *** Second ***   Constants
-const VALIDATION_MESSAGE = "Validation failed";
 
 // *** Third ***    Schema / Model
 const loginSchema = z.object({
@@ -41,21 +40,7 @@ const changePasswordSchema = z
 // *** Fourth ***   Repository Functions
 
 // *** Fifth ***    Service Functions
-const validate = (schema) => (req, res, next) => {
-  const parseResult = schema.safeParse(req.body);
-
-  if (!parseResult.success) {
-    const errors = parseResult.error.errors.map((error) => ({
-      field: error.path.join(".") || "body",
-      message: error.message,
-    }));
-
-    throw new AppError(400, VALIDATION_MESSAGE, errors);
-  }
-
-  req.body = parseResult.data;
-  next();
-};
+const validate = validateSchema;
 
 // *** Sixth ***    Controller Functions
 

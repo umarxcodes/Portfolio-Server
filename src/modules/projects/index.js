@@ -1,5 +1,5 @@
 // *** First ***    Imports
-import AppError from "../shared/errors/index.js";
+import projectsRoutes from "./routes/projects.routes.js";
 
 // *** Second ***   Constants
 
@@ -8,13 +8,10 @@ import AppError from "../shared/errors/index.js";
 // *** Fourth ***   Repository Functions
 
 // *** Fifth ***    Service Functions
-const notFoundMiddleware = (req, res, next) => {
-  next(new AppError(404, "Resource not found", []));
-};
 
 // *** Sixth ***    Controller Functions
 
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export default notFoundMiddleware;
+export { projectsRoutes };
