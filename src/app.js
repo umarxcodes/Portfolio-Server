@@ -1,5 +1,6 @@
 // *** First ***    Imports
 import express from "express";
+import path from "node:path";
 import routes from "./routes/index.js";
 import notFoundMiddleware from "./middlewares/notFound.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
@@ -13,6 +14,7 @@ const app = express();
 
 // *** Fifth ***    Service Functions
 app.use(express.json());
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // *** Sixth ***    Controller Functions
 
