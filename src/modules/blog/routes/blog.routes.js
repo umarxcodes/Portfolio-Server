@@ -39,11 +39,13 @@ blogRoutes.get(
 blogRoutes.get("/featured", blogController.getFeaturedPosts);
 blogRoutes.get(
   "/category/:category",
+  validate(listBlogQuerySchema, "query"),
   validate(categoryParamsSchema, "params"),
   blogController.getPostsByCategory
 );
 blogRoutes.get(
   "/tag/:tag",
+  validate(listBlogQuerySchema, "query"),
   validate(tagParamsSchema, "params"),
   blogController.getPostsByTag
 );

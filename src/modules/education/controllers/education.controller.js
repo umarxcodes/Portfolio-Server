@@ -23,6 +23,11 @@ const getEducationList = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, EDUCATION_MESSAGES.LISTED, result);
 });
 
+const getCurrentEducation = asyncHandler(async (req, res) => {
+  const items = await educationService.getCurrentEducation();
+  sendSuccess(res, 200, EDUCATION_MESSAGES.LISTED, { items });
+});
+
 const getEducationById = asyncHandler(async (req, res) => {
   const education = await educationService.getEducationById(req.params.id);
   sendSuccess(res, 200, EDUCATION_MESSAGES.FETCHED, { education });
@@ -47,6 +52,7 @@ const deleteEducation = asyncHandler(async (req, res) => {
 export {
   createEducation,
   getEducationList,
+  getCurrentEducation,
   getEducationById,
   updateEducation,
   deleteEducation,

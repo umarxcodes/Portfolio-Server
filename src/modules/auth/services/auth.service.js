@@ -8,7 +8,6 @@ import {
 import {
   hashPassword,
   hashToken,
-  comparePassword,
 } from "../../../shared/utils/password.utils.js";
 import { AUTH_ERRORS } from "../constants/auth.constants.js";
 import * as authRepository from "../repositories/auth.repository.js";

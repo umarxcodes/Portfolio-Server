@@ -24,6 +24,7 @@ const skillSchema = new mongoose.Schema(
 skillSchema.index({ category: 1 });
 skillSchema.index({ level: 1 });
 skillSchema.index({ displayOrder: 1 });
+skillSchema.index({ name: "text", category: "text", description: "text" });
 
 const Skill = mongoose.model("Skill", skillSchema);
 

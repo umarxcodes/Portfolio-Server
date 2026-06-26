@@ -1,17 +1,14 @@
 // *** First ***    Imports
+import env from "./env.js";
 
 // *** Second ***   Constants
-const SEARCH_MESSAGES = {
-  RESULTS: "Search results",
+const databaseConfig = {
+  uri: env.MONGO_URI,
+  options: {
+    autoIndex: env.NODE_ENV !== "production",
+    serverSelectionTimeoutMS: 10000,
+  },
 };
-const SEARCH_RESOURCE_TYPES = [
-  "projects",
-  "blogs",
-  "skills",
-  "experience",
-  "education",
-  "certificates",
-];
 
 // *** Third ***    Schema / Model
 
@@ -24,4 +21,4 @@ const SEARCH_RESOURCE_TYPES = [
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { SEARCH_MESSAGES, SEARCH_RESOURCE_TYPES };
+export default databaseConfig;

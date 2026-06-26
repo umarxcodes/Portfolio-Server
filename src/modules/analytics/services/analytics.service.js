@@ -6,6 +6,9 @@ import * as analyticsRepository from "../repositories/analytics.repository.js";
 const startOfMonth = () =>
   new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
+const startOfMonthOffset = (monthsAgo) =>
+  new Date(new Date().getFullYear(), new Date().getMonth() - monthsAgo, 1);
+
 // *** Third ***    Schema / Model
 
 // *** Fourth ***   Repository Functions
@@ -18,6 +21,18 @@ const trackEvent = ({ type, resourceId, ipAddress, userAgent }) =>
     ipAddress: hashIpAddress(ipAddress),
     userAgent,
   });
+
+const trackPortfolioView = (metadata) =>
+  trackEvent({ type: "portfolio_view", ...metadata });
+
+const trackProjectView = (resourceId, metadata) =>
+  trackEvent({ type: "project_view", resourceId, ...metadata });
+
+const trackBlogView = (resourceId, metadata) =>
+  trackEvent({ type: "blog_view", resourceId, ...metadata });
+
+const trackContactSubmission = (metadata) =>
+  trackEvent({ type: "contact_submit", ...metadata });
 
 const getOverview = async () => {
   const [
@@ -66,9 +81,41 @@ const getContactTimeline = () =>
     { $sort: { _id: 1 } },
   ]);
 
+const getMonthlyReport = (months = 6) =>
+  analyticsRepository.aggregate([
+    { $match: { createdAt: { $gte: startOfMonthOffset(months - 1) } } },
+    {
+      $group: {
+        _id: {
+          month: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },
+          type: "$type",
+        },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $group: {
+        _id: "$_id.month",
+        events: { $push: { type: "$_id.type", count: "$count" } },
+        total: { $sum: "$count" },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+
 // *** Sixth ***    Controller Functions
 
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { trackEvent, getOverview, getTopResources, getContactTimeline };
+export {
+  trackEvent,
+  trackPortfolioView,
+  trackProjectView,
+  trackBlogView,
+  trackContactSubmission,
+  getOverview,
+  getTopResources,
+  getContactTimeline,
+  getMonthlyReport,
+};

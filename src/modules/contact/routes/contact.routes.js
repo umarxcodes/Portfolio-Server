@@ -1,7 +1,7 @@
 // *** First ***    Imports
 import express from "express";
-import rateLimit from "express-rate-limit";
 import protect from "../../../middlewares/auth.middleware.js";
+import { contactRateLimiter } from "../../../config/rateLimiter.js";
 import * as contactController from "../controllers/contact.controller.js";
 import {
   submitContactSchema,
@@ -13,12 +13,6 @@ import {
 
 // *** Second ***   Constants
 const contactRoutes = express.Router();
-const contactSubmitLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  limit: 5,
-  standardHeaders: true,
-  legacyHeaders: false,
-});
 
 // *** Third ***    Schema / Model
 
@@ -31,7 +25,7 @@ const contactSubmitLimiter = rateLimit({
 // *** Seventh ***  Routes
 contactRoutes.post(
   "/",
-  contactSubmitLimiter,
+  contactRateLimiter,
   validate(submitContactSchema),
   contactController.submitContact
 );

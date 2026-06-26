@@ -33,6 +33,7 @@ educationRoutes.get(
   validate(listEducationQuerySchema, "query"),
   educationController.getEducationList
 );
+educationRoutes.get("/current", educationController.getCurrentEducation);
 educationRoutes.get(
   "/:id",
   validate(idParamsSchema, "params"),

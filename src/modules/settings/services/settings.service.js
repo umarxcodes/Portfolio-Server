@@ -14,7 +14,21 @@ const getSettings = async () => {
   return settings || DEFAULT_SETTINGS;
 };
 
-const updateSettings = (data) => settingsRepository.upsert(data);
+const updateSettings = async (data) => {
+  const currentSettings = await getSettings();
+  const nextSettings = {
+    ...DEFAULT_SETTINGS,
+    ...currentSettings,
+    ...data,
+    socialLinks: {
+      ...DEFAULT_SETTINGS.socialLinks,
+      ...currentSettings.socialLinks,
+      ...data.socialLinks,
+    },
+  };
+
+  return settingsRepository.upsert(nextSettings);
+};
 
 // *** Sixth ***    Controller Functions
 

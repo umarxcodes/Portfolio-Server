@@ -27,6 +27,8 @@ const createSkillSchema = z.object({
 const updateSkillSchema = createSkillSchema.partial();
 
 const listSkillQuerySchema = z.object({
+  page: z.string().optional(),
+  limit: z.string().optional(),
   category: z.enum(SKILL_CATEGORIES).optional(),
   level: z.enum(SKILL_LEVELS).optional(),
   sort: z.string().optional(),

@@ -10,6 +10,14 @@ const EMPLOYMENT_TYPES = [
 ];
 
 const EXPERIENCE_FILTER_FIELDS = ["employmentType", "isCurrent"];
+const EXPERIENCE_SORT_FIELDS = [
+  "startDate",
+  "endDate",
+  "createdAt",
+  "updatedAt",
+  "company",
+  "position",
+];
 
 const EXPERIENCE_ERRORS = {
   NOT_FOUND: "Experience entry not found",
@@ -37,6 +45,7 @@ const EXPERIENCE_MESSAGES = {
 export {
   EMPLOYMENT_TYPES,
   EXPERIENCE_FILTER_FIELDS,
+  EXPERIENCE_SORT_FIELDS,
   EXPERIENCE_ERRORS,
   EXPERIENCE_MESSAGES,
 };

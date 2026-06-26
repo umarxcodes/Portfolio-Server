@@ -10,6 +10,7 @@ import {
   CERTIFICATE_ERRORS,
   CERTIFICATE_FILTER_FIELDS,
   CERTIFICATE_SEARCH_FIELDS,
+  CERTIFICATE_SORT_FIELDS,
 } from "../constants/certificates.constants.js";
 import * as certificatesRepository from "../repositories/certificates.repository.js";
 
@@ -39,7 +40,7 @@ const createCertificate = (data) => certificatesRepository.create(data);
 
 const getCertificates = async (queryParams) => {
   const sort = queryParams.sort
-    ? buildSort(queryParams.sort)
+    ? buildSort(queryParams.sort, CERTIFICATE_SORT_FIELDS)
     : { issueDate: -1 };
   const result = await paginate(
     certificatesRepository.findAll(buildCertificateFilter(queryParams), sort),

@@ -10,6 +10,7 @@ import {
   EDUCATION_ERRORS,
   EDUCATION_FILTER_FIELDS,
   EDUCATION_SEARCH_FIELDS,
+  EDUCATION_SORT_FIELDS,
 } from "../constants/education.constants.js";
 import * as educationRepository from "../repositories/education.repository.js";
 
@@ -32,7 +33,7 @@ const getEducationList = async (queryParams) => {
     ...buildSearch(queryParams.search, EDUCATION_SEARCH_FIELDS),
   };
   const sort = queryParams.sort
-    ? buildSort(queryParams.sort)
+    ? buildSort(queryParams.sort, EDUCATION_SORT_FIELDS)
     : { startDate: -1 };
   const result = await paginate(
     educationRepository.findAll(filter, sort),
@@ -41,6 +42,8 @@ const getEducationList = async (queryParams) => {
   );
   return { items: result.data, pagination: result.pagination };
 };
+
+const getCurrentEducation = () => educationRepository.findCurrent();
 
 const getEducationById = async (id) => {
   const education = await educationRepository.findById(id);
@@ -71,6 +74,7 @@ const deleteEducation = async (id) => {
 export {
   createEducation,
   getEducationList,
+  getCurrentEducation,
   getEducationById,
   updateEducation,
   deleteEducation,

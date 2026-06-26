@@ -17,7 +17,7 @@ const uploadFile = asyncHandler(async (req, res) => {
   const upload = await uploadService.uploadFile(
     req.file,
     req.body.folder,
-    req.user?.id
+    req.user?.sub
   );
   sendSuccess(res, 201, UPLOAD_MESSAGES.CREATED, { upload });
 });

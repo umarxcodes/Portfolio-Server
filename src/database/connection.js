@@ -1,14 +1,21 @@
+// *** First ***    Imports
 import mongoose from "mongoose";
+import databaseConfig from "../config/database.js";
 
+// *** Second ***   Constants
+
+// *** Third ***    Schema / Model
+
+// *** Fourth ***   Repository Functions
+
+// *** Fifth ***    Service Functions
 const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-
-    console.log(` MongoDB Connected Successfully  ❣️`);
-  } catch (error) {
-    console.error(`MongoDB Error: ${error.message}`);
-    process.exit(1);
-  }
+  await mongoose.connect(databaseConfig.uri, databaseConfig.options);
 };
 
+// *** Sixth ***    Controller Functions
+
+// *** Seventh ***  Routes
+
+// *** Eighth ***   Exports
 export default connectDB;

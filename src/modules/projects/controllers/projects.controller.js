@@ -1,6 +1,7 @@
 // *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
+import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { PROJECT_MESSAGES } from "../constants/projects.constants.js";
 import * as projectsService from "../services/projects.service.js";
 
@@ -39,7 +40,10 @@ const getProjectsByCategory = asyncHandler(async (req, res) => {
 });
 
 const getProjectBySlug = asyncHandler(async (req, res) => {
-  const project = await projectsService.getProjectBySlug(req.params.slug);
+  const project = await projectsService.getProjectBySlug(
+    req.params.slug,
+    getClientMetadata(req)
+  );
   sendSuccess(res, 200, PROJECT_MESSAGES.PROJECT_FETCHED, { project });
 });
 

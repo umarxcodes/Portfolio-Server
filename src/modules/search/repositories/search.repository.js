@@ -13,84 +13,56 @@ import Blog from "../../blog/models/blog.model.js";
 // *** Fourth ***   Repository Functions
 const searchResource = async (Model, filter, page, limit) => {
   const skip = (page - 1) * limit;
+  const projection = { score: { $meta: "textScore" } };
+  const sort = { score: { $meta: "textScore" } };
   const [items, total] = await Promise.all([
-    Model.find(filter).skip(skip).limit(limit).lean(),
+    Model.find(filter, projection).sort(sort).skip(skip).limit(limit).lean(),
     Model.countDocuments(filter),
   ]);
-  return { items, total };
+  const totalPages = total > 0 ? Math.ceil(total / limit) : 1;
+
+  return {
+    items,
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages,
+      hasNextPage: page < totalPages,
+      hasPrevPage: page > 1,
+    },
+  };
 };
 
-const searchProjects = (regex, page, limit) =>
+const searchProjects = (query, page, limit) =>
   searchResource(
     Project,
     {
       isDeleted: false,
-      status: "published",
-      $or: [{ title: regex }, { description: regex }, { techStack: regex }],
+      $text: { $search: query },
     },
     page,
     limit
   );
-const searchBlogs = (regex, page, limit) =>
+const searchBlogs = (query, page, limit) =>
   searchResource(
     Blog,
     {
       isDeleted: false,
       published: true,
-      $or: [
-        { title: regex },
-        { excerpt: regex },
-        { content: regex },
-        { tags: regex },
-      ],
+      $text: { $search: query },
     },
     page,
     limit
   );
-const searchSkills = (regex, page, limit) =>
-  searchResource(
-    Skill,
-    { $or: [{ name: regex }, { category: regex }, { description: regex }] },
-    page,
-    limit
-  );
-const searchExperience = (regex, page, limit) =>
-  searchResource(
-    Experience,
-    {
-      $or: [
-        { company: regex },
-        { position: regex },
-        { description: regex },
-        { technologies: regex },
-      ],
-    },
-    page,
-    limit
-  );
-const searchEducation = (regex, page, limit) =>
-  searchResource(
-    Education,
-    {
-      $or: [{ degree: regex }, { fieldOfStudy: regex }, { institution: regex }],
-    },
-    page,
-    limit
-  );
-const searchCertificates = (regex, page, limit) =>
-  searchResource(
-    Certificate,
-    {
-      $or: [
-        { name: regex },
-        { issuer: regex },
-        { description: regex },
-        { skills: regex },
-      ],
-    },
-    page,
-    limit
-  );
+const searchSkills = (query, page, limit) =>
+  searchResource(Skill, { $text: { $search: query } }, page, limit);
+const searchExperience = (query, page, limit) =>
+  searchResource(Experience, { $text: { $search: query } }, page, limit);
+const searchEducation = (query, page, limit) =>
+  searchResource(Education, { $text: { $search: query } }, page, limit);
+const searchCertificates = (query, page, limit) =>
+  searchResource(Certificate, { $text: { $search: query } }, page, limit);
 
 // *** Fifth ***    Service Functions
 

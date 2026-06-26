@@ -1,15 +1,16 @@
 // *** First ***    Imports
+import env from "../../../config/env.js";
 
 // *** Second ***   Constants
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || "";
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "";
-const ACCESS_TOKEN_EXPIRY = process.env.ACCESS_TOKEN_EXPIRES_IN || "15m";
-const REFRESH_TOKEN_EXPIRY = process.env.REFRESH_TOKEN_EXPIRES_IN || "7d";
-const BCRYPT_SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS || 12);
+const ACCESS_TOKEN_SECRET = env.ACCESS_TOKEN_SECRET;
+const REFRESH_TOKEN_SECRET = env.REFRESH_TOKEN_SECRET;
+const ACCESS_TOKEN_EXPIRY = env.ACCESS_TOKEN_EXPIRES_IN;
+const REFRESH_TOKEN_EXPIRY = env.REFRESH_TOKEN_EXPIRES_IN;
+const BCRYPT_SALT_ROUNDS = env.BCRYPT_SALT_ROUNDS;
 const TOKEN_TYPE = "Bearer";
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: env.NODE_ENV === "production",
   sameSite: "strict",
 };
 
@@ -31,14 +32,6 @@ const AUTH_MESSAGES = {
   TOKEN_REFRESHED: "Token refreshed successfully",
   PASSWORD_CHANGED: "Password changed successfully",
 };
-
-if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
-  throw new Error("Missing required authentication environment variables.");
-}
-
-if (!ACCESS_TOKEN_EXPIRY || !REFRESH_TOKEN_EXPIRY) {
-  throw new Error("Missing required token expiry environment variables.");
-}
 
 // *** Third ***    Schema / Model
 

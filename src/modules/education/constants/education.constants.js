@@ -20,6 +20,13 @@ const EDUCATION_SEARCH_FIELDS = [
   "institution",
   "location",
 ];
+const EDUCATION_SORT_FIELDS = [
+  "startDate",
+  "endDate",
+  "createdAt",
+  "updatedAt",
+  "institution",
+];
 
 // *** Third ***    Schema / Model
 
@@ -37,4 +44,5 @@ export {
   EDUCATION_ERRORS,
   EDUCATION_FILTER_FIELDS,
   EDUCATION_SEARCH_FIELDS,
+  EDUCATION_SORT_FIELDS,
 };

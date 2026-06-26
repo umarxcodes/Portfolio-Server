@@ -15,6 +15,14 @@ const CERTIFICATE_ERRORS = {
 
 const CERTIFICATE_FILTER_FIELDS = ["issuer"];
 const CERTIFICATE_SEARCH_FIELDS = ["name", "issuer", "description", "skills"];
+const CERTIFICATE_SORT_FIELDS = [
+  "issueDate",
+  "expiryDate",
+  "createdAt",
+  "updatedAt",
+  "name",
+  "issuer",
+];
 
 // *** Third ***    Schema / Model
 
@@ -32,4 +40,5 @@ export {
   CERTIFICATE_ERRORS,
   CERTIFICATE_FILTER_FIELDS,
   CERTIFICATE_SEARCH_FIELDS,
+  CERTIFICATE_SORT_FIELDS,
 };

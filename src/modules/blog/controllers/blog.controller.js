@@ -1,6 +1,7 @@
 // *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
+import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { BLOG_MESSAGES } from "../constants/blog.constants.js";
 import * as blogService from "../services/blog.service.js";
 
@@ -26,15 +27,21 @@ const getFeaturedPosts = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, BLOG_MESSAGES.LISTED, { items });
 });
 const getPostsByCategory = asyncHandler(async (req, res) => {
-  const items = await blogService.getPostsByCategory(req.params.category);
-  sendSuccess(res, 200, BLOG_MESSAGES.LISTED, { items });
+  const result = await blogService.getPostsByCategory(
+    req.params.category,
+    req.query
+  );
+  sendSuccess(res, 200, BLOG_MESSAGES.LISTED, result);
 });
 const getPostsByTag = asyncHandler(async (req, res) => {
-  const items = await blogService.getPostsByTag(req.params.tag);
-  sendSuccess(res, 200, BLOG_MESSAGES.LISTED, { items });
+  const result = await blogService.getPostsByTag(req.params.tag, req.query);
+  sendSuccess(res, 200, BLOG_MESSAGES.LISTED, result);
 });
 const getPostBySlug = asyncHandler(async (req, res) => {
-  const post = await blogService.getPostBySlug(req.params.slug);
+  const post = await blogService.getPostBySlug(
+    req.params.slug,
+    getClientMetadata(req)
+  );
   sendSuccess(res, 200, BLOG_MESSAGES.FETCHED, { post });
 });
 const getPostById = asyncHandler(async (req, res) => {

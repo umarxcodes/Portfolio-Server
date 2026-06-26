@@ -1,17 +1,8 @@
 // *** First ***    Imports
+import compression from "compression";
 
 // *** Second ***   Constants
-const SEARCH_MESSAGES = {
-  RESULTS: "Search results",
-};
-const SEARCH_RESOURCE_TYPES = [
-  "projects",
-  "blogs",
-  "skills",
-  "experience",
-  "education",
-  "certificates",
-];
+const compressionMiddleware = compression();
 
 // *** Third ***    Schema / Model
 
@@ -24,4 +15,4 @@ const SEARCH_RESOURCE_TYPES = [
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { SEARCH_MESSAGES, SEARCH_RESOURCE_TYPES };
+export default compressionMiddleware;

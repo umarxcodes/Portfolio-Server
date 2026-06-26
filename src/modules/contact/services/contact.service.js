@@ -6,8 +6,12 @@ import {
   buildSearch,
   buildSort,
 } from "../../../shared/utils/queryBuilder.utils.js";
-import { CONTACT_ERRORS } from "../constants/contact.constants.js";
+import {
+  CONTACT_ERRORS,
+  CONTACT_SORT_FIELDS,
+} from "../constants/contact.constants.js";
 import * as contactRepository from "../repositories/contact.repository.js";
+import { trackContactSubmission } from "../../analytics/services/analytics.service.js";
 
 // *** Second ***   Constants
 
@@ -16,7 +20,11 @@ import * as contactRepository from "../repositories/contact.repository.js";
 // *** Fourth ***   Repository Functions
 
 // *** Fifth ***    Service Functions
-const submitContact = (data) => contactRepository.create(data);
+const submitContact = async (data, metadata) => {
+  const contact = await contactRepository.create(data);
+  await trackContactSubmission(metadata);
+  return contact;
+};
 
 const getContacts = async (queryParams) => {
   const filter = {
@@ -24,7 +32,7 @@ const getContacts = async (queryParams) => {
     ...buildSearch(queryParams.search, ["name", "email", "subject"]),
   };
   const sort = queryParams.sort
-    ? buildSort(queryParams.sort)
+    ? buildSort(queryParams.sort, CONTACT_SORT_FIELDS)
     : { createdAt: -1 };
   const result = await paginate(
     contactRepository.findAll(filter, sort),

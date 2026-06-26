@@ -43,7 +43,10 @@ adminSchema.methods.comparePassword = async function comparePassword(
 
 adminSchema.methods.generateSanitized = function generateSanitized() {
   const adminObject = this.toObject({ getters: true });
-  const { password, refreshToken, __v, ...sanitized } = adminObject;
+  delete adminObject.password;
+  delete adminObject.refreshToken;
+  delete adminObject.__v;
+  const sanitized = adminObject;
   return sanitized;
 };
 

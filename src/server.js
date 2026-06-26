@@ -1,10 +1,10 @@
 // *** First ***    Imports
-import dotenv from "dotenv";
+import http from "node:http";
 import connectDB from "./database/connection.js";
+import env from "./config/env.js";
 
 // *** Second ***   Constants
-dotenv.config();
-const PORT = process.env.PORT || 5000;
+const PORT = env.PORT;
 
 // *** Third ***    Schema / Model
 
@@ -12,17 +12,12 @@ const PORT = process.env.PORT || 5000;
 
 // *** Fifth ***    Service Functions
 const startServer = async () => {
-  try {
-    const { default: app } = await import("./app.js");
+  const { default: app } = await import("./app.js");
 
-    await connectDB();
+  await connectDB();
 
-    app.listen(PORT, () => {
-      console.log(` Server Running on Port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Failed to start server:", error);
-  }
+  const server = http.createServer(app);
+  server.listen(PORT);
 };
 
 // *** Sixth ***    Controller Functions
