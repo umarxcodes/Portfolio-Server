@@ -48,7 +48,11 @@ const buildSearch = (searchParam, searchFields = []) => {
     return {};
   }
 
-  return { $text: { $search: searchParam } };
+  return {
+    $or: searchFields.map((field) => ({
+      [field]: { $regex: searchParam, $options: "i" },
+    })),
+  };
 };
 
 const buildProjection = (fields) => {
