@@ -1,0 +1,1019 @@
+{
+  "id": "portfolio-backend",
+  "name": "Portfolio CMS Backend",
+  "description": "Complete API collection for Portfolio CMS Backend",
+  "version": "1.0.0",
+  "folders": [
+    {
+      "id": "auth",
+      "name": "Auth",
+      "requests": [
+        {
+          "id": "auth-login",
+          "name": "Login",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/auth/login",
+          "headers": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "email": "admin@example.com",
+              "password": "ChangeMe123!"
+            }
+          }
+        },
+        {
+          "id": "auth-refresh-token",
+          "name": "Refresh Token",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/auth/refresh-token",
+          "headers": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "refreshToken": "{{refreshToken}}"
+            }
+          }
+        },
+        {
+          "id": "auth-profile",
+          "name": "Get Profile",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/auth/profile",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "auth-logout",
+          "name": "Logout",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/auth/logout",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "refreshToken": "{{refreshToken}}"
+            }
+          }
+        },
+        {
+          "id": "auth-change-password",
+          "name": "Change Password",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/auth/change-password",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "currentPassword": "ChangeMe123!",
+              "newPassword": "NewPass123!",
+              "confirmNewPassword": "NewPass123!"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "profile",
+      "name": "Profile",
+      "requests": [
+        {
+          "id": "profile-get",
+          "name": "Get Profile (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/profile"
+        },
+        {
+          "id": "profile-update",
+          "name": "Update Profile (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/profile",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "name": "Muhammad Umar",
+              "title": "Full Stack Developer",
+              "bio": "Passionate developer with 5 years of experience",
+              "shortBio": "Full Stack Developer | MERN Stack | Open Source Contributor",
+              "email": "umar@example.com",
+              "phone": "+923001234567",
+              "location": "Karachi, Pakistan",
+              "profileImage": "https://example.com/profile.jpg",
+              "resumeUrl": "https://example.com/resume.pdf",
+              "availability": true,
+              "yearsOfExperience": 5,
+              "socialLinks": {
+                "github": "https://github.com/username",
+                "linkedin": "https://linkedin.com/in/username",
+                "portfolio": "https://username.dev",
+                "twitter": "https://twitter.com/username"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "projects",
+      "name": "Projects",
+      "requests": [
+        {
+          "id": "projects-list",
+          "name": "List Projects (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/projects?page=1&limit=10"
+        },
+        {
+          "id": "projects-featured",
+          "name": "Featured Projects (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/projects/featured"
+        },
+        {
+          "id": "projects-by-category",
+          "name": "Projects by Category (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/projects/category/frontend"
+        },
+        {
+          "id": "projects-by-slug",
+          "name": "Project by Slug (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/projects/slug/my-awesome-project"
+        },
+        {
+          "id": "projects-by-id",
+          "name": "Project by ID (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/projects/{{projectId}}"
+        },
+        {
+          "id": "projects-create",
+          "name": "Create Project (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/projects",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "title": "My Awesome Project",
+              "description": "A full-featured web application built with MERN stack",
+              "shortDescription": "MERN stack e-commerce platform",
+              "techStack": ["React", "Node.js", "MongoDB", "Express"],
+              "category": "fullstack",
+              "status": "completed",
+              "featured": true,
+              "githubUrl": "https://github.com/username/project",
+              "liveUrl": "https://project-demo.vercel.app",
+              "thumbnail": "https://example.com/thumb.jpg",
+              "images": ["https://example.com/img1.jpg"],
+              "startDate": "2024-01-01",
+              "endDate": "2024-06-01"
+            }
+          }
+        },
+        {
+          "id": "projects-update",
+          "name": "Update Project (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/projects/{{projectId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "title": "Updated Project Title",
+              "status": "in-progress",
+              "featured": false
+            }
+          }
+        },
+        {
+          "id": "projects-delete",
+          "name": "Delete Project (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/projects/{{projectId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "name": "Skills",
+      "requests": [
+        {
+          "id": "skills-list",
+          "name": "List Skills (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/skills"
+        },
+        {
+          "id": "skills-by-category",
+          "name": "Skills by Category (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/skills/category/frontend"
+        },
+        {
+          "id": "skills-by-id",
+          "name": "Skill by ID (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/skills/{{skillId}}"
+        },
+        {
+          "id": "skills-create",
+          "name": "Create Skill (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/skills",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "name": "React",
+              "category": "frontend",
+              "level": "advanced",
+              "yearsOfExperience": 4,
+              "icon": "https://example.com/react-icon.png",
+              "description": "Building SPAs with React hooks and context",
+              "displayOrder": 1
+            }
+          }
+        },
+        {
+          "id": "skills-update",
+          "name": "Update Skill (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/skills/{{skillId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "level": "expert",
+              "yearsOfExperience": 5
+            }
+          }
+        },
+        {
+          "id": "skills-delete",
+          "name": "Delete Skill (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/skills/{{skillId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "experience",
+      "name": "Experience",
+      "requests": [
+        {
+          "id": "experience-list",
+          "name": "List Experience (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/experience"
+        },
+        {
+          "id": "experience-by-id",
+          "name": "Experience by ID (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/experience/{{experienceId}}"
+        },
+        {
+          "id": "experience-create",
+          "name": "Create Experience (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/experience",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "company": "Tech Corp",
+              "position": "Senior Developer",
+              "employmentType": "full-time",
+              "location": "Karachi, Pakistan",
+              "description": "Leading frontend development team",
+              "responsibilities": [
+                "Led team of 5 developers",
+                "Implemented CI/CD pipelines"
+              ],
+              "technologies": ["React", "TypeScript", "Next.js"],
+              "startDate": "2023-01-01",
+              "endDate": "2024-12-31",
+              "isCurrent": false,
+              "companyLogo": "https://example.com/logo.png"
+            }
+          }
+        },
+        {
+          "id": "experience-update",
+          "name": "Update Experience (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/experience/{{experienceId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "position": "Lead Developer",
+              "isCurrent": true
+            }
+          }
+        },
+        {
+          "id": "experience-delete",
+          "name": "Delete Experience (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/experience/{{experienceId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "requests": [
+        {
+          "id": "education-list",
+          "name": "List Education (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/education"
+        },
+        {
+          "id": "education-current",
+          "name": "Current Education (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/education/current"
+        },
+        {
+          "id": "education-by-id",
+          "name": "Education by ID (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/education/{{educationId}}"
+        },
+        {
+          "id": "education-create",
+          "name": "Create Education (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/education",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "degree": "Bachelor of Science",
+              "fieldOfStudy": "Computer Science",
+              "institution": "University of Karachi",
+              "description": "Focused on software engineering and AI",
+              "grade": "A",
+              "startDate": "2018-09-01",
+              "endDate": "2022-06-01",
+              "isCurrent": false,
+              "location": "Karachi, Pakistan"
+            }
+          }
+        },
+        {
+          "id": "education-update",
+          "name": "Update Education (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/education/{{educationId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "grade": "A+"
+            }
+          }
+        },
+        {
+          "id": "education-delete",
+          "name": "Delete Education (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/education/{{educationId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "certificates",
+      "name": "Certificates",
+      "requests": [
+        {
+          "id": "certificates-list",
+          "name": "List Certificates (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/certificates"
+        },
+        {
+          "id": "certificates-by-id",
+          "name": "Certificate by ID (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/certificates/{{certificateId}}"
+        },
+        {
+          "id": "certificates-create",
+          "name": "Create Certificate (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/certificates",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "name": "AWS Solutions Architect",
+              "issuer": "Amazon Web Services",
+              "issueDate": "2024-01-15",
+              "expiryDate": "2027-01-15",
+              "credentialId": "AWS-123456",
+              "credentialUrl": "https://aws.amazon.com/verification/123456",
+              "description": "Professional level AWS certification",
+              "skills": ["AWS", "Cloud", "DevOps"],
+              "badgeImage": "https://example.com/badge.png"
+            }
+          }
+        },
+        {
+          "id": "certificates-update",
+          "name": "Update Certificate (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/certificates/{{certificateId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "description": "Updated description"
+            }
+          }
+        },
+        {
+          "id": "certificates-delete",
+          "name": "Delete Certificate (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/certificates/{{certificateId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blog",
+      "name": "Blog",
+      "requests": [
+        {
+          "id": "blog-list",
+          "name": "List Published Posts (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/blogs?page=1&limit=10"
+        },
+        {
+          "id": "blog-featured",
+          "name": "Featured Posts (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/blogs/featured"
+        },
+        {
+          "id": "blog-by-category",
+          "name": "Posts by Category (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/blogs/category/technology"
+        },
+        {
+          "id": "blog-by-tag",
+          "name": "Posts by Tag (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/blogs/tag/react"
+        },
+        {
+          "id": "blog-by-slug",
+          "name": "Post by Slug (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/blogs/slug/getting-started-with-react"
+        },
+        {
+          "id": "blog-by-id",
+          "name": "Post by ID (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/blogs/{{blogId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "blog-create",
+          "name": "Create Blog Post (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/blogs",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "title": "Getting Started with React Hooks",
+              "excerpt": "Learn the basics of React Hooks and how to use them in your applications",
+              "content": "# React Hooks Introduction\n\nReact Hooks allow you to use state and other React features without writing a class...",
+              "coverImage": "https://example.com/cover.jpg",
+              "tags": ["react", "javascript", "frontend"],
+              "category": "technology",
+              "featured": true,
+              "published": true,
+              "seoTitle": "React Hooks Guide - Complete Tutorial",
+              "seoDescription": "Master React Hooks with this comprehensive guide covering useState, useEffect, and more"
+            }
+          }
+        },
+        {
+          "id": "blog-update",
+          "name": "Update Blog Post (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/blogs/{{blogId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "title": "Updated: Getting Started with React Hooks",
+              "published": true
+            }
+          }
+        },
+        {
+          "id": "blog-delete",
+          "name": "Delete Blog Post (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/blogs/{{blogId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "name": "Contact",
+      "requests": [
+        {
+          "id": "contact-submit",
+          "name": "Submit Contact (Public)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/contact",
+          "headers": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "name": "John Doe",
+              "email": "john@example.com",
+              "subject": "Job Opportunity",
+              "message": "Hi, I have a job opportunity for you. Please check your email."
+            }
+          }
+        },
+        {
+          "id": "contact-list",
+          "name": "List Contacts (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/contact?page=1&limit=10",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "contact-by-id",
+          "name": "Contact by ID (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/contact/{{contactId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "contact-update-status",
+          "name": "Update Contact Status (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/contact/{{contactId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "status": "replied"
+            }
+          }
+        },
+        {
+          "id": "contact-delete",
+          "name": "Delete Contact (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/contact/{{contactId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "name": "Upload",
+      "requests": [
+        {
+          "id": "upload-file",
+          "name": "Upload File (Admin)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/uploads",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "file",
+                "type": "file",
+                "src": "/path/to/your/image.jpg"
+              },
+              {
+                "key": "folder",
+                "type": "text",
+                "value": "projects"
+              }
+            ]
+          }
+        },
+        {
+          "id": "upload-by-id",
+          "name": "Get Upload (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/uploads/{{uploadId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "upload-delete",
+          "name": "Delete Upload (Admin)",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/uploads/{{uploadId}}",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "requests": [
+        {
+          "id": "analytics-overview",
+          "name": "Overview (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/analytics/overview",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "analytics-projects",
+          "name": "Project Analytics (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/analytics/projects",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "analytics-blogs",
+          "name": "Blog Analytics (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/analytics/blogs",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "analytics-contact",
+          "name": "Contact Analytics (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/analytics/contact",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "analytics-monthly",
+          "name": "Monthly Report (Admin)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/analytics/monthly?months=6",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            }
+          ]
+        },
+        {
+          "id": "analytics-track",
+          "name": "Track Event (Public)",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/analytics/track",
+          "headers": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "type": "portfolio_view",
+              "resourceId": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "name": "Settings",
+      "requests": [
+        {
+          "id": "settings-get",
+          "name": "Get Settings (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/settings"
+        },
+        {
+          "id": "settings-update",
+          "name": "Update Settings (Admin)",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/settings",
+          "headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{accessToken}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "json",
+            "json": {
+              "siteTitle": "My Portfolio",
+              "siteDescription": "Personal portfolio website",
+              "seoTitle": "My Portfolio - Developer",
+              "seoDescription": "Portfolio of a full stack developer",
+              "keywords": ["developer", "react", "nodejs"],
+              "socialLinks": {
+                "github": "https://github.com/username",
+                "linkedin": "https://linkedin.com/in/username",
+                "twitter": "https://twitter.com/username",
+                "youtube": "https://youtube.com/@username"
+              },
+              "theme": "dark",
+              "logo": "https://example.com/logo.png",
+              "favicon": "https://example.com/favicon.ico",
+              "contactEmail": "contact@example.com",
+              "contactPhone": "+923001234567",
+              "maintenanceMode": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "requests": [
+        {
+          "id": "search-global",
+          "name": "Global Search (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/search?q=react&page=1&limit=5"
+        },
+        {
+          "id": "search-by-type",
+          "name": "Search by Type (Public)",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/search?q=react&type=projects&page=1&limit=5"
+        }
+      ]
+    }
+  ]
+}
