@@ -6,7 +6,7 @@ import Blog from "../models/blog.model.js";
 // *** Third ***    Schema / Model
 
 // *** Fourth ***   Repository Functions
-const findAll = (filter, sort) => Blog.find(filter).sort(sort);
+const findAll = (filter, sort) => Blog.find(filter).sort(sort).lean();
 const findById = (id, includeDeleted = false) =>
   Blog.findOne({ _id: id, ...(includeDeleted ? {} : { isDeleted: false }) })
     .select("+isDeleted")

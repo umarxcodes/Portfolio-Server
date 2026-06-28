@@ -39,7 +39,7 @@ const experienceBaseSchema = z.object({
 });
 
 const createExperienceSchema = experienceBaseSchema.superRefine((data, ctx) => {
-  if (data.isCurrent && data.endDate !== null) {
+  if (data.isCurrent && data.endDate !== undefined && data.endDate !== null) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: "endDate must be null when isCurrent is true",

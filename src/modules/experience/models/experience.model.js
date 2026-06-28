@@ -25,6 +25,12 @@ const experienceSchema = new mongoose.Schema(
 experienceSchema.index({ startDate: -1 });
 experienceSchema.index({ isCurrent: 1 });
 experienceSchema.index({ employmentType: 1 });
+experienceSchema.index({
+  company: "text",
+  position: "text",
+  description: "text",
+  technologies: "text",
+});
 
 const Experience = mongoose.model("Experience", experienceSchema);
 

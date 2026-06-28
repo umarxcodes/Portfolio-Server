@@ -1,10 +1,10 @@
 // *** First ***    Imports
 import fs from "node:fs/promises";
 import path from "node:path";
+import { UPLOAD_ROOT } from "../../../config/upload.js";
 import { generateFileName } from "../../../shared/utils/upload.utils.js";
 
 // *** Second ***   Constants
-const UPLOAD_ROOT = path.join(process.cwd(), "uploads");
 
 // *** Third ***    Schema / Model
 

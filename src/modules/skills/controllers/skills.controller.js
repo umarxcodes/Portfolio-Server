@@ -23,6 +23,7 @@ const getSkills = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, SKILL_MESSAGES.SKILLS_LISTED, {
     items: result.items,
     groupedByCategory: result.groupedByCategory,
+    pagination: result.pagination,
   });
 });
 

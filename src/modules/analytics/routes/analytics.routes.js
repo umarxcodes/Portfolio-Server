@@ -2,6 +2,11 @@
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as analyticsController from "../controllers/analytics.controller.js";
+import {
+  trackEventSchema,
+  analyticsRangeQuerySchema,
+  validate,
+} from "../validations/analytics.validation.js";
 
 // *** Second ***   Constants
 const analyticsRoutes = express.Router();
@@ -15,7 +20,18 @@ const analyticsRoutes = express.Router();
 // *** Sixth ***    Controller Functions
 
 // *** Seventh ***  Routes
+analyticsRoutes.post(
+  "/track",
+  validate(trackEventSchema),
+  analyticsController.trackEvent
+);
 analyticsRoutes.get("/overview", protect, analyticsController.getOverview);
+analyticsRoutes.get(
+  "/monthly",
+  protect,
+  validate(analyticsRangeQuerySchema, "query"),
+  analyticsController.getMonthlyReport
+);
 analyticsRoutes.get(
   "/projects",
   protect,

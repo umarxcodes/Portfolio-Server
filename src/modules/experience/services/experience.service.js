@@ -4,10 +4,12 @@ import {
   buildFilter,
   buildSort,
 } from "../../../shared/utils/queryBuilder.utils.js";
+import { paginate } from "../../../shared/utils/pagination.utils.js";
 import * as experienceRepository from "../repositories/experience.repository.js";
 import {
   EXPERIENCE_ERRORS,
   EXPERIENCE_FILTER_FIELDS,
+  EXPERIENCE_SORT_FIELDS,
 } from "../constants/experience.constants.js";
 
 // *** Second ***   Constants
@@ -28,9 +30,14 @@ const getExperiences = async (queryParams) => {
   }
 
   const sort = queryParams.sort
-    ? buildSort(queryParams.sort)
+    ? buildSort(queryParams.sort, EXPERIENCE_SORT_FIELDS)
     : { startDate: -1 };
-  return experienceRepository.listExperience(filter, sort);
+  const result = await paginate(
+    experienceRepository.listExperience(filter, sort),
+    queryParams.page,
+    queryParams.limit
+  );
+  return { items: result.data, pagination: result.pagination };
 };
 
 const getExperienceById = async (id) => {

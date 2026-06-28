@@ -25,12 +25,12 @@ const buildFilter = (queryParams, allowedFields = []) => {
   return filter;
 };
 
-const buildSort = (sortParam) => {
+const buildSort = (sortParam, allowedFields = []) => {
   if (!sortParam) {
     return { createdAt: -1 };
   }
 
-  return sortParam.split(",").reduce((acc, field) => {
+  const sort = sortParam.split(",").reduce((acc, field) => {
     const trimmed = field.trim();
     if (!trimmed) {
       return acc;
@@ -38,9 +38,15 @@ const buildSort = (sortParam) => {
 
     const direction = trimmed.startsWith("-") ? -1 : 1;
     const key = trimmed.replace(/^-/, "");
+    if (allowedFields.length > 0 && !allowedFields.includes(key)) {
+      return acc;
+    }
+
     acc[key] = direction;
     return acc;
   }, {});
+
+  return Object.keys(sort).length > 0 ? sort : { createdAt: -1 };
 };
 
 const buildSearch = (searchParam, searchFields = []) => {
@@ -48,11 +54,7 @@ const buildSearch = (searchParam, searchFields = []) => {
     return {};
   }
 
-  return {
-    $or: searchFields.map((field) => ({
-      [field]: { $regex: searchParam, $options: "i" },
-    })),
-  };
+  return { $text: { $search: String(searchParam).trim() } };
 };
 
 const buildProjection = (fields) => {

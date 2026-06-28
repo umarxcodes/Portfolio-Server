@@ -1,0 +1,405 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "Portfolio Backend API",
+  "dateExported": "2026-06-26T00:00:00.000Z",
+  "version": "1.2",
+  "folders": [
+    { "_id": "fld_auth", "name": "Auth", "containerId": "" },
+    { "_id": "fld_profile", "name": "Profile", "containerId": "" },
+    { "_id": "fld_projects", "name": "Projects", "containerId": "" },
+    { "_id": "fld_skills", "name": "Skills", "containerId": "" },
+    { "_id": "fld_experience", "name": "Experience", "containerId": "" },
+    { "_id": "fld_education", "name": "Education", "containerId": "" },
+    { "_id": "fld_certificates", "name": "Certificates", "containerId": "" },
+    { "_id": "fld_blogs", "name": "Blogs", "containerId": "" },
+    { "_id": "fld_contact", "name": "Contact", "containerId": "" },
+    { "_id": "fld_uploads", "name": "Uploads", "containerId": "" },
+    { "_id": "fld_analytics", "name": "Analytics", "containerId": "" },
+    { "_id": "fld_settings", "name": "Settings", "containerId": "" },
+    { "_id": "fld_search", "name": "Search", "containerId": "" }
+  ],
+  "requests": [
+    {
+      "_id": "req_auth_login",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_auth",
+      "name": "Admin Login",
+      "url": "{{baseUrl}}{{apiPrefix}}/auth/login",
+      "method": "POST",
+      "sortNum": 10000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+      }
+    },
+    {
+      "_id": "req_auth_profile",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_auth",
+      "name": "Current Admin Profile",
+      "url": "{{baseUrl}}{{apiPrefix}}/auth/profile",
+      "method": "GET",
+      "sortNum": 11000,
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "req_auth_logout",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_auth",
+      "name": "Admin Logout",
+      "url": "{{baseUrl}}{{apiPrefix}}/auth/logout",
+      "method": "POST",
+      "sortNum": 12000,
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "req_auth_change_password",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_auth",
+      "name": "Change Password",
+      "url": "{{baseUrl}}{{apiPrefix}}/auth/change-password",
+      "method": "PATCH",
+      "sortNum": 13000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"currentPassword\": \"{{adminPassword}}\",\n  \"newPassword\": \"ChangeMe124!\"\n}"
+      }
+    },
+    {
+      "_id": "req_profile_get",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_profile",
+      "name": "Get Public Profile",
+      "url": "{{baseUrl}}{{apiPrefix}}/profile",
+      "method": "GET",
+      "sortNum": 20000
+    },
+    {
+      "_id": "req_profile_update",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_profile",
+      "name": "Update Profile",
+      "url": "{{baseUrl}}{{apiPrefix}}/profile",
+      "method": "PATCH",
+      "sortNum": 21000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Muhammad Umar\",\n  \"headline\": \"Senior Full Stack Engineer\",\n  \"location\": \"Pakistan\"\n}"
+      }
+    },
+    {
+      "_id": "req_projects_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_projects",
+      "name": "List Projects",
+      "url": "{{baseUrl}}{{apiPrefix}}/projects?page=1&limit=10",
+      "method": "GET",
+      "sortNum": 30000
+    },
+    {
+      "_id": "req_projects_featured",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_projects",
+      "name": "Featured Projects",
+      "url": "{{baseUrl}}{{apiPrefix}}/projects/featured",
+      "method": "GET",
+      "sortNum": 31000
+    },
+    {
+      "_id": "req_projects_by_slug",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_projects",
+      "name": "Get Project By Slug",
+      "url": "{{baseUrl}}{{apiPrefix}}/projects/slug/{{projectSlug}}",
+      "method": "GET",
+      "sortNum": 32000
+    },
+    {
+      "_id": "req_projects_create",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_projects",
+      "name": "Create Project",
+      "url": "{{baseUrl}}{{apiPrefix}}/projects",
+      "method": "POST",
+      "sortNum": 33000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Portfolio API\",\n  \"description\": \"Production portfolio backend with modular architecture.\",\n  \"shortDescription\": \"A modular production portfolio API.\",\n  \"techStack\": [\"Node.js\", \"Express\", \"MongoDB\"],\n  \"category\": \"backend\",\n  \"status\": \"completed\",\n  \"featured\": true,\n  \"startDate\": \"2026-01-01\"\n}"
+      }
+    },
+    {
+      "_id": "req_projects_update",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_projects",
+      "name": "Update Project",
+      "url": "{{baseUrl}}{{apiPrefix}}/projects/{{resourceId}}",
+      "method": "PATCH",
+      "sortNum": 34000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": { "type": "json", "raw": "{\n  \"featured\": true\n}" }
+    },
+    {
+      "_id": "req_projects_delete",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_projects",
+      "name": "Delete Project",
+      "url": "{{baseUrl}}{{apiPrefix}}/projects/{{resourceId}}",
+      "method": "DELETE",
+      "sortNum": 35000,
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "req_skills_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_skills",
+      "name": "List Skills",
+      "url": "{{baseUrl}}{{apiPrefix}}/skills?page=1&limit=20",
+      "method": "GET",
+      "sortNum": 40000
+    },
+    {
+      "_id": "req_skills_create",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_skills",
+      "name": "Create Skill",
+      "url": "{{baseUrl}}{{apiPrefix}}/skills",
+      "method": "POST",
+      "sortNum": 41000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Node.js\",\n  \"category\": \"backend\",\n  \"level\": \"expert\",\n  \"yearsOfExperience\": 5,\n  \"description\": \"Production API development with Express and NestJS.\"\n}"
+      }
+    },
+    {
+      "_id": "req_experience_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_experience",
+      "name": "List Experience",
+      "url": "{{baseUrl}}{{apiPrefix}}/experience?page=1&limit=10",
+      "method": "GET",
+      "sortNum": 50000
+    },
+    {
+      "_id": "req_experience_create",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_experience",
+      "name": "Create Experience",
+      "url": "{{baseUrl}}{{apiPrefix}}/experience",
+      "method": "POST",
+      "sortNum": 51000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"company\": \"Acme Software\",\n  \"position\": \"Senior Full Stack Engineer\",\n  \"startDate\": \"2024-01-01\",\n  \"isCurrent\": true,\n  \"description\": \"Building scalable backend and frontend systems.\"\n}"
+      }
+    },
+    {
+      "_id": "req_education_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_education",
+      "name": "List Education",
+      "url": "{{baseUrl}}{{apiPrefix}}/education?page=1&limit=10",
+      "method": "GET",
+      "sortNum": 60000
+    },
+    {
+      "_id": "req_education_current",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_education",
+      "name": "Current Education",
+      "url": "{{baseUrl}}{{apiPrefix}}/education/current",
+      "method": "GET",
+      "sortNum": 61000
+    },
+    {
+      "_id": "req_education_create",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_education",
+      "name": "Create Education",
+      "url": "{{baseUrl}}{{apiPrefix}}/education",
+      "method": "POST",
+      "sortNum": 62000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"institution\": \"University\",\n  \"degree\": \"BS Computer Science\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"isCurrent\": false\n}"
+      }
+    },
+    {
+      "_id": "req_certificates_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_certificates",
+      "name": "List Certificates",
+      "url": "{{baseUrl}}{{apiPrefix}}/certificates?page=1&limit=10",
+      "method": "GET",
+      "sortNum": 70000
+    },
+    {
+      "_id": "req_certificates_create",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_certificates",
+      "name": "Create Certificate",
+      "url": "{{baseUrl}}{{apiPrefix}}/certificates",
+      "method": "POST",
+      "sortNum": 71000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"AWS Certified Developer\",\n  \"issuer\": \"AWS\",\n  \"issueDate\": \"2025-01-01\",\n  \"credentialUrl\": \"https://example.com/certificate\"\n}"
+      }
+    },
+    {
+      "_id": "req_blogs_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_blogs",
+      "name": "List Published Blogs",
+      "url": "{{baseUrl}}{{apiPrefix}}/blogs?page=1&limit=10",
+      "method": "GET",
+      "sortNum": 80000
+    },
+    {
+      "_id": "req_blogs_featured",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_blogs",
+      "name": "Featured Blogs",
+      "url": "{{baseUrl}}{{apiPrefix}}/blogs/featured",
+      "method": "GET",
+      "sortNum": 81000
+    },
+    {
+      "_id": "req_blogs_by_slug",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_blogs",
+      "name": "Get Blog By Slug",
+      "url": "{{baseUrl}}{{apiPrefix}}/blogs/slug/{{blogSlug}}",
+      "method": "GET",
+      "sortNum": 82000
+    },
+    {
+      "_id": "req_blogs_create",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_blogs",
+      "name": "Create Blog",
+      "url": "{{baseUrl}}{{apiPrefix}}/blogs",
+      "method": "POST",
+      "sortNum": 83000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Clean Architecture in Node.js\",\n  \"excerpt\": \"Practical boundaries for scalable APIs.\",\n  \"content\": \"Write the full article content here.\",\n  \"category\": \"backend\",\n  \"tags\": [\"nodejs\", \"architecture\"],\n  \"published\": true,\n  \"featured\": true\n}"
+      }
+    },
+    {
+      "_id": "req_contact_submit",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_contact",
+      "name": "Submit Contact Message",
+      "url": "{{baseUrl}}{{apiPrefix}}/contact",
+      "method": "POST",
+      "sortNum": 90000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Jane Client\",\n  \"email\": \"jane@example.com\",\n  \"subject\": \"Project inquiry\",\n  \"message\": \"I would like to discuss a backend project.\"\n}"
+      }
+    },
+    {
+      "_id": "req_contact_list",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_contact",
+      "name": "List Contact Messages",
+      "url": "{{baseUrl}}{{apiPrefix}}/contact?page=1&limit=10",
+      "method": "GET",
+      "sortNum": 91000,
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "req_upload_file",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_uploads",
+      "name": "Upload File",
+      "url": "{{baseUrl}}{{apiPrefix}}/uploads",
+      "method": "POST",
+      "sortNum": 100000,
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "formdata",
+        "form": [
+          { "name": "file", "value": "", "type": "file" },
+          { "name": "folder", "value": "projects", "type": "text" }
+        ]
+      }
+    },
+    {
+      "_id": "req_analytics_track",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_analytics",
+      "name": "Track Event",
+      "url": "{{baseUrl}}{{apiPrefix}}/analytics/track",
+      "method": "POST",
+      "sortNum": 110000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"type\": \"portfolio_view\",\n  \"resourceId\": null\n}"
+      }
+    },
+    {
+      "_id": "req_analytics_overview",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_analytics",
+      "name": "Analytics Overview",
+      "url": "{{baseUrl}}{{apiPrefix}}/analytics/overview",
+      "method": "GET",
+      "sortNum": 111000,
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "req_settings_get",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_settings",
+      "name": "Get Settings",
+      "url": "{{baseUrl}}{{apiPrefix}}/settings",
+      "method": "GET",
+      "sortNum": 120000
+    },
+    {
+      "_id": "req_settings_update",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_settings",
+      "name": "Update Settings",
+      "url": "{{baseUrl}}{{apiPrefix}}/settings",
+      "method": "PATCH",
+      "sortNum": 121000,
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"siteTitle\": \"Muhammad Umar Portfolio\",\n  \"maintenanceMode\": false\n}"
+      }
+    },
+    {
+      "_id": "req_search",
+      "colId": "portfolio-backend-api",
+      "containerId": "fld_search",
+      "name": "Search Portfolio",
+      "url": "{{baseUrl}}{{apiPrefix}}/search?q=node&page=1&limit=10",
+      "method": "GET",
+      "sortNum": 130000
+    }
+  ]
+}

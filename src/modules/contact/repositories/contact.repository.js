@@ -6,7 +6,7 @@ import Contact from "../models/contact.model.js";
 // *** Third ***    Schema / Model
 
 // *** Fourth ***   Repository Functions
-const findAll = (filter, sort) => Contact.find(filter).sort(sort);
+const findAll = (filter, sort) => Contact.find(filter).sort(sort).lean();
 const findById = (id) => Contact.findById(id).lean();
 const create = (data) => Contact.create(data);
 const updateById = (id, data) =>

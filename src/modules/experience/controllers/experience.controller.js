@@ -19,9 +19,10 @@ const addExperience = asyncHandler(async (req, res) => {
 });
 
 const getExperiences = asyncHandler(async (req, res) => {
-  const experiences = await experienceService.getExperiences(req.query);
+  const result = await experienceService.getExperiences(req.query);
   sendSuccess(res, 200, EXPERIENCE_MESSAGES.EXPERIENCE_LISTED, {
-    items: experiences,
+    items: result.items,
+    pagination: result.pagination,
   });
 });
 

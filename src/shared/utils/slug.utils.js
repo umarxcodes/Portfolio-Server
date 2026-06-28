@@ -14,12 +14,17 @@ const generateSlug = (title) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-const ensureUniqueSlug = async (slug, Model) => {
+const ensureUniqueSlug = async (slug, Model, ignoredId = null) => {
   const baseSlug = slug || "post";
   let candidate = baseSlug;
   let suffix = 1;
 
-  while (await Model.exists({ slug: candidate })) {
+  const buildQuery = () => ({
+    slug: candidate,
+    ...(ignoredId ? { _id: { $ne: ignoredId } } : {}),
+  });
+
+  while (await Model.exists(buildQuery())) {
     candidate = `${baseSlug}-${suffix}`;
     suffix += 1;
   }

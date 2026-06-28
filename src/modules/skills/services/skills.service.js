@@ -4,11 +4,12 @@ import {
   buildFilter,
   buildSort,
 } from "../../../shared/utils/queryBuilder.utils.js";
+import { paginate } from "../../../shared/utils/pagination.utils.js";
 import * as skillsRepository from "../repositories/skills.repository.js";
 import {
   SKILL_ERRORS,
   SKILL_FILTER_FIELDS,
-  SKILL_MESSAGES,
+  SKILL_SORT_FIELDS,
 } from "../constants/skills.constants.js";
 
 // *** Second ***   Constants
@@ -23,9 +24,14 @@ const createSkill = async (data) => skillsRepository.createSkill(data);
 const getSkills = async (queryParams) => {
   const filter = buildFilter(queryParams, SKILL_FILTER_FIELDS);
   const sort = queryParams.sort
-    ? buildSort(queryParams.sort)
+    ? buildSort(queryParams.sort, SKILL_SORT_FIELDS)
     : { category: 1, displayOrder: 1, name: 1 };
-  const skills = await skillsRepository.listSkills(filter, sort);
+  const result = await paginate(
+    skillsRepository.listSkills(filter, sort),
+    queryParams.page,
+    queryParams.limit
+  );
+  const skills = result.data;
 
   const groupedByCategory = skills.reduce((acc, skill) => {
     const bucket = acc[skill.category] || [];
@@ -34,7 +40,11 @@ const getSkills = async (queryParams) => {
     return acc;
   }, {});
 
-  return { items: skills, groupedByCategory };
+  return {
+    items: skills,
+    groupedByCategory,
+    pagination: result.pagination,
+  };
 };
 
 const getSkillsByCategory = async (category) =>

@@ -5,6 +5,10 @@ import { validate as validateSchema } from "../../../shared/utils/validation.uti
 // *** Second ***   Constants
 
 // *** Third ***    Schema / Model
+const refreshTokenSchema = z.object({
+  refreshToken: z.string().min(1, { message: "Refresh token is required" }),
+});
+
 const loginSchema = z.object({
   email: z
     .string()
@@ -47,4 +51,4 @@ const validate = validateSchema;
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { loginSchema, changePasswordSchema, validate };
+export { loginSchema, changePasswordSchema, refreshTokenSchema, validate };

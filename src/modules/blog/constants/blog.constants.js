@@ -13,6 +13,14 @@ const BLOG_ERRORS = {
 };
 const BLOG_FILTER_FIELDS = ["category", "featured", "published"];
 const BLOG_SEARCH_FIELDS = ["title", "excerpt", "content", "tags"];
+const BLOG_SORT_FIELDS = [
+  "publishedAt",
+  "createdAt",
+  "updatedAt",
+  "title",
+  "views",
+  "readingTime",
+];
 
 // *** Third ***    Schema / Model
 
@@ -25,4 +33,10 @@ const BLOG_SEARCH_FIELDS = ["title", "excerpt", "content", "tags"];
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { BLOG_MESSAGES, BLOG_ERRORS, BLOG_FILTER_FIELDS, BLOG_SEARCH_FIELDS };
+export {
+  BLOG_MESSAGES,
+  BLOG_ERRORS,
+  BLOG_FILTER_FIELDS,
+  BLOG_SEARCH_FIELDS,
+  BLOG_SORT_FIELDS,
+};

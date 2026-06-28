@@ -16,7 +16,7 @@ const validate =
     const parseResult = schema.safeParse(payload);
 
     if (!parseResult.success) {
-      const errors = parseResult.error.errors.map((error) => ({
+      const errors = parseResult.error.issues.map((error) => ({
         field: error.path.join(".") || source,
         message: error.message,
       }));

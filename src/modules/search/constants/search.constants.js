@@ -4,6 +4,14 @@
 const SEARCH_MESSAGES = {
   RESULTS: "Search results",
 };
+const SEARCH_RESOURCE_TYPES = [
+  "projects",
+  "blogs",
+  "skills",
+  "experience",
+  "education",
+  "certificates",
+];
 
 // *** Third ***    Schema / Model
 
@@ -16,4 +24,4 @@ const SEARCH_MESSAGES = {
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { SEARCH_MESSAGES };
+export { SEARCH_MESSAGES, SEARCH_RESOURCE_TYPES };

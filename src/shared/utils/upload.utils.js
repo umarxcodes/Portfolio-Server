@@ -1,22 +1,9 @@
 // *** First ***    Imports
 import crypto from "node:crypto";
 import path from "node:path";
+import { MIME_TYPES_BY_FOLDER } from "../../config/upload.js";
 
 // *** Second ***   Constants
-const MIME_TYPES_BY_FOLDER = {
-  profile: ["image/jpeg", "image/png", "image/webp"],
-  projects: ["image/jpeg", "image/png", "image/webp"],
-  blogs: ["image/jpeg", "image/png", "image/webp", "image/gif"],
-  certificates: ["image/jpeg", "image/png", "image/webp"],
-  resume: ["application/pdf"],
-  general: [
-    "image/jpeg",
-    "image/png",
-    "image/webp",
-    "image/gif",
-    "application/pdf",
-  ],
-};
 
 // *** Third ***    Schema / Model
 

@@ -8,6 +8,12 @@ import { BCRYPT_SALT_ROUNDS } from "../constants/auth.constants.js";
 // *** Third ***    Schema / Model
 const adminSchema = new mongoose.Schema(
   {
+    singletonKey: {
+      type: String,
+      default: "primary-admin",
+      unique: true,
+      select: false,
+    },
     name: { type: String, required: true, trim: true },
     email: {
       type: String,
@@ -21,7 +27,12 @@ const adminSchema = new mongoose.Schema(
     role: { type: String, enum: ["admin"], default: "admin" },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date, default: null },
-    refreshToken: { type: String, select: false, default: null },
+    refreshTokens: [
+      {
+        token: { type: String, required: true, select: false },
+        createdAt: { type: Date, default: Date.now, expires: 604800 },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -43,7 +54,10 @@ adminSchema.methods.comparePassword = async function comparePassword(
 
 adminSchema.methods.generateSanitized = function generateSanitized() {
   const adminObject = this.toObject({ getters: true });
-  const { password, refreshToken, __v, ...sanitized } = adminObject;
+  delete adminObject.singletonKey;
+  delete adminObject.password;
+  delete adminObject.__v;
+  const sanitized = adminObject;
   return sanitized;
 };
 

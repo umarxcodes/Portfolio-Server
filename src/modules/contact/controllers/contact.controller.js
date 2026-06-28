@@ -1,6 +1,7 @@
 // *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
+import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { CONTACT_MESSAGES } from "../constants/contact.constants.js";
 import * as contactService from "../services/contact.service.js";
 
@@ -14,7 +15,10 @@ import * as contactService from "../services/contact.service.js";
 
 // *** Sixth ***    Controller Functions
 const submitContact = asyncHandler(async (req, res) => {
-  const contact = await contactService.submitContact(req.body);
+  const contact = await contactService.submitContact(
+    req.body,
+    getClientMetadata(req)
+  );
   sendSuccess(res, 201, CONTACT_MESSAGES.CREATED, { contact });
 });
 

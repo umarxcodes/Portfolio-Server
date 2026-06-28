@@ -1,7 +1,7 @@
 // *** First ***    Imports
 import express from "express";
-import multer from "multer";
 import protect from "../../../middlewares/auth.middleware.js";
+import { createAnyUploadMiddleware } from "../../../config/multer.js";
 import * as uploadController from "../controllers/upload.controller.js";
 import {
   uploadBodySchema,
@@ -11,10 +11,7 @@ import {
 
 // *** Second ***   Constants
 const uploadRoutes = express.Router();
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 },
-});
+const upload = createAnyUploadMiddleware();
 
 // *** Third ***    Schema / Model
 

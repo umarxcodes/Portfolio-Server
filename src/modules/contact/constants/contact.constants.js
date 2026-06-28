@@ -12,6 +12,7 @@ const CONTACT_MESSAGES = {
 const CONTACT_ERRORS = {
   NOT_FOUND: "Contact not found",
 };
+const CONTACT_SORT_FIELDS = ["createdAt", "updatedAt", "status", "isRead"];
 
 // *** Third ***    Schema / Model
 
@@ -24,4 +25,9 @@ const CONTACT_ERRORS = {
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { CONTACT_STATUSES, CONTACT_MESSAGES, CONTACT_ERRORS };
+export {
+  CONTACT_STATUSES,
+  CONTACT_MESSAGES,
+  CONTACT_ERRORS,
+  CONTACT_SORT_FIELDS,
+};

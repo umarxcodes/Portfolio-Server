@@ -8,10 +8,12 @@ const ANALYTICS_TYPES = [
   "contact_submit",
 ];
 const ANALYTICS_MESSAGES = {
+  TRACKED: "Analytics event tracked",
   OVERVIEW: "Analytics overview",
   PROJECTS: "Project analytics",
   BLOGS: "Blog analytics",
   CONTACT: "Contact analytics",
+  MONTHLY: "Monthly analytics report",
 };
 
 // *** Third ***    Schema / Model

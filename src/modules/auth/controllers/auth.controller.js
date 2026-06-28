@@ -27,20 +27,26 @@ const login = asyncHandler(async (req, res) => {
   });
 });
 
+const refreshToken = asyncHandler(async (req, res) => {
+  const { refreshToken: token } = req.body;
+  const { accessToken, refreshToken: newRefreshToken } =
+    await authService.refreshAccessToken(token);
+
+  sendSuccess(res, 200, AUTH_MESSAGES.TOKEN_REFRESHED, {
+    accessToken,
+    refreshToken: newRefreshToken,
+  });
+});
+
 const profile = asyncHandler(async (req, res) => {
   const admin = await authService.getProfile(req.user.sub);
   sendSuccess(res, 200, AUTH_MESSAGES.PROFILE_FETCHED, { admin });
 });
 
 const logout = asyncHandler(async (req, res) => {
-  await authService.logout(req.user.sub);
-  sendSuccess(res, 200, AUTH_MESSAGES.LOGOUT_SUCCESS, {});
-});
-
-const refreshToken = asyncHandler(async (req, res) => {
   const { refreshToken } = req.body;
-  const tokens = await authService.refreshToken(refreshToken);
-  sendSuccess(res, 200, AUTH_MESSAGES.TOKEN_REFRESHED, tokens);
+  await authService.logout(req.user.sub, refreshToken);
+  sendSuccess(res, 200, AUTH_MESSAGES.LOGOUT_SUCCESS, {});
 });
 
 const changePassword = asyncHandler(async (req, res) => {
@@ -52,4 +58,4 @@ const changePassword = asyncHandler(async (req, res) => {
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { login, profile, logout, refreshToken, changePassword };
+export { login, refreshToken, profile, logout, changePassword };

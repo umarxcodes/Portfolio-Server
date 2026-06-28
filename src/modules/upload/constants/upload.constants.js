@@ -7,7 +7,6 @@ const UPLOAD_FOLDERS = [
   "blogs",
   "certificates",
   "resume",
-  "general",
 ];
 const UPLOAD_MESSAGES = {
   CREATED: "File uploaded",
@@ -17,7 +16,9 @@ const UPLOAD_MESSAGES = {
 const UPLOAD_ERRORS = {
   NOT_FOUND: "Upload not found",
   FILE_REQUIRED: "File is required",
+  FOLDER_INVALID: "Upload folder is invalid",
   MIME_NOT_ALLOWED: "File type is not allowed for this folder",
+  FILE_TOO_LARGE: "File exceeds the allowed size for this folder",
 };
 
 // *** Third ***    Schema / Model
