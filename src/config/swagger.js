@@ -32,9 +32,6 @@ const swaggerConfig = {
       get: { tags: ["Auth"], summary: "Current admin profile" },
     },
     "/auth/logout": { post: { tags: ["Auth"], summary: "Admin logout" } },
-    "/auth/refresh-token": {
-      post: { tags: ["Auth"], summary: "Refresh and rotate JWT tokens" },
-    },
     "/auth/change-password": {
       patch: { tags: ["Auth"], summary: "Change admin password" },
     },

@@ -2,6 +2,7 @@
 import AppError from "../../../shared/errors/index.js";
 import { PROFILE_ERRORS } from "../constants/profile.constants.js";
 import * as profileRepository from "../repositories/profile.repository.js";
+import { trackPortfolioView } from "../../analytics/services/analytics.service.js";
 
 // *** Second ***   Constants
 
@@ -10,11 +11,15 @@ import * as profileRepository from "../repositories/profile.repository.js";
 // *** Fourth ***   Repository Functions
 
 // *** Fifth ***    Service Functions
-const getProfile = async () => {
+const getProfile = async (metadata) => {
   const profile = await profileRepository.findProfile();
 
   if (!profile) {
     throw new AppError(404, PROFILE_ERRORS.NOT_FOUND);
+  }
+
+  if (metadata) {
+    await trackPortfolioView(metadata);
   }
 
   return profile;

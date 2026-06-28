@@ -13,7 +13,7 @@ const findById = async (id, options = {}) => {
   const query = Admin.findById(id);
 
   if (options.withSecrets) {
-    query.select("+password +refreshToken");
+    query.select("+password");
   }
 
   return query;
@@ -22,18 +22,35 @@ const findById = async (id, options = {}) => {
 const updateLastLogin = async (id) =>
   Admin.findByIdAndUpdate(id, { lastLogin: Date.now() }, { new: true });
 
-const saveRefreshToken = async (id, hashedToken) =>
-  Admin.findByIdAndUpdate(id, { refreshToken: hashedToken }, { new: true });
-
-const clearRefreshToken = async (id) =>
-  Admin.findByIdAndUpdate(id, { refreshToken: null }, { new: true });
-
 const changePassword = async (id, hashedPassword) =>
   Admin.findByIdAndUpdate(
     id,
-    { password: hashedPassword, refreshToken: null },
+    { password: hashedPassword, refreshTokens: [] },
     { new: true, runValidators: true }
   );
+
+const storeRefreshToken = async (id, hashedToken) =>
+  Admin.findByIdAndUpdate(
+    id,
+    { $push: { refreshTokens: { token: hashedToken } } },
+    { new: true }
+  );
+
+const verifyRefreshTokenExists = async (id, hashedToken) => {
+  const admin = await Admin.findById(id).select("+refreshTokens");
+  if (!admin) return false;
+  return admin.refreshTokens.some((rt) => rt.token === hashedToken);
+};
+
+const revokeRefreshToken = async (id, hashedToken) =>
+  Admin.findByIdAndUpdate(
+    id,
+    { $pull: { refreshTokens: { token: hashedToken } } },
+    { new: true }
+  );
+
+const revokeAllRefreshTokens = async (id) =>
+  Admin.findByIdAndUpdate(id, { refreshTokens: [] }, { new: true });
 
 // *** Fifth ***    Service Functions
 
@@ -46,7 +63,9 @@ export {
   findByEmail,
   findById,
   updateLastLogin,
-  saveRefreshToken,
-  clearRefreshToken,
   changePassword,
+  storeRefreshToken,
+  verifyRefreshTokenExists,
+  revokeRefreshToken,
+  revokeAllRefreshTokens,
 };

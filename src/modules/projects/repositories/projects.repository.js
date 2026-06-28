@@ -8,7 +8,7 @@ import Project from "../models/projects.model.js";
 // *** Fourth ***   Repository Functions
 const createProject = async (data) => Project.create(data);
 
-const listProjects = (filter, sort) => Project.find(filter).sort(sort);
+const listProjects = (filter, sort) => Project.find(filter).sort(sort).lean();
 
 const findBySlug = async (slug) =>
   Project.findOne({ slug, isDeleted: false }).lean();

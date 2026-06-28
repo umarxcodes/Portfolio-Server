@@ -8,7 +8,7 @@ import Skill from "../models/skills.model.js";
 // *** Fourth ***   Repository Functions
 const createSkill = async (data) => Skill.create(data);
 
-const listSkills = (filter, sort) => Skill.find(filter).sort(sort);
+const listSkills = (filter, sort) => Skill.find(filter).sort(sort).lean();
 
 const findByCategory = async (category) =>
   Skill.find({ category }).sort({ displayOrder: 1, name: 1 }).lean();

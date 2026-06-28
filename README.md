@@ -90,11 +90,16 @@ npm run dev
 | `NODE_ENV`                     | Runtime environment                     | `development`                         |
 | `PORT`                         | HTTP port                               | `5000`                                |
 | `MONGO_URI`                    | MongoDB connection string               | `mongodb://localhost:27017/portfolio` |
+| `MONGO_MAX_POOL_SIZE`          | Maximum MongoDB pool connections        | `10`                                  |
+| `MONGO_MIN_POOL_SIZE`          | Minimum MongoDB pool connections        | `0`                                   |
+| `MONGO_CONNECT_RETRIES`        | Startup connection retry attempts       | `3`                                   |
+| `MONGO_CONNECT_RETRY_DELAY_MS` | Delay between MongoDB retry attempts    | `2000`                                |
 | `ACCESS_TOKEN_SECRET`          | Access token signing secret, 32+ chars  | `replace_with_32_chars_minimum`       |
-| `REFRESH_TOKEN_SECRET`         | Refresh token signing secret, 32+ chars | `replace_with_32_chars_minimum`       |
 | `ACCESS_TOKEN_EXPIRES_IN`      | Access token TTL                        | `15m`                                 |
-| `REFRESH_TOKEN_EXPIRES_IN`     | Refresh token TTL                       | `7d`                                  |
 | `BCRYPT_SALT_ROUNDS`           | Password hashing cost                   | `12`                                  |
+| `JSON_BODY_LIMIT`              | Maximum JSON request body size          | `1mb`                                 |
+| `URL_ENCODED_BODY_LIMIT`       | Maximum URL-encoded request body size   | `1mb`                                 |
+| `TRUST_PROXY`                  | Trust proxy headers behind Vercel/Nginx | `false`                               |
 | `CLIENT_URL`                   | Allowed client origin                   | `http://localhost:5173`               |
 | `CORS_ORIGINS`                 | Comma-separated allowed origins         | `https://example.com`                 |
 | `UPLOAD_ROOT`                  | Upload storage directory                | `uploads`                             |
@@ -112,9 +117,9 @@ All endpoints are mounted under `/api/v1`.
 | Module       | Method            | Path                           | Auth   | Description                    |
 | ------------ | ----------------- | ------------------------------ | ------ | ------------------------------ |
 | Auth         | POST              | `/auth/login`                  | Public | Admin login                    |
+| Auth         | POST              | `/auth/refresh-token`          | Public | Rotate access token            |
 | Auth         | GET               | `/auth/profile`                | Admin  | Current admin profile          |
-| Auth         | POST              | `/auth/logout`                 | Admin  | Logout and clear refresh token |
-| Auth         | POST              | `/auth/refresh-token`          | Public | Rotate refresh token           |
+| Auth         | POST              | `/auth/logout`                 | Admin  | Logout current admin session   |
 | Auth         | PATCH             | `/auth/change-password`        | Admin  | Change password                |
 | Profile      | GET               | `/profile`                     | Public | Read profile                   |
 | Profile      | PATCH             | `/profile`                     | Admin  | Update profile                 |
@@ -149,7 +154,7 @@ All endpoints are mounted under `/api/v1`.
 
 ## Authentication
 
-Admin authentication uses short-lived access tokens and rotated refresh tokens. Access tokens expire in 15 minutes by default. Refresh tokens expire in 7 days by default and are stored hashed in MongoDB.
+Admin authentication is intentionally minimal for a one-admin portfolio backend. Login returns a signed access token, protected routes require `Authorization: Bearer <token>`, logout is client-side token discard, and password changes require the current password.
 
 ## File Uploads
 
@@ -183,7 +188,7 @@ Services throw `AppError(statusCode, message, errors)`. The global error middlew
 
 ## Security
 
-Security controls include Helmet headers, CORS whitelist config, global rate limiting, contact-specific rate limiting, bcryptjs hashing, JWT rotation, MongoDB query sanitization, strict upload MIME checks, UUID file names, and env validation at startup.
+Security controls include Helmet headers, CORS whitelist config, global rate limiting, contact-specific rate limiting, bcryptjs hashing, signed JWT access tokens, MongoDB query sanitization, strict upload MIME checks, UUID file names, and env validation at startup.
 
 ## Pagination & Filtering
 

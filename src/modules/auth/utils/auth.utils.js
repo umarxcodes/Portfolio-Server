@@ -1,5 +1,4 @@
 // *** First ***    Imports
-import { hashToken } from "../../../shared/utils/password.utils.js";
 
 // *** Second ***   Constants
 
@@ -13,11 +12,9 @@ const buildAuthPayload = (admin) => ({
   role: admin.role,
 });
 
-const buildHashedRefreshToken = (refreshToken) => hashToken(refreshToken);
-
 // *** Sixth ***    Controller Functions
 
 // *** Seventh ***  Routes
 
 // *** Eighth ***   Exports
-export { buildAuthPayload, buildHashedRefreshToken };
+export { buildAuthPayload };

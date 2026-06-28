@@ -6,7 +6,7 @@ import Education from "../models/education.model.js";
 // *** Third ***    Schema / Model
 
 // *** Fourth ***   Repository Functions
-const findAll = (filter, sort) => Education.find(filter).sort(sort);
+const findAll = (filter, sort) => Education.find(filter).sort(sort).lean();
 const findCurrent = () =>
   Education.find({ isCurrent: true }).sort({ startDate: -1 }).lean();
 const findById = (id) => Education.findById(id).lean();
