@@ -1,13 +1,10 @@
-// *** First ***    Imports
 import env from "../../../config/env.js";
 
-// *** Second ***   Constants
 const ACCESS_TOKEN_SECRET = env.ACCESS_TOKEN_SECRET;
 const ACCESS_TOKEN_EXPIRY = env.ACCESS_TOKEN_EXPIRES_IN;
 const REFRESH_TOKEN_SECRET = env.REFRESH_TOKEN_SECRET;
 const REFRESH_TOKEN_EXPIRY = env.REFRESH_TOKEN_EXPIRES_IN;
 const BCRYPT_SALT_ROUNDS = env.BCRYPT_SALT_ROUNDS;
-const TOKEN_TYPE = "Bearer";
 
 const AUTH_ERRORS = {
   INVALID_CREDENTIALS: "Invalid credentials",
@@ -29,24 +26,12 @@ const AUTH_MESSAGES = {
   PASSWORD_CHANGED: "Password changed successfully",
 };
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   ACCESS_TOKEN_SECRET,
   ACCESS_TOKEN_EXPIRY,
   REFRESH_TOKEN_SECRET,
   REFRESH_TOKEN_EXPIRY,
   BCRYPT_SALT_ROUNDS,
-  TOKEN_TYPE,
   AUTH_ERRORS,
   AUTH_MESSAGES,
 };

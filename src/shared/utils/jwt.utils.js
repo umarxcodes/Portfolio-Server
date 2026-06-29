@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import AppError from "../errors/index.js";
@@ -10,13 +9,6 @@ import {
   AUTH_ERRORS,
 } from "../../modules/auth/constants/auth.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const generateAccessToken = (payload) =>
   jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRY });
 
@@ -50,11 +42,6 @@ const verifyRefreshToken = (token) => {
   }
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   generateAccessToken,
   generateRefreshToken,

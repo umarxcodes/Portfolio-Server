@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import { paginate } from "../../../shared/utils/pagination.utils.js";
 import {
@@ -14,13 +13,6 @@ import {
 } from "../constants/certificates.constants.js";
 import * as certificatesRepository from "../repositories/certificates.repository.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const buildCertificateFilter = (queryParams) => {
   const filter = {
     ...buildFilter(queryParams, CERTIFICATE_FILTER_FIELDS),
@@ -68,11 +60,6 @@ const deleteCertificate = async (id) => {
   return certificate;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createCertificate,
   getCertificates,

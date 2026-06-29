@@ -1,11 +1,5 @@
-// *** First ***    Imports
 import Experience from "../models/experience.model.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const createExperience = async (data) => Experience.create(data);
 
 const listExperience = (filter, sort) =>
@@ -22,13 +16,6 @@ const updateExperience = async (id, data) =>
 
 const deleteExperience = async (id) => Experience.findByIdAndDelete(id).lean();
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createExperience,
   listExperience,

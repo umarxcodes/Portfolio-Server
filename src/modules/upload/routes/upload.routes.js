@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import { createAnyUploadMiddleware } from "../../../config/multer.js";
@@ -9,19 +8,9 @@ import {
   validate,
 } from "../validations/upload.validation.js";
 
-// *** Second ***   Constants
 const uploadRoutes = express.Router();
 const upload = createAnyUploadMiddleware();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 uploadRoutes.post(
   "/",
   protect,
@@ -42,5 +31,4 @@ uploadRoutes.delete(
   uploadController.deleteUpload
 );
 
-// *** Eighth ***   Exports
 export default uploadRoutes;

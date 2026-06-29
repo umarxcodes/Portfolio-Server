@@ -1,13 +1,4 @@
-// *** First ***    Imports
 import { describe, it, expect } from "@jest/globals";
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 
 describe("Profile Service", () => {
   it("should have a service layer structure", () => {
@@ -18,9 +9,3 @@ describe("Profile Service", () => {
     expect(true).toBe(true);
   });
 });
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports

@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const PROJECT_CATEGORIES = [
   "frontend",
   "backend",
@@ -36,17 +33,6 @@ const PROJECT_MESSAGES = {
   PROJECT_DELETED: "Project deleted successfully",
 };
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   PROJECT_CATEGORIES,
   PROJECT_STATUSES,

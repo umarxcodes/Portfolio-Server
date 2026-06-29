@@ -1,7 +1,5 @@
-// *** First ***    Imports
 import helmet from "helmet";
 
-// *** Second ***   Constants
 const helmetOptions = {
   crossOriginResourcePolicy: { policy: "cross-origin" },
   contentSecurityPolicy: {
@@ -17,16 +15,5 @@ const helmetOptions = {
 
 const helmetMiddleware = helmet(helmetOptions);
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { helmetOptions };
 export default helmetMiddleware;

@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as analyticsController from "../controllers/analytics.controller.js";
@@ -8,18 +7,8 @@ import {
   validate,
 } from "../validations/analytics.validation.js";
 
-// *** Second ***   Constants
 const analyticsRoutes = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 analyticsRoutes.post(
   "/track",
   validate(trackEventSchema),
@@ -44,5 +33,4 @@ analyticsRoutes.get(
   analyticsController.getContactAnalytics
 );
 
-// *** Eighth ***   Exports
 export default analyticsRoutes;

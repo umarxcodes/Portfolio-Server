@@ -1,18 +1,8 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { AUTH_MESSAGES } from "../constants/auth.constants.js";
 import * as authService from "../services/auth.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const { accessToken, refreshToken, admin } = await authService.login(
@@ -55,7 +45,4 @@ const changePassword = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, AUTH_MESSAGES.PASSWORD_CHANGED, {});
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { login, refreshToken, profile, logout, changePassword };

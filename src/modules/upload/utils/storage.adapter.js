@@ -1,16 +1,8 @@
-// *** First ***    Imports
 import fs from "node:fs/promises";
 import path from "node:path";
 import { UPLOAD_ROOT } from "../../../config/upload.js";
 import { generateFileName } from "../../../shared/utils/upload.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const saveFile = async (file, folder) => {
   const fileName = generateFileName(file.originalname);
   const folderPath = path.join(UPLOAD_ROOT, folder);
@@ -31,9 +23,4 @@ const deleteFile = async (fileName, folder) => {
   });
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { saveFile, deleteFile };

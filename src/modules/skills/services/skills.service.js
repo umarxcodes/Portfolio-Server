@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import {
   buildFilter,
@@ -12,13 +11,6 @@ import {
   SKILL_SORT_FIELDS,
 } from "../constants/skills.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const createSkill = async (data) => skillsRepository.createSkill(data);
 
 const getSkills = async (queryParams) => {
@@ -47,8 +39,14 @@ const getSkills = async (queryParams) => {
   };
 };
 
-const getSkillsByCategory = async (category) =>
-  skillsRepository.findByCategory(category);
+const getSkillsByCategory = async (category, queryParams) => {
+  const sort = queryParams.sort
+    ? buildSort(queryParams.sort, SKILL_SORT_FIELDS)
+    : { category: 1, displayOrder: 1, name: 1 };
+  const query = skillsRepository.findByCategory(category).sort(sort);
+  const result = await paginate(query, queryParams.page, queryParams.limit);
+  return { items: result.data, pagination: result.pagination };
+};
 
 const getSkillById = async (id) => {
   const skill = await skillsRepository.findById(id);
@@ -80,11 +78,6 @@ const deleteSkill = async (id) => {
   return skill;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createSkill,
   getSkills,

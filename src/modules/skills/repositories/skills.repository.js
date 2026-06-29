@@ -1,11 +1,5 @@
-// *** First ***    Imports
 import Skill from "../models/skills.model.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const createSkill = async (data) => Skill.create(data);
 
 const listSkills = (filter, sort) => Skill.find(filter).sort(sort).lean();
@@ -24,13 +18,6 @@ const updateSkill = async (id, data) =>
 
 const deleteSkill = async (id) => Skill.findByIdAndDelete(id).lean();
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createSkill,
   listSkills,

@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as blogController from "../controllers/blog.controller.js";
@@ -13,18 +12,8 @@ import {
   validate,
 } from "../validations/blog.validation.js";
 
-// *** Second ***   Constants
 const blogRoutes = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 blogRoutes.post(
   "/",
   protect,
@@ -74,5 +63,4 @@ blogRoutes.delete(
   blogController.deleteBlogPost
 );
 
-// *** Eighth ***   Exports
 export default blogRoutes;

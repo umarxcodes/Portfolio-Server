@@ -1,19 +1,12 @@
-// *** First ***    Imports
 import { hashIpAddress } from "../utils/analytics.utils.js";
 import * as analyticsRepository from "../repositories/analytics.repository.js";
 
-// *** Second ***   Constants
 const startOfMonth = () =>
   new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
 const startOfMonthOffset = (monthsAgo) =>
   new Date(new Date().getFullYear(), new Date().getMonth() - monthsAgo, 1);
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const trackEvent = ({ type, resourceId, ipAddress, userAgent }) =>
   analyticsRepository.create({
     type,
@@ -103,11 +96,6 @@ const getMonthlyReport = (months = 6) =>
     { $sort: { _id: 1 } },
   ]);
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   trackEvent,
   trackPortfolioView,

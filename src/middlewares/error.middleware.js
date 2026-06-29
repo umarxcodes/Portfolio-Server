@@ -1,16 +1,9 @@
-// *** First ***    Imports
 import multer from "multer";
 import mongoose from "mongoose";
 import { sendError } from "../shared/utils/response.utils.js";
 
-// *** Second ***   Constants
 const DUPLICATE_KEY_CODE = 11000;
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const errorMiddleware = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
@@ -56,9 +49,4 @@ const errorMiddleware = (err, req, res, next) => {
   sendError(res, statusCode, message, errors);
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default errorMiddleware;

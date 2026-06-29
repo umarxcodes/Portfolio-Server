@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import {
   generateSlug,
@@ -6,9 +5,6 @@ import {
 } from "../../../shared/utils/slug.utils.js";
 import { calculateReadingTime } from "../utils/blog.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const blogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
@@ -62,13 +58,4 @@ blogSchema.pre("validate", async function prepareBlogPost(next) {
 
 const Blog = mongoose.model("Blog", blogSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Blog;

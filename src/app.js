@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import path from "node:path";
 import mongoSanitize from "express-mongo-sanitize";
@@ -13,15 +12,9 @@ import routes from "./routes/index.js";
 import notFoundMiddleware from "./middlewares/notFound.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 
-// *** Second ***   Constants
 const app = express();
 app.set("trust proxy", env.TRUST_PROXY);
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 app.use(helmetMiddleware);
 app.use(corsMiddleware);
 app.use(compressionMiddleware);
@@ -34,9 +27,17 @@ app.use(
 app.use(mongoSanitize());
 app.use("/uploads", express.static(path.resolve(UPLOAD_ROOT)));
 
-// *** Sixth ***    Controller Functions
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Service is healthy",
+    data: {
+      environment: env.NODE_ENV,
+      timestamp: new Date().toISOString(),
+    },
+  });
+});
 
-// *** Seventh ***  Routes
 app.use(routes);
 
 app.get("/", (req, res) => {
@@ -46,5 +47,4 @@ app.get("/", (req, res) => {
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-// *** Eighth ***   Exports
 export default app;

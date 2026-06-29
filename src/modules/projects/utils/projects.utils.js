@@ -1,10 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const createSlug = (value) =>
   value
     .toString()
@@ -35,11 +28,4 @@ const generateUniqueSlug = async (
   return generateUniqueSlug(Model, title, suffix + 1, ignoredId);
 };
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { createSlug, generateUniqueSlug };

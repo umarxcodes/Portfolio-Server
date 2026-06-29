@@ -1,17 +1,16 @@
-// *** First ***    Imports
+import { SEARCH_RESOURCE_TYPES } from "../constants/search.constants.js";
 import * as searchRepository from "../repositories/search.repository.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const searchAll = async (queryParams) => {
   const query = String(queryParams.q || "").trim();
   const page = Math.max(Number(queryParams.page) || 1, 1);
   const limit = Math.min(Math.max(Number(queryParams.limit) || 5, 1), 20);
+  const type = queryParams.type;
+
+  if (type && !SEARCH_RESOURCE_TYPES.includes(type)) {
+    throw new Error(`Invalid search type: ${type}`);
+  }
+
   const searchers = {
     projects: searchRepository.searchProjects,
     blogs: searchRepository.searchBlogs,
@@ -21,15 +20,11 @@ const searchAll = async (queryParams) => {
     certificates: searchRepository.searchCertificates,
   };
 
-  if (queryParams.type) {
+  if (type) {
     return {
       query,
       results: {
-        [queryParams.type]: await searchers[queryParams.type](
-          query,
-          page,
-          limit
-        ),
+        [type]: await searchers[type](query, page, limit),
       },
     };
   }
@@ -47,9 +42,4 @@ const searchAll = async (queryParams) => {
   };
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { searchAll };

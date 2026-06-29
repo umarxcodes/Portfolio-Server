@@ -1,12 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const generateSlug = (title) =>
   String(title)
     .toLowerCase()
@@ -32,9 +23,4 @@ const ensureUniqueSlug = async (slug, Model, ignoredId = null) => {
   return candidate;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { generateSlug, ensureUniqueSlug };

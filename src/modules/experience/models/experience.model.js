@@ -1,10 +1,6 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import { EMPLOYMENT_TYPES } from "../constants/experience.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const experienceSchema = new mongoose.Schema(
   {
     company: { type: String, required: true, trim: true },
@@ -34,13 +30,4 @@ experienceSchema.index({
 
 const Experience = mongoose.model("Experience", experienceSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Experience;

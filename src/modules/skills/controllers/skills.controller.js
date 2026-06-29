@@ -1,18 +1,8 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { SKILL_MESSAGES } from "../constants/skills.constants.js";
 import * as skillsService from "../services/skills.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const createSkill = asyncHandler(async (req, res) => {
   const skill = await skillsService.createSkill(req.body);
   sendSuccess(res, 201, SKILL_MESSAGES.SKILL_CREATED, { skill });
@@ -28,8 +18,14 @@ const getSkills = asyncHandler(async (req, res) => {
 });
 
 const getSkillsByCategory = asyncHandler(async (req, res) => {
-  const skills = await skillsService.getSkillsByCategory(req.params.category);
-  sendSuccess(res, 200, SKILL_MESSAGES.SKILLS_LISTED, { items: skills });
+  const result = await skillsService.getSkillsByCategory(
+    req.params.category,
+    req.query
+  );
+  sendSuccess(res, 200, SKILL_MESSAGES.SKILLS_LISTED, {
+    items: result.items,
+    pagination: result.pagination,
+  });
 });
 
 const getSkillById = asyncHandler(async (req, res) => {
@@ -47,9 +43,6 @@ const deleteSkill = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, SKILL_MESSAGES.SKILL_DELETED, { skill });
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createSkill,
   getSkills,

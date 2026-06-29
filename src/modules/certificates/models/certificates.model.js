@@ -1,9 +1,5 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const certificateSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -35,13 +31,4 @@ certificateSchema.index({
 
 const Certificate = mongoose.model("Certificate", certificateSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Certificate;

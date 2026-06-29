@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import { paginate } from "../../../shared/utils/pagination.utils.js";
 import {
@@ -13,13 +12,6 @@ import {
 import * as contactRepository from "../repositories/contact.repository.js";
 import { trackContactSubmission } from "../../analytics/services/analytics.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const submitContact = async (data, metadata) => {
   const contact = await contactRepository.create(data);
   await trackContactSubmission(metadata);
@@ -68,11 +60,6 @@ const deleteContact = async (id) => {
   return contact;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   submitContact,
   getContacts,

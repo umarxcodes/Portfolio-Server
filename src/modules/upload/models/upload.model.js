@@ -1,10 +1,6 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import { UPLOAD_FOLDERS } from "../constants/upload.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const uploadSchema = new mongoose.Schema(
   {
     fileName: { type: String, required: true },
@@ -27,13 +23,4 @@ uploadSchema.index({ uploadedBy: 1, createdAt: -1 });
 
 const Upload = mongoose.model("Upload", uploadSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Upload;

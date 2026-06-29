@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const CERTIFICATE_MESSAGES = {
   CREATED: "Certificate created",
   LISTED: "Certificates listed",
@@ -24,17 +21,6 @@ const CERTIFICATE_SORT_FIELDS = [
   "issuer",
 ];
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   CERTIFICATE_MESSAGES,
   CERTIFICATE_ERRORS,

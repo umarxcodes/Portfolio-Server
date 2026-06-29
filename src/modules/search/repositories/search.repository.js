@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import Project from "../../projects/models/projects.model.js";
 import Skill from "../../skills/models/skills.model.js";
 import Experience from "../../experience/models/experience.model.js";
@@ -6,11 +5,6 @@ import Education from "../../education/models/education.model.js";
 import Certificate from "../../certificates/models/certificates.model.js";
 import Blog from "../../blog/models/blog.model.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const searchResource = async (Model, filter, page, limit) => {
   const skip = (page - 1) * limit;
   const projection = { score: { $meta: "textScore" } };
@@ -64,13 +58,6 @@ const searchEducation = (query, page, limit) =>
 const searchCertificates = (query, page, limit) =>
   searchResource(Certificate, { $text: { $search: query } }, page, limit);
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   searchProjects,
   searchBlogs,

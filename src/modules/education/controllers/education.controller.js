@@ -1,18 +1,8 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { EDUCATION_MESSAGES } from "../constants/education.constants.js";
 import * as educationService from "../services/education.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const createEducation = asyncHandler(async (req, res) => {
   const education = await educationService.createEducation(req.body);
   sendSuccess(res, 201, EDUCATION_MESSAGES.CREATED, { education });
@@ -46,9 +36,6 @@ const deleteEducation = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, EDUCATION_MESSAGES.DELETED, { education });
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createEducation,
   getEducationList,

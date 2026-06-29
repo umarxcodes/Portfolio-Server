@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import { contactRateLimiter } from "../../../config/rateLimiter.js";
@@ -11,18 +10,8 @@ import {
   validate,
 } from "../validations/contact.validation.js";
 
-// *** Second ***   Constants
 const contactRoutes = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 contactRoutes.post(
   "/",
   contactRateLimiter,
@@ -55,5 +44,4 @@ contactRoutes.delete(
   contactController.deleteContact
 );
 
-// *** Eighth ***   Exports
 export default contactRoutes;

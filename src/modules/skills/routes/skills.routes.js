@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as skillsController from "../controllers/skills.controller.js";
@@ -12,7 +11,6 @@ import {
 import { SKILL_CATEGORIES } from "../constants/skills.constants.js";
 import { z } from "zod";
 
-// *** Second ***   Constants
 const skillsRoutes = express.Router();
 
 const categoryParamsSchema = z.object({
@@ -21,15 +19,6 @@ const categoryParamsSchema = z.object({
   }),
 });
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 skillsRoutes.post(
   "/",
   protect,
@@ -65,5 +54,4 @@ skillsRoutes.delete(
   skillsController.deleteSkill
 );
 
-// *** Eighth ***   Exports
 export default skillsRoutes;

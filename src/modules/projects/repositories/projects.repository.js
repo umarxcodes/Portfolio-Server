@@ -1,11 +1,5 @@
-// *** First ***    Imports
 import Project from "../models/projects.model.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const createProject = async (data) => Project.create(data);
 
 const listProjects = (filter, sort) => Project.find(filter).sort(sort).lean();
@@ -36,13 +30,6 @@ const softDeleteProject = async (id) =>
     { new: true }
   ).lean();
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createProject,
   listProjects,

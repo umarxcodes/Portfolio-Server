@@ -1,13 +1,9 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import {
   SKILL_CATEGORIES,
   SKILL_LEVELS,
 } from "../constants/skills.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const skillSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -28,13 +24,4 @@ skillSchema.index({ name: "text", category: "text", description: "text" });
 
 const Skill = mongoose.model("Skill", skillSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Skill;
