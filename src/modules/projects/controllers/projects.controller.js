@@ -1,19 +1,9 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { PROJECT_MESSAGES } from "../constants/projects.constants.js";
 import * as projectsService from "../services/projects.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const createProject = asyncHandler(async (req, res) => {
   const project = await projectsService.createProject(req.body);
   sendSuccess(res, 201, PROJECT_MESSAGES.PROJECT_CREATED, { project });
@@ -28,15 +18,22 @@ const getProjects = asyncHandler(async (req, res) => {
 });
 
 const getFeaturedProjects = asyncHandler(async (req, res) => {
-  const projects = await projectsService.getFeaturedProjects();
-  sendSuccess(res, 200, PROJECT_MESSAGES.PROJECT_LISTED, { items: projects });
+  const result = await projectsService.getFeaturedProjects(req.query);
+  sendSuccess(res, 200, PROJECT_MESSAGES.PROJECT_LISTED, {
+    items: result.items,
+    pagination: result.pagination,
+  });
 });
 
 const getProjectsByCategory = asyncHandler(async (req, res) => {
-  const projects = await projectsService.getProjectsByCategory(
-    req.params.category
+  const result = await projectsService.getProjectsByCategory(
+    req.params.category,
+    req.query
   );
-  sendSuccess(res, 200, PROJECT_MESSAGES.PROJECT_LISTED, { items: projects });
+  sendSuccess(res, 200, PROJECT_MESSAGES.PROJECT_LISTED, {
+    items: result.items,
+    pagination: result.pagination,
+  });
 });
 
 const getProjectBySlug = asyncHandler(async (req, res) => {
@@ -62,9 +59,6 @@ const deleteProject = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, PROJECT_MESSAGES.PROJECT_DELETED, { project });
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createProject,
   getProjects,

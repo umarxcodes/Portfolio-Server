@@ -1,19 +1,9 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { CONTACT_MESSAGES } from "../constants/contact.constants.js";
 import * as contactService from "../services/contact.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const submitContact = asyncHandler(async (req, res) => {
   const contact = await contactService.submitContact(
     req.body,
@@ -29,6 +19,7 @@ const getContacts = asyncHandler(async (req, res) => {
 
 const getContactById = asyncHandler(async (req, res) => {
   const contact = await contactService.getContactById(req.params.id);
+  await contactService.markContactAsRead(req.params.id);
   sendSuccess(res, 200, CONTACT_MESSAGES.FETCHED, { contact });
 });
 
@@ -45,9 +36,6 @@ const deleteContact = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, CONTACT_MESSAGES.DELETED, { contact });
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   submitContact,
   getContacts,

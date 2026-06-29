@@ -1,19 +1,9 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { ANALYTICS_MESSAGES } from "../constants/analytics.constants.js";
 import * as analyticsService from "../services/analytics.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const trackEvent = asyncHandler(async (req, res) => {
   const event = await analyticsService.trackEvent({
     ...req.body,
@@ -45,9 +35,6 @@ const getMonthlyReport = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, ANALYTICS_MESSAGES.MONTHLY, { items });
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   trackEvent,
   getOverview,

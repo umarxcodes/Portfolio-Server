@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import {
   buildFilter,
@@ -12,13 +11,6 @@ import {
   EXPERIENCE_SORT_FIELDS,
 } from "../constants/experience.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const addExperience = async (data) =>
   experienceRepository.createExperience(data);
 
@@ -70,11 +62,6 @@ const deleteExperience = async (id) => {
   return experience;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   addExperience,
   getExperiences,

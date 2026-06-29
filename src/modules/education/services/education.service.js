@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import { paginate } from "../../../shared/utils/pagination.utils.js";
 import {
@@ -14,13 +13,6 @@ import {
 } from "../constants/education.constants.js";
 import * as educationRepository from "../repositories/education.repository.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const createEducation = (data) =>
   educationRepository.create({
     ...data,
@@ -66,11 +58,6 @@ const deleteEducation = async (id) => {
   return education;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createEducation,
   getEducationList,

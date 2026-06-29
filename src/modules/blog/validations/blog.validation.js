@@ -1,15 +1,12 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
-// *** Second ***   Constants
 const idParamsSchema = z.object({ id: z.string().trim().min(1) });
 const slugParamsSchema = z.object({ slug: z.string().trim().min(1) });
 const categoryParamsSchema = z.object({ category: z.string().trim().min(1) });
 const tagParamsSchema = z.object({ tag: z.string().trim().min(1) });
 const optionalUrl = z.string().url().optional().nullable();
 
-// *** Third ***    Schema / Model
 const blogBaseSchema = z.object({
   title: z.string().trim().min(1),
   excerpt: z.string().trim().min(1).max(300),
@@ -36,16 +33,8 @@ const listBlogQuerySchema = z.object({
   ),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createBlogSchema,
   updateBlogSchema,

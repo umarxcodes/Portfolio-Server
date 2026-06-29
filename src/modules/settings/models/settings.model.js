@@ -1,10 +1,6 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import { SETTINGS_THEMES } from "../constants/settings.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const settingsSchema = new mongoose.Schema(
   {
     singletonKey: {
@@ -36,13 +32,4 @@ const settingsSchema = new mongoose.Schema(
 
 const Settings = mongoose.model("Settings", settingsSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Settings;

@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 import {
@@ -6,9 +5,6 @@ import {
   PROJECT_STATUSES,
 } from "../constants/projects.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const urlField = z.string().url({ message: "Invalid URL" });
 const dateField = z.preprocess(
   (value) => {
@@ -85,16 +81,8 @@ const listProjectsQuerySchema = z.object({
   search: z.string().optional(),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createProjectSchema,
   updateProjectSchema,

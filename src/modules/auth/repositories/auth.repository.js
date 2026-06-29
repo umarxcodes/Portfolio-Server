@@ -1,11 +1,5 @@
-// *** First ***    Imports
 import Admin from "../models/admin.model.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const findByEmail = async (email) =>
   Admin.findOne({ email }).select("+password");
 
@@ -52,13 +46,6 @@ const revokeRefreshToken = async (id, hashedToken) =>
 const revokeAllRefreshTokens = async (id) =>
   Admin.findByIdAndUpdate(id, { refreshTokens: [] }, { new: true });
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   findByEmail,
   findById,

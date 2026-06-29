@@ -1,10 +1,6 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const refreshTokenSchema = z.object({
   refreshToken: z.string().min(1, { message: "Refresh token is required" }),
 });
@@ -41,14 +37,6 @@ const changePasswordSchema = z
     path: ["newPassword"],
   });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { loginSchema, changePasswordSchema, refreshTokenSchema, validate };

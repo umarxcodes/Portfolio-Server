@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const SKILL_CATEGORIES = [
   "frontend",
   "backend",
@@ -38,17 +35,6 @@ const SKILL_MESSAGES = {
   SKILL_DELETED: "Skill deleted successfully",
 };
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   SKILL_CATEGORIES,
   SKILL_LEVELS,

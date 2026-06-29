@@ -1,11 +1,7 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { BCRYPT_SALT_ROUNDS } from "../constants/auth.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const adminSchema = new mongoose.Schema(
   {
     singletonKey: {
@@ -63,13 +59,4 @@ adminSchema.methods.generateSanitized = function generateSanitized() {
 
 const Admin = mongoose.model("Admin", adminSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Admin;

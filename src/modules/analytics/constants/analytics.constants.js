@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const ANALYTICS_TYPES = [
   "portfolio_view",
   "project_view",
@@ -16,15 +13,4 @@ const ANALYTICS_MESSAGES = {
   MONTHLY: "Monthly analytics report",
 };
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { ANALYTICS_TYPES, ANALYTICS_MESSAGES };

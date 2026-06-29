@@ -1,8 +1,6 @@
-// *** First ***    Imports
 import path from "node:path";
 import env from "./env.js";
 
-// *** Second ***   Constants
 const MB = 1024 * 1024;
 const UPLOAD_ROOT = path.isAbsolute(env.UPLOAD_ROOT)
   ? env.UPLOAD_ROOT
@@ -29,21 +27,11 @@ const FILE_SIZE_LIMITS = {
   resume: env.PDF_UPLOAD_MAX_MB * MB,
 };
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const getAllowedMimeTypes = (folder) => MIME_TYPES_BY_FOLDER[folder] || [];
 const getFileSizeLimit = (folder) =>
   FILE_SIZE_LIMITS[folder] || FILE_SIZE_LIMITS.profile;
 const isUploadFolder = (folder) => UPLOAD_FOLDERS.includes(folder);
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   UPLOAD_ROOT,
   UPLOAD_FOLDERS,

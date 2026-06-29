@@ -1,8 +1,6 @@
-// *** First ***    Imports
 import dotenv from "dotenv";
 import { z } from "zod";
 
-// *** Second ***   Constants
 dotenv.config({ quiet: true });
 
 const envSchema = z.object({
@@ -64,11 +62,6 @@ if (!parsedEnv.success) {
 
 const env = parsedEnv.data;
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const parseCorsOrigins = () => {
   const origins = env.CORS_ORIGINS || env.CLIENT_URL || "";
   return origins
@@ -77,10 +70,5 @@ const parseCorsOrigins = () => {
     .filter(Boolean);
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { parseCorsOrigins };
 export default env;

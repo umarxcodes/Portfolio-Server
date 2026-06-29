@@ -1,11 +1,5 @@
-// *** First ***    Imports
 import Blog from "../models/blog.model.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const findAll = (filter, sort) => Blog.find(filter).sort(sort).lean();
 const findById = (id, includeDeleted = false) =>
   Blog.findOne({ _id: id, ...(includeDeleted ? {} : { isDeleted: false }) })
@@ -30,13 +24,6 @@ const softDeleteById = (id) =>
     { new: true }
   ).lean();
 
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   findAll,
   findById,

@@ -1,15 +1,7 @@
-// *** First ***    Imports
 import crypto from "node:crypto";
 import path from "node:path";
 import { MIME_TYPES_BY_FOLDER } from "../../config/upload.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const getFileExtension = (originalName) =>
   path.extname(String(originalName || "")).toLowerCase();
 
@@ -24,11 +16,6 @@ const isAllowedMimeType = (mimeType, folder) => {
   return allowedTypes.includes(mimeType);
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   MIME_TYPES_BY_FOLDER,
   getFileExtension,

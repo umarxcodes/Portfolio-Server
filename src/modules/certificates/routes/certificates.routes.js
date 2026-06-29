@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as certificatesController from "../controllers/certificates.controller.js";
@@ -10,18 +9,8 @@ import {
   validate,
 } from "../validations/certificates.validation.js";
 
-// *** Second ***   Constants
 const certificatesRoutes = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 certificatesRoutes.post(
   "/",
   protect,
@@ -52,5 +41,4 @@ certificatesRoutes.delete(
   certificatesController.deleteCertificate
 );
 
-// *** Eighth ***   Exports
 export default certificatesRoutes;

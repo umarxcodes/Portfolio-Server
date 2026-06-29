@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import { isAllowedMimeType } from "../../../shared/utils/upload.utils.js";
 import { getFileSizeLimit, isUploadFolder } from "../../../config/upload.js";
@@ -6,13 +5,6 @@ import { UPLOAD_ERRORS } from "../constants/upload.constants.js";
 import * as uploadRepository from "../repositories/upload.repository.js";
 import { saveFile, deleteFile } from "../utils/storage.adapter.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const uploadFile = async (file, folder, uploadedBy) => {
   if (!file) throw new AppError(400, UPLOAD_ERRORS.FILE_REQUIRED);
   if (!isUploadFolder(folder)) {
@@ -47,9 +39,4 @@ const deleteUpload = async (id) => {
   return upload;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { uploadFile, getUploadById, deleteUpload };

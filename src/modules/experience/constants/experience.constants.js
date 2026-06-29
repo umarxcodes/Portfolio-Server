@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const EMPLOYMENT_TYPES = [
   "full-time",
   "part-time",
@@ -31,17 +28,6 @@ const EXPERIENCE_MESSAGES = {
   EXPERIENCE_DELETED: "Experience entry deleted successfully",
 };
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   EMPLOYMENT_TYPES,
   EXPERIENCE_FILTER_FIELDS,

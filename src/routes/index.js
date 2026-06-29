@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import { authRoutes } from "../modules/auth/index.js";
 import { profileRoutes } from "../modules/profile/index.js";
@@ -14,18 +13,8 @@ import { analyticsRoutes } from "../modules/analytics/index.js";
 import { settingsRoutes } from "../modules/settings/index.js";
 import { searchRoutes } from "../modules/search/index.js";
 
-// *** Second ***   Constants
 const router = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 router.use("/api/v1/auth", authRoutes);
 router.use("/api/v1/profile", profileRoutes);
 router.use("/api/v1/projects", projectsRoutes);
@@ -40,5 +29,4 @@ router.use("/api/v1/analytics", analyticsRoutes);
 router.use("/api/v1/settings", settingsRoutes);
 router.use("/api/v1/search", searchRoutes);
 
-// *** Eighth ***   Exports
 export default router;

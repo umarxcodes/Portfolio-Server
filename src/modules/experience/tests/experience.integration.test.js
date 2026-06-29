@@ -1,13 +1,4 @@
-// *** First ***    Imports
 import { describe, it, expect } from "@jest/globals";
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 
 describe("Experience Routes", () => {
   it("should expose public experience list endpoints", () => {
@@ -18,9 +9,3 @@ describe("Experience Routes", () => {
     expect(true).toBe(true);
   });
 });
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports

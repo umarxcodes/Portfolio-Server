@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as educationController from "../controllers/education.controller.js";
@@ -10,18 +9,8 @@ import {
   validate,
 } from "../validations/education.validation.js";
 
-// *** Second ***   Constants
 const educationRoutes = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 educationRoutes.post(
   "/",
   protect,
@@ -53,5 +42,4 @@ educationRoutes.delete(
   educationController.deleteEducation
 );
 
-// *** Eighth ***   Exports
 export default educationRoutes;

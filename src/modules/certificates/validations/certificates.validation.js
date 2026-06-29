@@ -1,13 +1,10 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
-// *** Second ***   Constants
 const dateField = z.coerce.date();
 const optionalUrl = z.string().url().optional().nullable();
 const idParamsSchema = z.object({ id: z.string().trim().min(1) });
 
-// *** Third ***    Schema / Model
 const certificateBaseSchema = z.object({
   name: z.string().trim().min(1),
   issuer: z.string().trim().min(1),
@@ -50,16 +47,8 @@ const listCertificatesQuerySchema = z.object({
   ),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createCertificateSchema,
   updateCertificateSchema,

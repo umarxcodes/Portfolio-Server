@@ -1,18 +1,8 @@
-// *** First ***    Imports
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
 import { EXPERIENCE_MESSAGES } from "../constants/experience.constants.js";
 import * as experienceService from "../services/experience.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
 const addExperience = asyncHandler(async (req, res) => {
   const experience = await experienceService.addExperience(req.body);
   sendSuccess(res, 201, EXPERIENCE_MESSAGES.EXPERIENCE_CREATED, { experience });
@@ -44,9 +34,6 @@ const deleteExperience = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, EXPERIENCE_MESSAGES.EXPERIENCE_DELETED, { experience });
 });
 
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   addExperience,
   getExperiences,

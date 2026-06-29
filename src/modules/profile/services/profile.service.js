@@ -1,16 +1,8 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import { PROFILE_ERRORS } from "../constants/profile.constants.js";
 import * as profileRepository from "../repositories/profile.repository.js";
 import { trackPortfolioView } from "../../analytics/services/analytics.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const getProfile = async (metadata) => {
   const profile = await profileRepository.findProfile();
 
@@ -35,9 +27,4 @@ const updateProfile = async (data) => {
   return profile;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { getProfile, updateProfile };

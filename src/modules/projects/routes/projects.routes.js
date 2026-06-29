@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as projectsController from "../controllers/projects.controller.js";
@@ -11,7 +10,6 @@ import {
 import { PROJECT_CATEGORIES } from "../constants/projects.constants.js";
 import { z } from "zod";
 
-// *** Second ***   Constants
 const projectsRoutes = express.Router();
 
 const categoryParamsSchema = z.object({
@@ -28,15 +26,6 @@ const idParamsSchema = z.object({
   id: z.string().trim().min(1, { message: "id is required" }),
 });
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 projectsRoutes.post(
   "/",
   protect,
@@ -78,5 +67,4 @@ projectsRoutes.delete(
   projectsController.deleteProject
 );
 
-// *** Eighth ***   Exports
 export default projectsRoutes;

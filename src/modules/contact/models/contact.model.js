@@ -1,10 +1,6 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import { CONTACT_STATUSES } from "../constants/contact.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const contactSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true, maxlength: 100 },
@@ -23,13 +19,4 @@ contactSchema.index({ name: "text", email: "text", subject: "text" });
 
 const Contact = mongoose.model("Contact", contactSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Contact;

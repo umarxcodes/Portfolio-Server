@@ -1,9 +1,5 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const educationSchema = new mongoose.Schema(
   {
     degree: { type: String, required: true, trim: true },
@@ -29,13 +25,4 @@ educationSchema.index({
 
 const Education = mongoose.model("Education", educationSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Education;

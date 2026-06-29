@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import { paginate } from "../../../shared/utils/pagination.utils.js";
 import {
@@ -21,13 +20,6 @@ import {
 import * as blogRepository from "../repositories/blog.repository.js";
 import { trackBlogView } from "../../analytics/services/analytics.service.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const createBlogPost = (data) => blogRepository.create(data);
 
 const prepareBlogUpdate = async (id, data) => {
@@ -71,14 +63,16 @@ const getPublishedPosts = async (queryParams) => {
   return { items: result.data, pagination: result.pagination };
 };
 
-const getFeaturedPosts = () =>
-  blogRepository
-    .findAll(
-      { published: true, featured: true, isDeleted: false },
-      { publishedAt: -1 }
-    )
-    .limit(6)
-    .lean();
+const getFeaturedPosts = async (queryParams) => {
+  const sort = queryParams.sort
+    ? buildSort(queryParams.sort, BLOG_SORT_FIELDS)
+    : { publishedAt: -1 };
+  const query = blogRepository
+    .findAll({ published: true, featured: true, isDeleted: false }, sort)
+    .limit(20);
+  const result = await paginate(query, queryParams.page, queryParams.limit);
+  return { items: result.data, pagination: result.pagination };
+};
 
 const getPostsByCategory = async (category, queryParams) => {
   const sort = queryParams.sort
@@ -138,11 +132,6 @@ const deleteBlogPost = async (id) => {
   return post;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createBlogPost,
   getPublishedPosts,

@@ -1,12 +1,9 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
-// *** Second ***   Constants
 const dateField = z.coerce.date();
 const idParamsSchema = z.object({ id: z.string().trim().min(1) });
 
-// *** Third ***    Schema / Model
 const educationBaseSchema = z.object({
   degree: z.string().trim().min(1),
   fieldOfStudy: z.string().trim().min(1),
@@ -53,16 +50,8 @@ const listEducationQuerySchema = z.object({
   ),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createEducationSchema,
   updateEducationSchema,

@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const EDUCATION_MESSAGES = {
   CREATED: "Education created",
   LISTED: "Education listed",
@@ -28,17 +25,6 @@ const EDUCATION_SORT_FIELDS = [
   "institution",
 ];
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   EDUCATION_MESSAGES,
   EDUCATION_ERRORS,

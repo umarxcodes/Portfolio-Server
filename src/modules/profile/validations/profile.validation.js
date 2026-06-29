@@ -1,10 +1,6 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const urlField = z.string().url({ message: "Invalid URL" });
 
 const socialLinksSchema = z
@@ -42,14 +38,6 @@ const profileSchema = z.object({
 
 const updateProfileSchema = profileSchema.partial();
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { updateProfileSchema, validate };

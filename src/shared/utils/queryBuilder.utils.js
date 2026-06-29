@@ -1,10 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
 const parseQueryValue = (value) => {
   if (value === "true") return true;
   if (value === "false") return false;
@@ -12,7 +5,6 @@ const parseQueryValue = (value) => {
   return value;
 };
 
-// *** Fifth ***    Service Functions
 const buildFilter = (queryParams, allowedFields = []) => {
   const filter = {};
 
@@ -71,9 +63,4 @@ const buildProjection = (fields) => {
   }, {});
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { buildFilter, buildSort, buildSearch, buildProjection };

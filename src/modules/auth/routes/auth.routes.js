@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import express from "express";
 import {
   loginSchema,
@@ -9,18 +8,8 @@ import {
 import * as authController from "../controllers/auth.controller.js";
 import protect from "../../../middlewares/auth.middleware.js";
 
-// *** Second ***   Constants
 const authRoutes = express.Router();
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
 authRoutes.post("/login", validate(loginSchema), authController.login);
 authRoutes.post(
   "/refresh-token",
@@ -36,5 +25,4 @@ authRoutes.patch(
   authController.changePassword
 );
 
-// *** Eighth ***   Exports
 export default authRoutes;

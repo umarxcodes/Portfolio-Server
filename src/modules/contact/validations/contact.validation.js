@@ -1,12 +1,9 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 import { CONTACT_STATUSES } from "../constants/contact.constants.js";
 
-// *** Second ***   Constants
 const idParamsSchema = z.object({ id: z.string().trim().min(1) });
 
-// *** Third ***    Schema / Model
 const submitContactSchema = z.object({
   name: z.string().trim().min(2).max(100),
   email: z.string().trim().email().toLowerCase(),
@@ -28,16 +25,8 @@ const listContactQuerySchema = z.object({
   ),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   submitContactSchema,
   updateContactStatusSchema,

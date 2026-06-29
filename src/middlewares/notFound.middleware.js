@@ -1,20 +1,7 @@
-// *** First ***    Imports
 import AppError from "../shared/errors/index.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const notFoundMiddleware = (req, res, next) => {
   next(new AppError(404, "Resource not found", []));
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default notFoundMiddleware;

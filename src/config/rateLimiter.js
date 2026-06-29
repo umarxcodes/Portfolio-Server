@@ -1,8 +1,6 @@
-// *** First ***    Imports
 import rateLimit from "express-rate-limit";
 import env from "./env.js";
 
-// *** Second ***   Constants
 const rateLimitHandler = (req, res) =>
   res.status(429).json({
     success: false,
@@ -26,15 +24,4 @@ const contactRateLimiter = rateLimit({
   handler: rateLimitHandler,
 });
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { globalRateLimiter, contactRateLimiter };

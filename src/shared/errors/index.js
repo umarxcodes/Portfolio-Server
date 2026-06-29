@@ -1,12 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 class AppError extends Error {
   constructor(statusCode, message, errors = []) {
     super(message);
@@ -17,9 +8,4 @@ class AppError extends Error {
   }
 }
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default AppError;

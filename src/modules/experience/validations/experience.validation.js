@@ -1,11 +1,7 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 import { EMPLOYMENT_TYPES } from "../constants/experience.constants.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const dateField = z.preprocess(
   (value) => {
     if (value instanceof Date) {
@@ -93,16 +89,8 @@ const idParamsSchema = z.object({
   id: z.string().trim().min(1, { message: "id is required" }),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createExperienceSchema,
   updateExperienceSchema,

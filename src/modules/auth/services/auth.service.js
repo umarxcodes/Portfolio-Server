@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import {
   generateAccessToken,
@@ -11,13 +10,6 @@ import { AUTH_ERRORS } from "../constants/auth.constants.js";
 import * as authRepository from "../repositories/auth.repository.js";
 import { buildAuthPayload } from "../utils/auth.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const login = async (email, password) => {
   const admin = await authRepository.findByEmail(email);
 
@@ -120,9 +112,4 @@ const changePassword = async (adminId, currentPassword, newPassword) => {
   await authRepository.changePassword(adminId, hashedNewPassword);
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { login, refreshAccessToken, getProfile, logout, changePassword };

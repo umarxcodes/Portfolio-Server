@@ -1,6 +1,3 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const BLOG_MESSAGES = {
   CREATED: "Blog post created",
   LISTED: "Blog posts listed",
@@ -22,17 +19,6 @@ const BLOG_SORT_FIELDS = [
   "readingTime",
 ];
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   BLOG_MESSAGES,
   BLOG_ERRORS,

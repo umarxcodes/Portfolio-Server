@@ -1,12 +1,9 @@
-// *** First ***    Imports
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 import { SETTINGS_THEMES } from "../constants/settings.constants.js";
 
-// *** Second ***   Constants
 const optionalUrl = z.string().url().or(z.literal("")).optional();
 
-// *** Third ***    Schema / Model
 const updateSettingsSchema = z.object({
   siteTitle: z.string().trim().min(1).optional(),
   siteDescription: z.string().trim().min(1).optional(),
@@ -29,14 +26,6 @@ const updateSettingsSchema = z.object({
   maintenanceMode: z.boolean().optional(),
 });
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validate = validateSchema;
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { updateSettingsSchema, validate };

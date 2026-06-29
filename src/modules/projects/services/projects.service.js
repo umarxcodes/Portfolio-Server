@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import AppError from "../../../shared/errors/index.js";
 import {
   buildFilter,
@@ -17,13 +16,6 @@ import {
 import { trackProjectView } from "../../analytics/services/analytics.service.js";
 import { generateUniqueSlug } from "../utils/projects.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const createProject = async (data) => projectsRepository.createProject(data);
 
 const getProjects = async (queryParams) => {
@@ -40,10 +32,23 @@ const getProjects = async (queryParams) => {
   return { items: result.data, pagination: result.pagination };
 };
 
-const getFeaturedProjects = async () => projectsRepository.findFeatured();
+const getFeaturedProjects = async (queryParams) => {
+  const sort = queryParams.sort
+    ? buildSort(queryParams.sort, PROJECT_SORT_FIELDS)
+    : { createdAt: -1 };
+  const query = projectsRepository.findFeatured().sort(sort);
+  const result = await paginate(query, queryParams.page, queryParams.limit);
+  return { items: result.data, pagination: result.pagination };
+};
 
-const getProjectsByCategory = async (category) =>
-  projectsRepository.findByCategory(category);
+const getProjectsByCategory = async (category, queryParams) => {
+  const sort = queryParams.sort
+    ? buildSort(queryParams.sort, PROJECT_SORT_FIELDS)
+    : { createdAt: -1 };
+  const query = projectsRepository.findByCategory(category).sort(sort);
+  const result = await paginate(query, queryParams.page, queryParams.limit);
+  return { items: result.data, pagination: result.pagination };
+};
 
 const getProjectBySlug = async (slug, metadata) => {
   const project = await projectsRepository.findBySlug(slug);
@@ -84,11 +89,6 @@ const deleteProject = async (id) => {
   return project;
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export {
   createProject,
   getProjects,

@@ -1,9 +1,5 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const profileSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -27,15 +23,8 @@ const profileSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+profileSchema.index({ _id: 1 });
+
 const Profile = mongoose.model("Profile", profileSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Profile;

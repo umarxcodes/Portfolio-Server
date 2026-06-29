@@ -1,15 +1,7 @@
-// *** First ***    Imports
-
-// *** Second ***   Constants
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;
 const MAX_LIMIT = 50;
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const paginate = async (query, page = DEFAULT_PAGE, limit = DEFAULT_LIMIT) => {
   const pageNumber = Math.max(Number(page) || DEFAULT_PAGE, DEFAULT_PAGE);
   const pageLimit = Math.min(
@@ -80,9 +72,4 @@ const paginateModel = async (model, filter = {}, options = {}) => {
   };
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { paginate, paginateModel, DEFAULT_PAGE, DEFAULT_LIMIT, MAX_LIMIT };

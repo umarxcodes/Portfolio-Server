@@ -1,13 +1,4 @@
-// *** First ***    Imports
 import { describe, it, expect } from "@jest/globals";
-
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 
 describe("Projects Service", () => {
   it("should support pagination and filtering", () => {
@@ -18,9 +9,3 @@ describe("Projects Service", () => {
     expect(true).toBe(true);
   });
 });
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports

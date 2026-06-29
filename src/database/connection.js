@@ -1,14 +1,6 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import databaseConfig from "../config/database.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const wait = (milliseconds) =>
   new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
@@ -23,7 +15,7 @@ const connectDB = async () => {
         databaseConfig.uri,
         databaseConfig.options
       );
-      console.info("MongoDB connected successfully");
+      console.info("MongoDB connected successfully ❣️");
       return connection;
     } catch (error) {
       lastError = error;
@@ -46,10 +38,5 @@ const disconnectDB = async () => {
   }
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export { disconnectDB };
 export default connectDB;

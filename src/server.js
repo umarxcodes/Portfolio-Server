@@ -1,18 +1,11 @@
-// *** First ***    Imports
 import http from "node:http";
 import mongoose from "mongoose";
 import connectDB, { disconnectDB } from "./database/connection.js";
 import env from "./config/env.js";
 
-// *** Second ***   Constants
 const PORT = env.PORT;
 let server;
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const shutdown = async (signal) => {
   try {
     console.info(`${signal} received. Shutting down gracefully.`);
@@ -40,6 +33,15 @@ const startServer = async () => {
   await connectDB();
 
   server = http.createServer(app);
+
+  server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      console.error(`Port ${PORT} is already in use`);
+    }
+    console.error("Server error", error);
+    process.exit(1);
+  });
+
   server.listen(PORT, () => {
     console.info(`API server listening on port ${PORT}`);
   });
@@ -60,11 +62,6 @@ process.on("uncaughtException", (error) => {
   shutdown("uncaughtException");
 });
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 startServer().catch((error) => {
   console.error("Failed to start server", error);
   process.exit(1);

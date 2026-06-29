@@ -1,4 +1,3 @@
-// *** First ***    Imports
 import mongoose from "mongoose";
 import {
   PROJECT_CATEGORIES,
@@ -6,9 +5,6 @@ import {
 } from "../constants/projects.constants.js";
 import { generateUniqueSlug } from "../utils/projects.utils.js";
 
-// *** Second ***   Constants
-
-// *** Third ***    Schema / Model
 const projectSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
@@ -67,13 +63,4 @@ projectSchema.pre("validate", async function (next) {
 
 const Project = mongoose.model("Project", projectSchema);
 
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
-
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 export default Project;
