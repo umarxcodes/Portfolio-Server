@@ -54,11 +54,10 @@ projectSchema.index({
 });
 projectSchema.index({ title: "text", description: "text", techStack: "text" });
 
-projectSchema.pre("validate", async function (next) {
+projectSchema.pre("validate", async function () {
   if (!this.slug || this.isModified("title")) {
     this.slug = await generateUniqueSlug(this.constructor, this.title);
   }
-  next();
 });
 
 const Project = mongoose.model("Project", projectSchema);
