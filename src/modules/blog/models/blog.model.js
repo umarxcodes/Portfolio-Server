@@ -43,7 +43,7 @@ blogSchema.index({
   tags: "text",
 });
 
-blogSchema.pre("validate", async function prepareBlogPost(next) {
+blogSchema.pre("validate", async function prepareBlogPost() {
   if (!this.slug || this.isModified("title")) {
     this.slug = await ensureUniqueSlug(
       generateSlug(this.title),
@@ -53,7 +53,6 @@ blogSchema.pre("validate", async function prepareBlogPost(next) {
   this.readingTime = calculateReadingTime(this.content);
   if (this.published && !this.publishedAt) this.publishedAt = new Date();
   if (!this.published) this.publishedAt = null;
-  next();
 });
 
 const Blog = mongoose.model("Blog", blogSchema);

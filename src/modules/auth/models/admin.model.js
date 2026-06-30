@@ -33,13 +33,12 @@ const adminSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-adminSchema.pre("save", async function saveAdminPassword(next) {
+adminSchema.pre("save", async function saveAdminPassword() {
   if (!this.isModified("password")) {
-    return next();
+    return;
   }
 
   this.password = await bcrypt.hash(this.password, BCRYPT_SALT_ROUNDS);
-  next();
 });
 
 adminSchema.methods.comparePassword = async function comparePassword(
