@@ -26,7 +26,7 @@ const adminSchema = new mongoose.Schema(
     refreshTokens: [
       {
         token: { type: String, required: true, select: false },
-        createdAt: { type: Date, default: Date.now, expires: 604800 },
+        createdAt: { type: Date, default: Date.now, expires: "7d" },
       },
     ],
   },

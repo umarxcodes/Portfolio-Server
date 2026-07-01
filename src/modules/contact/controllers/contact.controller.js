@@ -19,7 +19,6 @@ const getContacts = asyncHandler(async (req, res) => {
 
 const getContactById = asyncHandler(async (req, res) => {
   const contact = await contactService.getContactById(req.params.id);
-  await contactService.markContactAsRead(req.params.id);
   sendSuccess(res, 200, CONTACT_MESSAGES.FETCHED, { contact });
 });
 

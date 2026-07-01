@@ -14,7 +14,10 @@ import {
   PROJECT_SORT_FIELDS,
 } from "../constants/projects.constants.js";
 import { trackProjectView } from "../../analytics/services/analytics.service.js";
-import { generateUniqueSlug } from "../utils/projects.utils.js";
+import {
+  generateSlug,
+  ensureUniqueSlug,
+} from "../../../shared/utils/slug.utils.js";
 
 const createProject = async (data) => projectsRepository.createProject(data);
 
@@ -71,7 +74,7 @@ const updateProject = async (id, data) => {
   const update = { ...data };
 
   if (data.title) {
-    update.slug = await generateUniqueSlug(Project, data.title, 0, id);
+    update.slug = await ensureUniqueSlug(generateSlug(data.title), Project, id);
   }
 
   const project = await projectsRepository.updateProject(id, update);

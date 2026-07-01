@@ -1,16 +1,7 @@
 import asyncHandler from "../../../shared/utils/asyncHandler.utils.js";
 import { sendSuccess } from "../../../shared/utils/response.utils.js";
-import { getClientMetadata } from "../../../shared/utils/request.utils.js";
 import { ANALYTICS_MESSAGES } from "../constants/analytics.constants.js";
 import * as analyticsService from "../services/analytics.service.js";
-
-const trackEvent = asyncHandler(async (req, res) => {
-  const event = await analyticsService.trackEvent({
-    ...req.body,
-    ...getClientMetadata(req),
-  });
-  sendSuccess(res, 201, ANALYTICS_MESSAGES.TRACKED, { event });
-});
 
 const getOverview = asyncHandler(async (req, res) => {
   const overview = await analyticsService.getOverview();
@@ -36,7 +27,6 @@ const getMonthlyReport = asyncHandler(async (req, res) => {
 });
 
 export {
-  trackEvent,
   getOverview,
   getProjectAnalytics,
   getBlogAnalytics,

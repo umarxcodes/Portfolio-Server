@@ -2,18 +2,12 @@ import express from "express";
 import protect from "../../../middlewares/auth.middleware.js";
 import * as analyticsController from "../controllers/analytics.controller.js";
 import {
-  trackEventSchema,
   analyticsRangeQuerySchema,
   validate,
 } from "../validations/analytics.validation.js";
 
 const analyticsRoutes = express.Router();
 
-analyticsRoutes.post(
-  "/track",
-  validate(trackEventSchema),
-  analyticsController.trackEvent
-);
 analyticsRoutes.get("/overview", protect, analyticsController.getOverview);
 analyticsRoutes.get(
   "/monthly",
