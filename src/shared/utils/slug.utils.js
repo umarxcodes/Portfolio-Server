@@ -5,22 +5,30 @@ const generateSlug = (title) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-const ensureUniqueSlug = async (slug, Model, ignoredId = null) => {
+const ensureUniqueSlug = async (
+  slug,
+  Model,
+  ignoredId = null,
+  maxDepth = 1000
+) => {
   const baseSlug = slug || "post";
-  let candidate = baseSlug;
-  let suffix = 1;
+  let suffix = 0;
 
-  const buildQuery = () => ({
-    slug: candidate,
-    ...(ignoredId ? { _id: { $ne: ignoredId } } : {}),
-  });
+  while (suffix < maxDepth) {
+    const candidate = suffix === 0 ? baseSlug : `${baseSlug}-${suffix}`;
+    const query = ignoredId
+      ? { slug: candidate, _id: { $ne: ignoredId } }
+      : { slug: candidate };
 
-  while (await Model.exists(buildQuery())) {
-    candidate = `${baseSlug}-${suffix}`;
+    const exists = await Model.exists(query);
+    if (!exists) {
+      return candidate;
+    }
     suffix += 1;
   }
 
-  return candidate;
+  const randomSuffix = Math.random().toString(36).substring(2, 7);
+  return `${baseSlug}-${randomSuffix}`;
 };
 
 export { generateSlug, ensureUniqueSlug };

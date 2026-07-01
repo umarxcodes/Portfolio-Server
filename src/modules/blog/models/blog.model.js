@@ -47,7 +47,8 @@ blogSchema.pre("validate", async function prepareBlogPost() {
   if (!this.slug || this.isModified("title")) {
     this.slug = await ensureUniqueSlug(
       generateSlug(this.title),
-      this.constructor
+      this.constructor,
+      this._id
     );
   }
   this.readingTime = calculateReadingTime(this.content);
