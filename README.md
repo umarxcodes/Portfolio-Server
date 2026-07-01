@@ -1,38 +1,39 @@
 # Portfolio CMS Backend
 
-> Production-grade REST API for a personal portfolio website with admin panel, built with enterprise engineering standards.
+**Production-grade REST API for a single-administrator portfolio website.**
 
 ## Overview
 
-Portfolio Backend is a secure, scalable REST API designed for a single-administrator portfolio content management system. It provides public read-only APIs for portfolio content and authenticated admin endpoints for content management.
+Portfolio Backend is a secure, scalable REST API designed for managing personal portfolio content. It follows enterprise engineering standards with a modular feature-based architecture.
 
-**Key Design Principles:**
-- Feature-based modular architecture with clean separation of concerns
-- Single admin authentication (minimal surface area)
-- Defensive security posture with multiple layers
-- Production-ready with comprehensive error handling
+**Key Features:**
+- Single administrator authentication (minimal surface area)
+- Public read-only APIs for portfolio content
+- Admin-only write endpoints for content management
+- File upload with validation and UUID naming
+- Built-in analytics tracking
+- Full-text search across all content types
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Runtime | Node.js 20+ |
-| Framework | Express.js 5.x |
-| Database | MongoDB 7.x, Mongoose 9.x |
-| Language | JavaScript (ESM) |
-| Validation | Zod 4.x |
-| Authentication | JWT (jsonwebtoken) |
-| Passwords | bcryptjs |
-| File Uploads | Multer, memory storage |
-| Security | Helmet, CORS, express-rate-limit, express-mongo-sanitize |
-| Logging | Morgan |
-| Compression | compression |
-| Infrastructure | Docker-ready |
+| Layer | Technology | Version |
+|-------|------------|---------|
+| Runtime | Node.js | 20+ |
+| Framework | Express.js | 5.x |
+| Database | MongoDB + Mongoose | 7.x / 9.x |
+| Language | JavaScript ESM | - |
+| Validation | Zod | 4.x |
+| Authentication | JWT | - |
+| Passwords | bcryptjs | - |
+| File Uploads | Multer | - |
+| Security | Helmet, CORS, express-rate-limit, express-mongo-sanitize | - |
+| Logging | Morgan | - |
+| Compression | compression | - |
 
 ## Architecture
 
 ```
-Request → Route → Validation Middleware → Auth Middleware → Controller → Service → Repository → Mongoose Model → MongoDB
+Request → Route → Validation → Auth → Controller → Service → Repository → Model → MongoDB
 ```
 
 ### Layer Responsibilities
@@ -40,8 +41,9 @@ Request → Route → Validation Middleware → Auth Middleware → Controller �
 | Layer | Responsibility |
 |-------|---------------|
 | **Router** | HTTP method, path, middleware composition |
-| **Validation** | Input sanitization and schema validation (Zod) |
-| **Controller** | HTTP request/response translation |
+| **Validation** | Input sanitization with Zod schemas |
+| **Auth Middleware** | JWT verification and user attachment |
+| **Controller** | HTTP req/res translation only |
 | **Service** | Business logic and orchestration |
 | **Repository** | Database query abstractions |
 
@@ -49,25 +51,25 @@ Request → Route → Validation Middleware → Auth Middleware → Controller �
 
 ```
 src/
-├── app.js                    # Express application setup
-├── server.js                 # HTTP server and lifecycle management
+├── app.js                    # Express app configuration
+├── server.js                 # HTTP server and graceful shutdown
 ├── routes/
-│   └── index.js             # Central route registry
+│   └── index.js             # Central route registry (/api/v1)
 ├── config/
-│   ├── env.js               # Environment validation with Zod
-│   ├── database.js          # MongoDB connection configuration
+│   ├── env.js               # Zod-validated environment variables
+│   ├── database.js          # MongoDB connection with retry logic
 │   ├── cors.js              # CORS whitelist configuration
-│   ├── helmet.js            # Security headers configuration
+│   ├── helmet.js            # Security headers
 │   ├── compression.js       # Response compression
-│   ├── logger.js            # Request logging (Morgan)
+│   ├── logger.js            # Morgan request logging
 │   ├── multer.js            # File upload middleware factory
-│   ├── upload.js            # Upload constraints configuration
+│   ├── upload.js            # Upload constraints
 │   └── rateLimiter.js       # Rate limiting rules
 ├── middlewares/
 │   ├── auth.middleware.js   # JWT authentication guard
 │   ├── error.middleware.js  # Global error handler
-│   ├── validation.middleware.js # Zod validation wrapper
-│   ├── rateLimit.middleware.js  # Rate limiting middleware
+│   ├── validation.middleware.js # Zod wrapper
+│   ├── rateLimit.middleware.js # Rate limit middleware
 │   ├── upload.middleware.js # File upload middleware
 │   └── notFound.middleware.js # 404 handler
 ├── shared/
@@ -119,67 +121,114 @@ npm run seed:admin
 npm run dev
 ```
 
-### Environment Variables
+### Development Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Development server with Nodemon |
+| `npm run start` | Production server |
+| `npm run seed:admin` | Create initial admin user |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Auto-fix lint issues |
+| `npm run format` | Format with Prettier |
+
+## Environment Variables
 
 | Variable | Required | Description | Default |
 |----------|----------|-------------|---------|
-| `NODE_ENV` | ✓ | Runtime environment | `development` |
-| `PORT` | ✗ | HTTP port | `5000` |
-| `MONGO_URI` | ✓ | MongoDB connection string | - |
-| `MONGO_MAX_POOL_SIZE` | ✗ | Max connection pool | `10` |
-| `ACCESS_TOKEN_SECRET` | ✓ | JWT signing secret (≥32 chars) | - |
-| `ACCESS_TOKEN_EXPIRES_IN` | ✗ | JWT expiry | `24h` |
-| `BCRYPT_SALT_ROUNDS` | ✗ | Hashing cost factor | `12` |
-| `JSON_BODY_LIMIT` | ✗ | JSON payload limit | `1mb` |
-| `TRUST_PROXY` | ✗ | Trust proxy headers | `false` |
-| `CORS_ORIGINS` | ✗ | Allowed origins | - |
-| `GLOBAL_RATE_LIMIT_MAX` | ✗ | Global rate limit | `100` |
-| `GLOBAL_RATE_LIMIT_WINDOW_MS` | ✗ | Rate limit window | `60000` |
+| `NODE_ENV` | No | Runtime environment | `development` |
+| `PORT` | No | HTTP port | `5000` |
+| `MONGO_URI` | Yes | MongoDB connection string | - |
+| `MONGO_MAX_POOL_SIZE` | No | Max connection pool | `10` |
+| `MONGO_MIN_POOL_SIZE` | No | Min connection pool | `0` |
+| `MONGO_CONNECT_RETRIES` | No | MongoDB retry attempts | `3` |
+| `MONGO_CONNECT_RETRY_DELAY_MS` | No | Retry delay (ms) | `2000` |
+| `ACCESS_TOKEN_SECRET` | Yes | JWT signing secret (32+ chars) | - |
+| `ACCESS_TOKEN_EXPIRES_IN` | No | JWT expiry duration | `24h` |
+| `BCRYPT_SALT_ROUNDS` | No | Password hashing cost (10-15) | `12` |
+| `JSON_BODY_LIMIT` | No | JSON payload limit | `1mb` |
+| `URL_ENCODED_BODY_LIMIT` | No | URL-encoded payload limit | `1mb` |
+| `TRUST_PROXY` | No | Trust proxy headers | `false` |
+| `CLIENT_URL` | No | Frontend origin | - |
+| `CORS_ORIGINS` | No | Comma-separated origins | - |
+| `UPLOAD_ROOT` | No | Upload storage path | `uploads` |
+| `GLOBAL_RATE_LIMIT_MAX` | No | Requests per window | `100` |
+| `GLOBAL_RATE_LIMIT_WINDOW_MS` | No | Window duration (ms) | `60000` |
+| `CONTACT_RATE_LIMIT_MAX` | No | Contact submissions per window | `5` |
+| `CONTACT_RATE_LIMIT_WINDOW_MS` | No | Contact window (1hr) | `3600000` |
 
 ## API Reference
 
 All endpoints are prefixed with `/api/v1`.
 
+---
+
 ### Authentication
 
-Token-based authentication using JWT. Login returns a signed access token (default 24h expiry). Protected routes require `Authorization: Bearer <token>`. Logout is client-side token discard. Password changes require the current password.
+Token-based authentication using JWT. Login returns an access token (24h expiry by default).
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/auth/login` | Login with email/password, returns JWT token |
-| GET | `/auth/profile` | Get current admin profile |
-| POST | `/auth/logout` | Logout (client-side token discard) |
-| PATCH | `/auth/change-password` | Change password (requires current password) |
+```bash
+# Login
+curl -X POST /api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"yourpassword"}'
+
+# Use token
+curl -H "Authorization: Bearer <token>" /api/v1/auth/profile
+```
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/auth/login` | Public | Login, returns JWT token |
+| GET | `/auth/profile` | Admin | Get current admin profile |
+| POST | `/auth/logout` | Admin | Logout (client discards token) |
+| PATCH | `/auth/change-password` | Admin | Change password |
+
+---
 
 ### Profile
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/profile` | Public | Get personal profile |
+| GET | `/profile` | Public | Get profile (tracks view) |
 | PATCH | `/profile` | Admin | Update profile |
+
+---
 
 ### Projects
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/projects` | Public | List paginated projects |
-| GET | `/projects/featured` | Public | Get featured projects |
+| GET | `/projects` | Public | List paginated (`?page=&limit=&sort=&status=&category=&featured=`) |
+| GET | `/projects/featured` | Public | Featured projects |
 | GET | `/projects/category/:category` | Public | Filter by category |
-| GET | `/projects/slug/:slug` | Public | Get by slug |
-| GET | `/projects/:id` | Public | Get by ID |
+| GET | `/projects/slug/:slug` | Public | Get by slug (tracks view) |
+| GET | `/projects/:id` | Public | Get by MongoDB ID |
 | POST | `/projects` | Admin | Create project |
 | PATCH | `/projects/:id` | Admin | Update project |
-| DELETE | `/projects/:id` | Admin | Delete project |
+| DELETE | `/projects/:id` | Admin | Soft delete project |
+
+**Categories:** `frontend`, `backend`, `fullstack`, `mobile`, `devops`, `ai`, `open-source`
+
+**Statuses:** `completed`, `in-progress`, `planned`, `archived`
+
+---
 
 ### Skills
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/skills` | Public | List paginated skills |
+| GET | `/skills` | Public | List skills with grouping |
 | GET | `/skills/category/:category` | Public | Filter by category |
 | POST | `/skills` | Admin | Create skill |
 | PATCH | `/skills/:id` | Admin | Update skill |
 | DELETE | `/skills/:id` | Admin | Delete skill |
+
+**Categories:** `frontend`, `backend`, `database`, `devops`, `cloud`, `testing`, `tools`, `mobile`, `ai`
+
+**Levels:** `beginner`, `intermediate`, `advanced`, `expert`
+
+---
 
 ### Experience
 
@@ -190,6 +239,10 @@ Token-based authentication using JWT. Login returns a signed access token (defau
 | PATCH | `/experience/:id` | Admin | Update entry |
 | DELETE | `/experience/:id` | Admin | Delete entry |
 
+**Employment Types:** `full-time`, `part-time`, `contract`, `freelance`, `internship`
+
+---
+
 ### Education
 
 | Method | Endpoint | Auth | Description |
@@ -198,6 +251,8 @@ Token-based authentication using JWT. Login returns a signed access token (defau
 | POST | `/education` | Admin | Create entry |
 | PATCH | `/education/:id` | Admin | Update entry |
 | DELETE | `/education/:id` | Admin | Delete entry |
+
+---
 
 ### Certificates
 
@@ -208,56 +263,70 @@ Token-based authentication using JWT. Login returns a signed access token (defau
 | PATCH | `/certificates/:id` | Admin | Update certificate |
 | DELETE | `/certificates/:id` | Admin | Delete certificate |
 
+---
+
 ### Blog
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/blogs` | Public | List published posts |
-| GET | `/blogs/featured` | Public | Get featured posts |
+| GET | `/blogs` | Public | Published posts only |
+| GET | `/blogs/featured` | Public | Featured posts |
 | GET | `/blogs/category/:category` | Public | Filter by category |
 | GET | `/blogs/tag/:tag` | Public | Filter by tag |
 | GET | `/blogs/slug/:slug` | Public | Get by slug (increments view) |
 | POST | `/blogs` | Admin | Create post |
 | PATCH | `/blogs/:id` | Admin | Update post |
-| DELETE | `/blogs/:id` | Admin | Delete post |
+| DELETE | `/blogs/:id` | Admin | Soft delete post |
+
+---
 
 ### Contact
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| POST | `/contact` | Public | Submit contact form (rate limited) |
+| POST | `/contact` | Public | Submit message (rate limited: 5/hr) |
 | GET | `/contact` | Admin | List submissions |
 | GET | `/contact/:id` | Admin | Get submission |
 | PATCH | `/contact/:id` | Admin | Update status |
 | DELETE | `/contact/:id` | Admin | Delete submission |
 
-### Upload
+**Statuses:** `unread`, `read`, `replied`
+
+---
+
+### Uploads
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| POST | `/uploads` | Admin | Upload file (multipart/form-data) |
+| POST | `/uploads` | Admin | Upload file (`multipart/form-data`) |
 | GET | `/uploads/:id` | Admin | Get upload metadata |
 | DELETE | `/uploads/:id` | Admin | Delete upload |
 
+**Request body:** `folder` (enum) + `file` (multipart)
+
 **Upload Constraints:**
 
-| Folder | MIME Types | Max Size |
-|--------|------------|----------|
-| profile | image/jpeg, image/png, image/webp | 5 MB |
-| projects | image/jpeg, image/png, image/webp | 5 MB |
-| blogs | image/jpeg, image/png, image/webp | 5 MB |
-| certificates | image/jpeg, image/png, image/webp | 5 MB |
-| resume | application/pdf | 10 MB |
+| Folder | MIME Types | Limit |
+|--------|------------|-----|
+| `profile` | image/jpeg, image/png, image/webp | 5 MB |
+| `projects` | image/jpeg, image/png, image/webp | 5 MB |
+| `blogs` | image/jpeg, image/png, image/webp | 5 MB |
+| `certificates` | image/jpeg, image/png, image/webp | 5 MB |
+| `resume` | application/pdf | 10 MB |
+
+---
 
 ### Analytics
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/analytics/overview` | Admin | Get analytics overview |
+| GET | `/analytics/overview` | Admin | Overview stats |
 | GET | `/analytics/monthly?months=N` | Admin | Monthly report (1-24 months) |
 | GET | `/analytics/projects` | Admin | Top viewed projects |
 | GET | `/analytics/blogs` | Admin | Top viewed blogs |
 | GET | `/analytics/contact` | Admin | Contact submissions timeline |
+
+---
 
 ### Settings
 
@@ -266,15 +335,21 @@ Token-based authentication using JWT. Login returns a signed access token (defau
 | GET | `/settings` | Public | Get site settings |
 | PATCH | `/settings` | Admin | Update settings |
 
+---
+
 ### Search
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/search?q=term&type=resource` | Public | Global text search |
+| GET | `/search?q=term&type=resource` | Public | Full-text search |
+
+**Types:** `projects`, `blogs`, `skills`, `experience`, `education`, `certificates`
+
+---
 
 ## Response Format
 
-### Success Response
+### Success
 
 ```json
 {
@@ -284,19 +359,19 @@ Token-based authentication using JWT. Login returns a signed access token (defau
 }
 ```
 
-### Error Response
+### Error
 
 ```json
 {
   "success": false,
-  "message": "Error message",
+  "message": "Validation failed",
   "errors": [
-    { "field": "fieldName", "message": "Validation error" }
+    { "field": "email", "message": "Invalid email" }
   ]
 }
 ```
 
-### Paginated Response
+### Paginated
 
 ```json
 {
@@ -320,46 +395,45 @@ Token-based authentication using JWT. Login returns a signed access token (defau
 
 - **Helmet**: Security headers (CSP, HSTS, X-Frame-Options)
 - **CORS**: Origin whitelist with credentials support
-- **Rate Limiting**: Global (100/min) and contact-specific (5/hour) limits
-- **JWT**: Signed tokens with HS256 algorithm
-- **Mongo Sanitization**: Protection against NoSQL injection
+- **Rate Limiting**: Global (100/min) and contact-specific (5/hour)
+- **JWT Authentication**: HS256 signed tokens
+- **Mongo Sanitization**: NoSQL injection protection
 - **Password Hashing**: bcrypt with configurable salt rounds
-- **File Validation**: MIME type and size checks
-- **UUID Filenames**: Prevents filename collisions and path traversal
+- **File Validation**: MIME type and size checking
+- **UUID Filenames**: Prevents collisions and path traversal
 
-## Development
+## Deployment
 
-```bash
-npm run dev      # Development with nodemon
-npm run start    # Production server
-npm run lint     # ESLint
-npm run lint:fix # Auto-fix lint issues
-npm run format   # Prettier formatting
-npm run seed:admin # Create admin user
-```
+### Production Checklist
 
-## Deployment Checklist
-
-- [ ] Generate strong JWT secrets (32+ characters)
+- [ ] Generate strong JWT secret (32+ random characters)
 - [ ] Configure MongoDB Atlas network access
 - [ ] Set `NODE_ENV=production`
 - [ ] Configure `CORS_ORIGINS` for your domain
-- [ ] Set up persistent upload storage (or configure S3 adapter)
-- [ ] Configure rate limiting for production traffic
-- [ ] Enable HTTPS (via reverse proxy)
-- [ ] Set up log rotation for production logs
+- [ ] Set up persistent upload storage or S3 adapter
+- [ ] Configure rate limiting for traffic patterns
+- [ ] Enable HTTPS via reverse proxy
+- [ ] Set up log rotation
 
-## Engineering Scores
+### Docker (Optional)
 
-| Category | Score | Notes |
-|----------|-------|-------|
-| Architecture | 9/10 | Clean feature-based architecture |
-| Code Quality | 8/10 | Consistent patterns, minor improvements possible |
-| Security | 8/10 | Comprehensive protections in place |
-| Performance | 8/10 | Efficient queries with lean() |
-| Testing | 4/10 | Tests exist but need proper mocking |
-| Documentation | 8/10 | This README |
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+EXPOSE 5000
+CMD ["npm", "start"]
+```
 
 ## License
 
 MIT © Muhammad Umar
+
+---
+
+## Author
+
+Muhammad Umar
+- GitHub: [@muhammadumar-codes](https://github.com/muhammadumar-codes)
