@@ -23,12 +23,6 @@ const adminSchema = new mongoose.Schema(
     role: { type: String, enum: ["admin"], default: "admin" },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date, default: null },
-    refreshTokens: [
-      {
-        token: { type: String, required: true, select: false },
-        createdAt: { type: Date, default: Date.now, expires: "7d" },
-      },
-    ],
   },
   { timestamps: true }
 );
@@ -52,8 +46,7 @@ adminSchema.methods.generateSanitized = function generateSanitized() {
   delete adminObject.singletonKey;
   delete adminObject.password;
   delete adminObject.__v;
-  const sanitized = adminObject;
-  return sanitized;
+  return adminObject;
 };
 
 const Admin = mongoose.model("Admin", adminSchema);

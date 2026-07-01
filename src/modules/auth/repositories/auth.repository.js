@@ -19,40 +19,8 @@ const updateLastLogin = async (id) =>
 const changePassword = async (id, hashedPassword) =>
   Admin.findByIdAndUpdate(
     id,
-    { password: hashedPassword, refreshTokens: [] },
+    { password: hashedPassword },
     { new: true, runValidators: true }
   );
 
-const storeRefreshToken = async (id, hashedToken) =>
-  Admin.findByIdAndUpdate(
-    id,
-    { $push: { refreshTokens: { token: hashedToken } } },
-    { new: true }
-  );
-
-const verifyRefreshTokenExists = async (id, hashedToken) => {
-  const admin = await Admin.findById(id).select("+refreshTokens");
-  if (!admin) return false;
-  return admin.refreshTokens.some((rt) => rt.token === hashedToken);
-};
-
-const revokeRefreshToken = async (id, hashedToken) =>
-  Admin.findByIdAndUpdate(
-    id,
-    { $pull: { refreshTokens: { token: hashedToken } } },
-    { new: true }
-  );
-
-const revokeAllRefreshTokens = async (id) =>
-  Admin.findByIdAndUpdate(id, { refreshTokens: [] }, { new: true });
-
-export {
-  findByEmail,
-  findById,
-  updateLastLogin,
-  changePassword,
-  storeRefreshToken,
-  verifyRefreshTokenExists,
-  revokeRefreshToken,
-  revokeAllRefreshTokens,
-};
+export { findByEmail, findById, updateLastLogin, changePassword };
