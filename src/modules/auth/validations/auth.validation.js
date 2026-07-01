@@ -1,10 +1,6 @@
 import { z } from "zod";
 import { validate as validateSchema } from "../../../shared/utils/validation.utils.js";
 
-const refreshTokenSchema = z.object({
-  refreshToken: z.string().min(1, { message: "Refresh token is required" }),
-});
-
 const loginSchema = z.object({
   email: z
     .string()
@@ -39,4 +35,4 @@ const changePasswordSchema = z
 
 const validate = validateSchema;
 
-export { loginSchema, changePasswordSchema, refreshTokenSchema, validate };
+export { loginSchema, changePasswordSchema, validate };

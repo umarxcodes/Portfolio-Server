@@ -142,13 +142,14 @@ All endpoints are prefixed with `/api/v1`.
 
 ### Authentication
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/auth/login` | Public | Admin login with email/password |
-| POST | `/auth/refresh-token` | Public | Refresh access token |
-| GET | `/auth/profile` | Admin | Get current admin profile |
-| POST | `/auth/logout` | Admin | Invalidate refresh token |
-| PATCH | `/auth/change-password` | Admin | Change admin password |
+Token-based authentication using JWT. Login returns a signed access token (default 24h expiry). Protected routes require `Authorization: Bearer <token>`. Logout is client-side token discard. Password changes require the current password.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/login` | Login with email/password, returns JWT token |
+| GET | `/auth/profile` | Get current admin profile |
+| POST | `/auth/logout` | Logout (client-side token discard) |
+| PATCH | `/auth/change-password` | Change password (requires current password) |
 
 ### Profile
 

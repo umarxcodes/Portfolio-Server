@@ -5,27 +5,9 @@ import * as authService from "../services/auth.service.js";
 
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const { accessToken, refreshToken, admin } = await authService.login(
-    email,
-    password
-  );
+  const { accessToken, admin } = await authService.login(email, password);
 
-  sendSuccess(res, 200, AUTH_MESSAGES.LOGIN_SUCCESS, {
-    accessToken,
-    refreshToken,
-    admin,
-  });
-});
-
-const refreshToken = asyncHandler(async (req, res) => {
-  const { refreshToken: token } = req.body;
-  const { accessToken, refreshToken: newRefreshToken } =
-    await authService.refreshAccessToken(token);
-
-  sendSuccess(res, 200, AUTH_MESSAGES.TOKEN_REFRESHED, {
-    accessToken,
-    refreshToken: newRefreshToken,
-  });
+  sendSuccess(res, 200, AUTH_MESSAGES.LOGIN_SUCCESS, { accessToken, admin });
 });
 
 const profile = asyncHandler(async (req, res) => {
@@ -34,8 +16,7 @@ const profile = asyncHandler(async (req, res) => {
 });
 
 const logout = asyncHandler(async (req, res) => {
-  const { refreshToken } = req.body;
-  await authService.logout(req.user.sub, refreshToken);
+  await authService.logout();
   sendSuccess(res, 200, AUTH_MESSAGES.LOGOUT_SUCCESS, {});
 });
 
@@ -45,4 +26,4 @@ const changePassword = asyncHandler(async (req, res) => {
   sendSuccess(res, 200, AUTH_MESSAGES.PASSWORD_CHANGED, {});
 });
 
-export { login, refreshToken, profile, logout, changePassword };
+export { login, profile, logout, changePassword };

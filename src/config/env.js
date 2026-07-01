@@ -18,9 +18,7 @@ const envSchema = z.object({
     .positive()
     .default(2000),
   ACCESS_TOKEN_SECRET: z.string().min(32),
-  ACCESS_TOKEN_EXPIRES_IN: z.string().default("15m"),
-  REFRESH_TOKEN_SECRET: z.string().min(32),
-  REFRESH_TOKEN_EXPIRES_IN: z.string().default("7d"),
+  ACCESS_TOKEN_EXPIRES_IN: z.string().default("24h"),
   BCRYPT_SALT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12),
   JSON_BODY_LIMIT: z.string().default("1mb"),
   URL_ENCODED_BODY_LIMIT: z.string().default("1mb"),
