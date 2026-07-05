@@ -34,7 +34,7 @@ const getUploadById = async (id) => {
 const deleteUpload = async (id) => {
   const upload = await uploadRepository.findById(id);
   if (!upload) throw new AppError(404, UPLOAD_ERRORS.NOT_FOUND);
-  await deleteFile(upload.fileName, upload.folder);
+  await deleteFile(upload);
   await uploadRepository.deleteById(id);
   return upload;
 };

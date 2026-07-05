@@ -5,6 +5,7 @@ const MB = 1024 * 1024;
 const UPLOAD_ROOT = path.isAbsolute(env.UPLOAD_ROOT)
   ? env.UPLOAD_ROOT
   : path.join(process.cwd(), env.UPLOAD_ROOT);
+const UPLOAD_STORAGE_DRIVER = env.UPLOAD_STORAGE_DRIVER;
 const UPLOAD_FOLDERS = [
   "profile",
   "projects",
@@ -34,6 +35,7 @@ const isUploadFolder = (folder) => UPLOAD_FOLDERS.includes(folder);
 
 export {
   UPLOAD_ROOT,
+  UPLOAD_STORAGE_DRIVER,
   UPLOAD_FOLDERS,
   MIME_TYPES_BY_FOLDER,
   FILE_SIZE_LIMITS,
