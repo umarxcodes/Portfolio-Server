@@ -10,11 +10,10 @@ const findBySlug = async (slug) =>
 const findById = async (id) =>
   Project.findOne({ _id: id, isDeleted: false }).lean();
 
-const findFeatured = async () =>
-  Project.find({ featured: true, isDeleted: false }).lean();
+const findFeatured = () => Project.find({ featured: true, isDeleted: false });
 
-const findByCategory = async (category) =>
-  Project.find({ category, isDeleted: false }).lean();
+const findByCategory = (category) =>
+  Project.find({ category, isDeleted: false });
 
 const updateProject = async (id, data) =>
   Project.findOneAndUpdate({ _id: id, isDeleted: false }, data, {

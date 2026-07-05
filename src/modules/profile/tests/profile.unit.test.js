@@ -1,11 +1,12 @@
-import { describe, it, expect } from "@jest/globals";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 describe("Profile Service", () => {
   it("should have a service layer structure", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 
   it("should handle missing profile state", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 });

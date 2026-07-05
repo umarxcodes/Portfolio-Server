@@ -17,9 +17,9 @@ const mongoSanitize = {
   },
 
   middleware(req, res, next) {
-    this.sanitize(req.body);
-    this.sanitize(req.query);
-    this.sanitize(req.params);
+    mongoSanitize.sanitize(req.body);
+    mongoSanitize.sanitize(req.query);
+    mongoSanitize.sanitize(req.params);
     next();
   },
 };

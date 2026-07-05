@@ -17,6 +17,7 @@ const validate =
       throw new AppError(400, VALIDATION_MESSAGE, errors);
     }
 
+    req[source] = parseResult.data;
     next();
   };
 

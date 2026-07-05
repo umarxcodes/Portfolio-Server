@@ -1,11 +1,12 @@
-import { describe, it, expect } from "@jest/globals";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 describe("Experience Service", () => {
   it("should support timeline sorting", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 
   it("should resolve date validation requirements", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 });

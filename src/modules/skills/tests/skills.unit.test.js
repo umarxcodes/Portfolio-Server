@@ -1,11 +1,12 @@
-import { describe, it, expect } from "@jest/globals";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 describe("Skills Service", () => {
   it("should support category grouping", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 
   it("should resolve skill creation structure", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 });
