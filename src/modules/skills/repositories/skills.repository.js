@@ -4,8 +4,7 @@ const createSkill = async (data) => Skill.create(data);
 
 const listSkills = (filter, sort) => Skill.find(filter).sort(sort).lean();
 
-const findByCategory = async (category) =>
-  Skill.find({ category }).sort({ displayOrder: 1, name: 1 }).lean();
+const findByCategory = (category) => Skill.find({ category });
 
 const findById = async (id) => Skill.findById(id).lean();
 

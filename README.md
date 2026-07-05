@@ -26,7 +26,7 @@ Portfolio Backend is a secure, scalable REST API designed for managing personal 
 | Authentication | JWT | - |
 | Passwords | bcryptjs | - |
 | File Uploads | Multer | - |
-| Security | Helmet, CORS, express-rate-limit, express-mongo-sanitize | - |
+| Security | Helmet, CORS, express-rate-limit, custom Mongo sanitization | - |
 | Logging | Morgan | - |
 | Compression | compression | - |
 
@@ -76,15 +76,15 @@ src/
 │   ├── errors/
 │   │   └── index.js         # AppError class
 │   └── utils/
-│       ├── asyncHandler.js  # Async wrapper utility
-│       ├── pagination.js    # Pagination helper
-│       ├── queryBuilder.js  # Filter/sort/search builders
-│       ├── response.js      # JSON response helpers
-│       ├── validation.js    # Zod validation wrapper
-│       ├── jwt.js           # JWT utilities
-│       ├── password.js      # Bcrypt utilities
-│       ├── upload.js        # Upload helpers
-│       └── slug.js          # URL slug generation
+│       ├── asyncHandler.utils.js # Async wrapper utility
+│       ├── pagination.utils.js   # Pagination helper
+│       ├── queryBuilder.utils.js # Filter/sort/search builders
+│       ├── response.utils.js     # JSON response helpers
+│       ├── validation.utils.js   # Zod validation wrapper
+│       ├── jwt.utils.js          # JWT utilities
+│       ├── password.utils.js     # Bcrypt utilities
+│       ├── upload.utils.js       # Upload helpers
+│       └── slug.utils.js         # URL slug generation
 └── modules/
     ├── auth/                # Admin authentication
     ├── profile/             # Personal profile
@@ -128,6 +128,7 @@ npm run dev
 | `npm run dev` | Development server with Nodemon |
 | `npm run start` | Production server |
 | `npm run seed:admin` | Create initial admin user |
+| `npm test` | Run Node test skeletons |
 | `npm run lint` | Run ESLint |
 | `npm run lint:fix` | Auto-fix lint issues |
 | `npm run format` | Format with Prettier |
@@ -152,6 +153,8 @@ npm run dev
 | `CLIENT_URL` | No | Frontend origin | - |
 | `CORS_ORIGINS` | No | Comma-separated origins | - |
 | `UPLOAD_ROOT` | No | Upload storage path | `uploads` |
+| `IMAGE_UPLOAD_MAX_MB` | No | Image upload limit | `5` |
+| `PDF_UPLOAD_MAX_MB` | No | PDF upload limit | `10` |
 | `GLOBAL_RATE_LIMIT_MAX` | No | Requests per window | `100` |
 | `GLOBAL_RATE_LIMIT_WINDOW_MS` | No | Window duration (ms) | `60000` |
 | `CONTACT_RATE_LIMIT_MAX` | No | Contact submissions per window | `5` |
@@ -397,7 +400,7 @@ curl -H "Authorization: Bearer <token>" /api/v1/auth/profile
 - **CORS**: Origin whitelist with credentials support
 - **Rate Limiting**: Global (100/min) and contact-specific (5/hour)
 - **JWT Authentication**: HS256 signed tokens
-- **Mongo Sanitization**: NoSQL injection protection
+- **Mongo Sanitization**: Custom recursive sanitizer removes `$` and dotted keys
 - **Password Hashing**: bcrypt with configurable salt rounds
 - **File Validation**: MIME type and size checking
 - **UUID Filenames**: Prevents collisions and path traversal
@@ -410,21 +413,15 @@ curl -H "Authorization: Bearer <token>" /api/v1/auth/profile
 - [ ] Configure MongoDB Atlas network access
 - [ ] Set `NODE_ENV=production`
 - [ ] Configure `CORS_ORIGINS` for your domain
-- [ ] Set up persistent upload storage or S3 adapter
+- [ ] Set up persistent upload storage for Vercel/serverless deployments
 - [ ] Configure rate limiting for traffic patterns
 - [ ] Enable HTTPS via reverse proxy
 - [ ] Set up log rotation
 
 ### Docker (Optional)
 
-```dockerfile
-FROM node:20-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --omit=dev
-COPY . .
-EXPOSE 5000
-CMD ["npm", "start"]
+```bash
+docker compose -f docker/docker-compose.yml up --build
 ```
 
 ## License

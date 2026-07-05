@@ -1,11 +1,12 @@
-import { describe, it, expect } from "@jest/globals";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 describe("Projects Service", () => {
   it("should support pagination and filtering", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 
   it("should resolve project creation structure", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 });

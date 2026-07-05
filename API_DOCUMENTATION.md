@@ -13,24 +13,12 @@ Base URL: `http://localhost:5000/api/v1`
 }
 ```
 
-### POST /auth/refresh-token
-**Auth:** Public
-```json
-{
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
 ### GET /auth/profile
 **Auth:** Admin (Bearer token)
 
 ### POST /auth/logout
 **Auth:** Admin (Bearer token)
-```json
-{
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
+The client should discard its access token. The API does not issue refresh tokens.
 
 ### PATCH /auth/change-password
 **Auth:** Admin (Bearer token)
@@ -463,11 +451,10 @@ Import the file `thunderclient/portfolio-backend.json` into ThunderClient.
 5. Set variables in ThunderClient:
    - `baseUrl`: `http://localhost:5000`
    - `accessToken`: (get from login response)
-   - `refreshToken`: (get from login response)
    - `projectId`, `skillId`, `experienceId`, `educationId`, `certificateId`, `blogId`, `contactId`, `uploadId`: (get from create responses)
 
 ### Test Flow:
-1. **Login** - POST `/api/v1/auth/login` → Save `accessToken` and `refreshToken`
+1. **Login** - POST `/api/v1/auth/login` → Save `accessToken`
 2. **Get Profile** - GET `/api/v1/profile`
 3. **Create Project** - POST `/api/v1/projects` → Save `projectId`
 4. **List Projects** - GET `/api/v1/projects`

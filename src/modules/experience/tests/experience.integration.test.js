@@ -1,11 +1,12 @@
-import { describe, it, expect } from "@jest/globals";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 describe("Experience Routes", () => {
   it("should expose public experience list endpoints", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 
   it("should validate experience detail route parameters", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 });

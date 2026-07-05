@@ -1,11 +1,12 @@
-import { describe, it, expect } from "@jest/globals";
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 describe("Skills Routes", () => {
   it("should expose public skill list endpoints", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 
   it("should protect admin skill mutating endpoints", () => {
-    expect(true).toBe(true);
+    assert.equal(true, true);
   });
 });
