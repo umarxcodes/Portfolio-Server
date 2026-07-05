@@ -1,6 +1,5 @@
 import express from "express";
 import path from "node:path";
-import mongoSanitize from "express-mongo-sanitize";
 import env from "./config/env.js";
 import helmetMiddleware from "./config/helmet.js";
 import corsMiddleware from "./config/cors.js";
@@ -11,6 +10,7 @@ import { UPLOAD_ROOT } from "./config/upload.js";
 import routes from "./routes/index.js";
 import notFoundMiddleware from "./middlewares/notFound.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
+import mongoSanitize from "./middlewares/mongoSanitize.middleware.js";
 
 const app = express();
 app.set("trust proxy", env.TRUST_PROXY);
@@ -24,7 +24,7 @@ app.use(express.json({ limit: env.JSON_BODY_LIMIT }));
 app.use(
   express.urlencoded({ extended: true, limit: env.URL_ENCODED_BODY_LIMIT })
 );
-app.use(mongoSanitize());
+app.use(mongoSanitize.middleware);
 app.use("/uploads", express.static(path.resolve(UPLOAD_ROOT)));
 
 app.get("/health", (req, res) => {

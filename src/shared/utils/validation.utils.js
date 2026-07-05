@@ -5,8 +5,8 @@ const VALIDATION_MESSAGE = "Validation failed";
 const validate =
   (schema, source = "body") =>
   (req, res, next) => {
-    const payload = req[source];
-    const parseResult = schema.safeParse(payload);
+    const sanitizedPayload = sanitizePayload(req[source]);
+    const parseResult = schema.safeParse(sanitizedPayload);
 
     if (!parseResult.success) {
       const errors = parseResult.error.issues.map((error) => ({
@@ -17,8 +17,24 @@ const validate =
       throw new AppError(400, VALIDATION_MESSAGE, errors);
     }
 
-    req[source] = parseResult.data;
     next();
   };
 
-export { validate };
+const sanitizePayload = (payload) => {
+  if (!payload || typeof payload !== "object") {
+    return payload;
+  }
+  if (Array.isArray(payload)) {
+    return payload.map(sanitizePayload);
+  }
+  const sanitized = {};
+  for (const key of Object.keys(payload)) {
+    if (key.startsWith("$") || key.includes(".")) {
+      continue;
+    }
+    sanitized[key] = sanitizePayload(payload[key]);
+  }
+  return sanitized;
+};
+
+export { validate, sanitizePayload };

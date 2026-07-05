@@ -7,9 +7,8 @@ const analyticsSchema = new mongoose.Schema(
     resourceId: { type: mongoose.Schema.Types.ObjectId, default: null },
     ipAddress: { type: String, required: true, select: false },
     userAgent: { type: String, default: "" },
-    createdAt: { type: Date, default: Date.now },
   },
-  { versionKey: false }
+  { timestamps: true, versionKey: false }
 );
 
 analyticsSchema.index({ type: 1, resourceId: 1, createdAt: -1 });

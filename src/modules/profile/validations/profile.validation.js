@@ -36,7 +36,11 @@ const profileSchema = z.object({
   socialLinks: socialLinksSchema.optional(),
 });
 
-const updateProfileSchema = profileSchema.partial();
+const updateProfileSchema = profileSchema
+  .partial()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field is required",
+  });
 
 const validate = validateSchema;
 

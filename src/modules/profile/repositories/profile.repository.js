@@ -6,8 +6,7 @@ const updateProfile = async (data) =>
   Profile.findOneAndUpdate({}, data, {
     new: true,
     runValidators: true,
-    context: "query",
-    upsert: false,
+    upsert: true,
   }).lean();
 
 export { findProfile, updateProfile };
