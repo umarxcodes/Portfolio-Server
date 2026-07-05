@@ -353,13 +353,14 @@ Auto-sets repliedAt when status=replied.
 file: (binary)
 folder: "profile" | "projects" | "blogs" | "certificates" | "resume"
 ```
+Set `UPLOAD_STORAGE_DRIVER=vercel-blob` with `BLOB_READ_WRITE_TOKEN` for durable Vercel/serverless uploads.
 
 ### GET /uploads/:id
 **Auth:** Admin (Bearer token)
 
 ### DELETE /uploads/:id
 **Auth:** Admin (Bearer token)
-Deletes file from disk and DB record.
+Deletes the stored file and DB record.
 
 ---
 

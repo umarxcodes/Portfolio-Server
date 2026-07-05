@@ -25,7 +25,7 @@ Portfolio Backend is a secure, scalable REST API designed for managing personal 
 | Validation | Zod | 4.x |
 | Authentication | JWT | - |
 | Passwords | bcryptjs | - |
-| File Uploads | Multer | - |
+| File Uploads | Multer, Vercel Blob-compatible storage | - |
 | Security | Helmet, CORS, express-rate-limit, custom Mongo sanitization | - |
 | Logging | Morgan | - |
 | Compression | compression | - |
@@ -153,6 +153,8 @@ npm run dev
 | `CLIENT_URL` | No | Frontend origin | - |
 | `CORS_ORIGINS` | No | Comma-separated origins | - |
 | `UPLOAD_ROOT` | No | Upload storage path | `uploads` |
+| `UPLOAD_STORAGE_DRIVER` | No | `local` or `vercel-blob` | `local` |
+| `BLOB_READ_WRITE_TOKEN` | For Blob | Vercel Blob token when using `vercel-blob` | - |
 | `IMAGE_UPLOAD_MAX_MB` | No | Image upload limit | `5` |
 | `PDF_UPLOAD_MAX_MB` | No | PDF upload limit | `10` |
 | `GLOBAL_RATE_LIMIT_MAX` | No | Requests per window | `100` |
@@ -317,6 +319,8 @@ curl -H "Authorization: Bearer <token>" /api/v1/auth/profile
 | `certificates` | image/jpeg, image/png, image/webp | 5 MB |
 | `resume` | application/pdf | 10 MB |
 
+Set `UPLOAD_STORAGE_DRIVER=vercel-blob` and provide `BLOB_READ_WRITE_TOKEN` for durable Vercel/serverless uploads. Local storage remains suitable for development and Docker deployments with a persistent volume.
+
 ---
 
 ### Analytics
@@ -413,7 +417,7 @@ curl -H "Authorization: Bearer <token>" /api/v1/auth/profile
 - [ ] Configure MongoDB Atlas network access
 - [ ] Set `NODE_ENV=production`
 - [ ] Configure `CORS_ORIGINS` for your domain
-- [ ] Set up persistent upload storage for Vercel/serverless deployments
+- [ ] Use `UPLOAD_STORAGE_DRIVER=vercel-blob` for Vercel/serverless uploads
 - [ ] Configure rate limiting for traffic patterns
 - [ ] Enable HTTPS via reverse proxy
 - [ ] Set up log rotation
