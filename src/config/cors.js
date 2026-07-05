@@ -4,10 +4,12 @@ import { parseCorsOrigins } from "./env.js";
 const allowedOrigins = parseCorsOrigins();
 const corsOptions = {
   origin(origin, callback) {
-    if (allowedOrigins.includes(origin || "")) {
+    if (!origin) {
       return callback(null, true);
     }
-
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
     return callback(new Error("Origin is not allowed by CORS"));
   },
   credentials: true,

@@ -11,7 +11,6 @@ const updateExperience = async (id, data) =>
   Experience.findByIdAndUpdate(id, data, {
     new: true,
     runValidators: true,
-    context: "query",
   }).lean();
 
 const deleteExperience = async (id) => Experience.findByIdAndDelete(id).lean();

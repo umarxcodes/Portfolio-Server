@@ -13,7 +13,6 @@ const updateSkill = async (id, data) =>
   Skill.findByIdAndUpdate(id, data, {
     new: true,
     runValidators: true,
-    context: "query",
   }).lean();
 
 const deleteSkill = async (id) => Skill.findByIdAndDelete(id).lean();

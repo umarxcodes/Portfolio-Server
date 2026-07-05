@@ -20,7 +20,6 @@ const updateProject = async (id, data) =>
   Project.findOneAndUpdate({ _id: id, isDeleted: false }, data, {
     new: true,
     runValidators: true,
-    context: "query",
   }).lean();
 
 const softDeleteProject = async (id) =>
