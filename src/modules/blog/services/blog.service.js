@@ -20,7 +20,7 @@ import {
 import * as blogRepository from "../repositories/blog.repository.js";
 import { trackBlogView } from "../../analytics/services/analytics.service.js";
 
-const createBlogPost = (data) => blogRepository.create(data);
+const createBlogPost = async (data) => await blogRepository.create(data);
 
 const prepareBlogUpdate = async (id, data) => {
   const update = { ...data };

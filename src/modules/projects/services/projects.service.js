@@ -19,7 +19,8 @@ import {
   ensureUniqueSlug,
 } from "../../../shared/utils/slug.utils.js";
 
-const createProject = async (data) => projectsRepository.createProject(data);
+const createProject = async (data) =>
+  await projectsRepository.createProject(data);
 
 const getProjects = async (queryParams) => {
   const filter = buildFilter(queryParams, PROJECT_FILTER_FIELDS);

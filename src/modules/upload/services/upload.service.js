@@ -17,7 +17,7 @@ const uploadFile = async (file, folder, uploadedBy) => {
     throw new AppError(400, UPLOAD_ERRORS.FILE_TOO_LARGE);
   }
   const stored = await saveFile(file, folder);
-  return uploadRepository.create({
+  return await uploadRepository.create({
     ...stored,
     originalName: file.originalname,
     folder,

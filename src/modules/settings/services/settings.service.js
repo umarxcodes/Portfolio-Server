@@ -19,7 +19,7 @@ const updateSettings = async (data) => {
     },
   };
 
-  return settingsRepository.upsert(nextSettings);
+  return await settingsRepository.upsert(nextSettings);
 };
 
 export { getSettings, updateSettings };

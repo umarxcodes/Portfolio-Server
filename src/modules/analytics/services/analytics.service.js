@@ -7,8 +7,8 @@ const startOfMonth = () =>
 const startOfMonthOffset = (monthsAgo) =>
   new Date(new Date().getFullYear(), new Date().getMonth() - monthsAgo, 1);
 
-const trackEvent = ({ type, resourceId, ipAddress, userAgent }) =>
-  analyticsRepository.create({
+const trackEvent = async ({ type, resourceId, ipAddress, userAgent }) =>
+  await analyticsRepository.create({
     type,
     resourceId,
     ipAddress: hashIpAddress(ipAddress),
@@ -54,16 +54,16 @@ const getOverview = async () => {
   };
 };
 
-const getTopResources = (type) =>
-  analyticsRepository.aggregate([
+const getTopResources = async (type) =>
+  await analyticsRepository.aggregate([
     { $match: { type, resourceId: { $ne: null } } },
     { $group: { _id: "$resourceId", views: { $sum: 1 } } },
     { $sort: { views: -1 } },
     { $limit: 10 },
   ]);
 
-const getContactTimeline = () =>
-  analyticsRepository.aggregate([
+const getContactTimeline = async () =>
+  await analyticsRepository.aggregate([
     { $match: { type: "contact_submit" } },
     {
       $group: {
@@ -74,8 +74,8 @@ const getContactTimeline = () =>
     { $sort: { _id: 1 } },
   ]);
 
-const getMonthlyReport = (months = 6) =>
-  analyticsRepository.aggregate([
+const getMonthlyReport = async (months = 6) =>
+  await analyticsRepository.aggregate([
     { $match: { createdAt: { $gte: startOfMonthOffset(months - 1) } } },
     {
       $group: {

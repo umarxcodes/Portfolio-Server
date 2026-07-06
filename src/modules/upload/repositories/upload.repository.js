@@ -1,7 +1,7 @@
 import Upload from "../models/upload.model.js";
 
-const create = (data) => Upload.create(data);
-const findById = (id) => Upload.findById(id).lean();
-const deleteById = (id) => Upload.findByIdAndDelete(id).lean();
+const create = async (data) => await Upload.create(data);
+const findById = async (id) => await Upload.findById(id).lean();
+const deleteById = async (id) => await Upload.findByIdAndDelete(id).lean();
 
 export { create, findById, deleteById };

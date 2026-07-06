@@ -28,7 +28,8 @@ const buildCertificateFilter = (queryParams) => {
   return filter;
 };
 
-const createCertificate = (data) => certificatesRepository.create(data);
+const createCertificate = async (data) =>
+  await certificatesRepository.create(data);
 
 const getCertificates = async (queryParams) => {
   const sort = queryParams.sort

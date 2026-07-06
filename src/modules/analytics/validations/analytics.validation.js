@@ -4,7 +4,11 @@ import { ANALYTICS_TYPES } from "../constants/analytics.constants.js";
 
 const trackEventSchema = z.object({
   type: z.enum(ANALYTICS_TYPES),
-  resourceId: z.string().trim().min(1).optional().nullable(),
+  resourceId: z
+    .string()
+    .regex(/^[a-f\d]{24}$/i, "Invalid resourceId")
+    .optional()
+    .nullable(),
 });
 
 const analyticsRangeQuerySchema = z.object({
