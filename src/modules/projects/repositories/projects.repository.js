@@ -17,7 +17,7 @@ const findByCategory = (category) =>
 
 const updateProject = async (id, data) =>
   Project.findOneAndUpdate({ _id: id, isDeleted: false }, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
   }).lean();
 
@@ -25,7 +25,7 @@ const softDeleteProject = async (id) =>
   Project.findOneAndUpdate(
     { _id: id, isDeleted: false },
     { isDeleted: true },
-    { new: true }
+    { returnDocument: "after" }
   ).lean();
 
 export {

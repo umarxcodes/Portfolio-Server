@@ -5,7 +5,7 @@ const findById = (id) => Contact.findById(id).lean();
 const create = (data) => Contact.create(data);
 const updateById = (id, data) =>
   Contact.findByIdAndUpdate(id, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
   }).lean();
 const deleteById = (id) => Contact.findByIdAndDelete(id).lean();

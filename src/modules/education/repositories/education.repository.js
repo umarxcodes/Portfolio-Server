@@ -7,7 +7,7 @@ const findById = (id) => Education.findById(id).lean();
 const create = (data) => Education.create(data);
 const updateById = (id, data) =>
   Education.findByIdAndUpdate(id, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
   }).lean();
 const deleteById = (id) => Education.findByIdAndDelete(id).lean();

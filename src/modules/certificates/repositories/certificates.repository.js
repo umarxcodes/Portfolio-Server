@@ -5,7 +5,7 @@ const findById = (id) => Certificate.findById(id).lean({ virtuals: true });
 const create = (data) => Certificate.create(data);
 const updateById = (id, data) =>
   Certificate.findByIdAndUpdate(id, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
   }).lean({ virtuals: true });
 const deleteById = (id) => Certificate.findByIdAndDelete(id).lean();
