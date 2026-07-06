@@ -34,7 +34,7 @@ const getProfile = async (adminId) => {
   const admin = await authRepository.findById(adminId);
 
   if (!admin) {
-    throw new AppError(404, AUTH_ERRORS.UNAUTHORIZED);
+    throw new AppError(401, AUTH_ERRORS.UNAUTHORIZED);
   }
 
   return admin.generateSanitized();

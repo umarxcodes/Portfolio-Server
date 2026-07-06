@@ -13,8 +13,8 @@ import {
 } from "../constants/education.constants.js";
 import * as educationRepository from "../repositories/education.repository.js";
 
-const createEducation = (data) =>
-  educationRepository.create({
+const createEducation = async (data) =>
+  await educationRepository.create({
     ...data,
     endDate: data.isCurrent ? null : data.endDate,
   });
@@ -35,7 +35,7 @@ const getEducationList = async (queryParams) => {
   return { items: result.data, pagination: result.pagination };
 };
 
-const getCurrentEducation = () => educationRepository.findCurrent();
+const getCurrentEducation = async () => await educationRepository.findCurrent();
 
 const getEducationById = async (id) => {
   const education = await educationRepository.findById(id);

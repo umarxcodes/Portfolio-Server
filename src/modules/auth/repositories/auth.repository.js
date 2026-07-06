@@ -1,7 +1,7 @@
 import Admin from "../models/admin.model.js";
 
 const findByEmail = async (email) =>
-  Admin.findOne({ email }).select("+password");
+  await Admin.findOne({ email }).select("+password");
 
 const findById = async (id, options = {}) => {
   const query = Admin.findById(id);
@@ -10,18 +10,18 @@ const findById = async (id, options = {}) => {
     query.select("+password");
   }
 
-  return query;
+  return await query;
 };
 
 const updateLastLogin = async (id) =>
-  Admin.findByIdAndUpdate(
+  await Admin.findByIdAndUpdate(
     id,
     { lastLogin: Date.now() },
     { returnDocument: "after" }
   );
 
 const changePassword = async (id, hashedPassword) =>
-  Admin.findByIdAndUpdate(
+  await Admin.findByIdAndUpdate(
     id,
     { password: hashedPassword },
     { returnDocument: "after", runValidators: true }

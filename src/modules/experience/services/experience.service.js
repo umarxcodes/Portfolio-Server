@@ -12,7 +12,7 @@ import {
 } from "../constants/experience.constants.js";
 
 const addExperience = async (data) =>
-  experienceRepository.createExperience(data);
+  await experienceRepository.createExperience(data);
 
 const getExperiences = async (queryParams) => {
   const filter = buildFilter(queryParams, EXPERIENCE_FILTER_FIELDS);

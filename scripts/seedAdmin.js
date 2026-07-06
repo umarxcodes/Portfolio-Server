@@ -1,9 +1,8 @@
-// *** First ***    Imports
-import dotenv from "dotenv";
 import connectDB, { disconnectDB } from "../src/database/connection.js";
 import Admin from "../src/modules/auth/models/admin.model.js";
+import { hashPassword } from "../src/shared/utils/password.utils.js";
+import dotenv from "dotenv";
 
-// *** Second ***   Constants
 dotenv.config({ quiet: true });
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -13,11 +12,6 @@ const adminEmail =
 const adminPassword =
   process.env.ADMIN_PASSWORD || (isProduction ? "" : "ChangeMe123!");
 
-// *** Third ***    Schema / Model
-
-// *** Fourth ***   Repository Functions
-
-// *** Fifth ***    Service Functions
 const validateSeedInput = () => {
   if (!adminEmail || !adminPassword) {
     throw new Error(
@@ -41,10 +35,12 @@ const seedAdmin = async () => {
     return;
   }
 
+  const hashedPassword = await hashPassword(adminPassword);
+
   await Admin.create({
     name: adminName,
     email: adminEmail,
-    password: adminPassword,
+    password: hashedPassword,
     role: "admin",
     isActive: true,
   });
@@ -52,11 +48,6 @@ const seedAdmin = async () => {
   console.info(`Admin seeded for ${adminEmail}`);
 };
 
-// *** Sixth ***    Controller Functions
-
-// *** Seventh ***  Routes
-
-// *** Eighth ***   Exports
 seedAdmin()
   .catch((error) => {
     console.error("Admin seed failed:", error.message);

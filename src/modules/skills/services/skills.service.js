@@ -11,7 +11,7 @@ import {
   SKILL_SORT_FIELDS,
 } from "../constants/skills.constants.js";
 
-const createSkill = async (data) => skillsRepository.createSkill(data);
+const createSkill = async (data) => await skillsRepository.createSkill(data);
 
 const getSkills = async (queryParams) => {
   const filter = buildFilter(queryParams, SKILL_FILTER_FIELDS);

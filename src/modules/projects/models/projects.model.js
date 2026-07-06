@@ -3,7 +3,10 @@ import {
   PROJECT_CATEGORIES,
   PROJECT_STATUSES,
 } from "../constants/projects.constants.js";
-import { generateUniqueSlug } from "../utils/projects.utils.js";
+import {
+  generateSlug,
+  ensureUniqueSlug,
+} from "../../../shared/utils/slug.utils.js";
 
 const projectSchema = new mongoose.Schema(
   {
@@ -56,7 +59,11 @@ projectSchema.index({ title: "text", description: "text", techStack: "text" });
 
 projectSchema.pre("validate", async function () {
   if (!this.slug || this.isModified("title")) {
-    this.slug = await generateUniqueSlug(this.constructor, this.title);
+    this.slug = await ensureUniqueSlug(
+      generateSlug(this.title),
+      this.constructor,
+      this._id
+    );
   }
 });
 
