@@ -6,11 +6,12 @@ import dotenv from "dotenv";
 dotenv.config({ quiet: true });
 
 const isProduction = process.env.NODE_ENV === "production";
-const adminName = process.env.ADMIN_NAME || "Portfolio Admin";
+const adminName = process.env.ADMIN_NAME || "Muhammad Umar";
 const adminEmail =
-  process.env.ADMIN_EMAIL || (isProduction ? "" : "admin@example.com");
+  process.env.ADMIN_EMAIL ||
+  (isProduction ? "" : "muhammadumar.codes@gmail.com");
 const adminPassword =
-  process.env.ADMIN_PASSWORD || (isProduction ? "" : "ChangeMe123!");
+  process.env.ADMIN_PASSWORD || (isProduction ? "" : "Umarkhan!Tiger4148");
 
 const validateSeedInput = () => {
   if (!adminEmail || !adminPassword) {
