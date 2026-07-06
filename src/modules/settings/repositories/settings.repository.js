@@ -5,7 +5,7 @@ const upsert = (data) =>
   Settings.findOneAndUpdate(
     { singletonKey: "site-settings" },
     { ...data, singletonKey: "site-settings" },
-    { new: true, upsert: true, runValidators: true }
+    { returnDocument: "after", upsert: true, runValidators: true }
   ).lean();
 
 export { findOne, upsert };

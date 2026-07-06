@@ -9,7 +9,7 @@ const findById = async (id) => Experience.findById(id).lean();
 
 const updateExperience = async (id, data) =>
   Experience.findByIdAndUpdate(id, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
   }).lean();
 

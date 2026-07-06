@@ -10,7 +10,7 @@ const findById = async (id) => Skill.findById(id).lean();
 
 const updateSkill = async (id, data) =>
   Skill.findByIdAndUpdate(id, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
   }).lean();
 

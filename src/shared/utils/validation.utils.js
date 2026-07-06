@@ -17,7 +17,12 @@ const validate =
       throw new AppError(400, VALIDATION_MESSAGE, errors);
     }
 
-    req[source] = parseResult.data;
+    Object.defineProperty(req, source, {
+      value: parseResult.data,
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    });
     next();
   };
 

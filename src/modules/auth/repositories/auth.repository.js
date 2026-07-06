@@ -14,13 +14,17 @@ const findById = async (id, options = {}) => {
 };
 
 const updateLastLogin = async (id) =>
-  Admin.findByIdAndUpdate(id, { lastLogin: Date.now() }, { new: true });
+  Admin.findByIdAndUpdate(
+    id,
+    { lastLogin: Date.now() },
+    { returnDocument: "after" }
+  );
 
 const changePassword = async (id, hashedPassword) =>
   Admin.findByIdAndUpdate(
     id,
     { password: hashedPassword },
-    { new: true, runValidators: true }
+    { returnDocument: "after", runValidators: true }
   );
 
 export { findByEmail, findById, updateLastLogin, changePassword };

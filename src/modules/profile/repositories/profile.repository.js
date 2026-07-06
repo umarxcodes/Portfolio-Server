@@ -4,7 +4,7 @@ const findProfile = async () => Profile.findOne({}).lean();
 
 const updateProfile = async (data) =>
   Profile.findOneAndUpdate({}, data, {
-    new: true,
+    returnDocument: "after",
     runValidators: true,
     upsert: true,
   }).lean();
