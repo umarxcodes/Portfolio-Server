@@ -10,7 +10,7 @@ Base URL: `http://localhost:5000/api/v1`
 
 ```json
 {
-  "email": "muhammamdumar.codes@gmail.com",
+  "email": "muhammadumar.codes@gmail.com",
   "password": "Umarkhan!Tiger4148"
 }
 ```
