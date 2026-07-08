@@ -1,6 +1,5 @@
 import connectDB, { disconnectDB } from "../src/database/connection.js";
 import Admin from "../src/modules/auth/models/admin.model.js";
-import { hashPassword } from "../src/shared/utils/password.utils.js";
 import dotenv from "dotenv";
 
 dotenv.config({ quiet: true });
@@ -32,16 +31,19 @@ const seedAdmin = async () => {
   const existingAdmin = await Admin.findOne({}).lean();
 
   if (existingAdmin) {
-    console.info("Admin already exists. Seed skipped.");
+    const adminDoc = await Admin.findById(existingAdmin._id);
+    adminDoc.password = adminPassword;
+    adminDoc.email = adminEmail;
+    adminDoc.name = adminName;
+    await adminDoc.save();
+    console.info(`Admin updated for ${adminEmail}`);
     return;
   }
-
-  const hashedPassword = await hashPassword(adminPassword);
 
   await Admin.create({
     name: adminName,
     email: adminEmail,
-    password: hashedPassword,
+    password: adminPassword,
     role: "admin",
     isActive: true,
   });

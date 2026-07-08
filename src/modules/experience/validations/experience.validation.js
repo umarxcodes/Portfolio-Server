@@ -17,22 +17,28 @@ const dateField = z.preprocess(
     required_error: "Date is required",
   })
 );
+const objectIdField = z
+  .string()
+  .trim()
+  .regex(/^[a-f\d]{24}$/i, { message: "Invalid id" });
 
-const experienceBaseSchema = z.object({
-  company: z.string().trim(),
-  position: z.string().trim(),
-  employmentType: z.enum(EMPLOYMENT_TYPES, {
-    invalid_type_error: "Invalid employment type",
-  }),
-  location: z.string().trim().optional(),
-  description: z.string(),
-  responsibilities: z.array(z.string().trim()).optional(),
-  technologies: z.array(z.string().trim()).optional(),
-  startDate: dateField,
-  endDate: dateField.optional().nullable(),
-  isCurrent: z.boolean().optional(),
-  companyLogo: z.string().url({ message: "Invalid URL" }).optional(),
-});
+const experienceBaseSchema = z
+  .object({
+    company: z.string().trim().min(1),
+    position: z.string().trim().min(1),
+    employmentType: z.enum(EMPLOYMENT_TYPES, {
+      invalid_type_error: "Invalid employment type",
+    }),
+    location: z.string().trim().optional(),
+    description: z.string().trim().min(1),
+    responsibilities: z.array(z.string().trim()).optional(),
+    technologies: z.array(z.string().trim()).optional(),
+    startDate: dateField,
+    endDate: dateField.optional().nullable(),
+    isCurrent: z.boolean().optional(),
+    companyLogo: z.string().url({ message: "Invalid URL" }).optional(),
+  })
+  .strict();
 
 const createExperienceSchema = experienceBaseSchema.superRefine((data, ctx) => {
   if (data.isCurrent && data.endDate !== undefined && data.endDate !== null) {
@@ -54,6 +60,9 @@ const createExperienceSchema = experienceBaseSchema.superRefine((data, ctx) => {
 
 const updateExperienceSchema = experienceBaseSchema
   .partial()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field is required",
+  })
   .superRefine((data, ctx) => {
     if (data.isCurrent && data.endDate !== undefined && data.endDate !== null) {
       ctx.addIssue({
@@ -72,22 +81,28 @@ const updateExperienceSchema = experienceBaseSchema
     }
   });
 
-const listExperienceQuerySchema = z.object({
-  employmentType: z.enum(EMPLOYMENT_TYPES).optional(),
-  isCurrent: z
-    .preprocess((value) => {
-      if (value === "true") return true;
-      if (value === "false") return false;
-      return value;
-    }, z.boolean())
-    .optional(),
-  technologies: z.string().optional(),
-  sort: z.string().optional(),
-});
+const listExperienceQuerySchema = z
+  .object({
+    page: z.coerce.number().int().positive().optional(),
+    limit: z.coerce.number().int().positive().max(50).optional(),
+    employmentType: z.enum(EMPLOYMENT_TYPES).optional(),
+    isCurrent: z
+      .preprocess((value) => {
+        if (value === "true") return true;
+        if (value === "false") return false;
+        return value;
+      }, z.boolean())
+      .optional(),
+    technologies: z.string().optional(),
+    sort: z.string().optional(),
+  })
+  .strict();
 
-const idParamsSchema = z.object({
-  id: z.string().trim().min(1, { message: "id is required" }),
-});
+const idParamsSchema = z
+  .object({
+    id: objectIdField,
+  })
+  .strict();
 
 const validate = validateSchema;
 

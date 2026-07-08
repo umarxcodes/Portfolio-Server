@@ -12,29 +12,31 @@ const socialLinksSchema = z
   })
   .partial();
 
-const profileSchema = z.object({
-  name: z.string().trim(),
-  title: z.string().trim(),
-  bio: z.string(),
-  shortBio: z
-    .string()
-    .trim()
-    .max(160, { message: "shortBio must not exceed 160 characters" }),
-  email: z
-    .string()
-    .email({ message: "Invalid email" })
-    .trim()
-    .transform((value) => value.toLowerCase()),
-  phone: z.string().trim().optional(),
-  location: z.string().trim().optional(),
-  profileImage: urlField.optional(),
-  resumeUrl: urlField.optional(),
-  availability: z.boolean().optional(),
-  yearsOfExperience: z
-    .number()
-    .min(0, { message: "yearsOfExperience must be at least 0" }),
-  socialLinks: socialLinksSchema.optional(),
-});
+const profileSchema = z
+  .object({
+    name: z.string().trim().min(1),
+    title: z.string().trim().min(1),
+    bio: z.string().trim().min(1),
+    shortBio: z
+      .string()
+      .trim()
+      .max(160, { message: "shortBio must not exceed 160 characters" }),
+    email: z
+      .string()
+      .email({ message: "Invalid email" })
+      .trim()
+      .transform((value) => value.toLowerCase()),
+    phone: z.string().trim().optional(),
+    location: z.string().trim().optional(),
+    profileImage: urlField.optional(),
+    resumeUrl: urlField.optional(),
+    availability: z.boolean().optional(),
+    yearsOfExperience: z
+      .number()
+      .min(0, { message: "yearsOfExperience must be at least 0" }),
+    socialLinks: socialLinksSchema.optional(),
+  })
+  .strict();
 
 const updateProfileSchema = profileSchema
   .partial()
