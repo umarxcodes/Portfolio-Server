@@ -5,6 +5,7 @@ import {
   createProjectSchema,
   updateProjectSchema,
   listProjectsQuerySchema,
+  idParamsSchema,
   validate,
 } from "../validations/projects.validation.js";
 import { PROJECT_CATEGORIES } from "../constants/projects.constants.js";
@@ -22,10 +23,6 @@ const slugParamsSchema = z.object({
   slug: z.string().trim().min(1, { message: "slug is required" }),
 });
 
-const idParamsSchema = z.object({
-  id: z.string().trim().min(1, { message: "id is required" }),
-});
-
 projectsRoutes.post(
   "/",
   protect,
@@ -37,7 +34,11 @@ projectsRoutes.get(
   validate(listProjectsQuerySchema, "query"),
   projectsController.getProjects
 );
-projectsRoutes.get("/featured", projectsController.getFeaturedProjects);
+projectsRoutes.get(
+  "/featured",
+  validate(listProjectsQuerySchema, "query"),
+  projectsController.getFeaturedProjects
+);
 projectsRoutes.get(
   "/category/:category",
   validate(categoryParamsSchema, "params"),

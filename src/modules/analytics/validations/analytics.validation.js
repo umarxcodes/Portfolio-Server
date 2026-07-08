@@ -11,9 +11,11 @@ const trackEventSchema = z.object({
     .nullable(),
 });
 
-const analyticsRangeQuerySchema = z.object({
-  months: z.string().optional(),
-});
+const analyticsRangeQuerySchema = z
+  .object({
+    months: z.coerce.number().int().positive().max(24).optional(),
+  })
+  .strict();
 
 const validate = validateSchema;
 

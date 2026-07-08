@@ -4,27 +4,32 @@ import { SETTINGS_THEMES } from "../constants/settings.constants.js";
 
 const optionalUrl = z.string().url().or(z.literal("")).optional();
 
-const updateSettingsSchema = z.object({
-  siteTitle: z.string().trim().min(1).optional(),
-  siteDescription: z.string().trim().min(1).optional(),
-  seoTitle: z.string().trim().max(60).optional(),
-  seoDescription: z.string().trim().max(160).optional(),
-  keywords: z.array(z.string().trim()).optional(),
-  socialLinks: z
-    .object({
-      github: optionalUrl,
-      linkedin: optionalUrl,
-      twitter: optionalUrl,
-      youtube: optionalUrl,
-    })
-    .optional(),
-  theme: z.enum(SETTINGS_THEMES).optional(),
-  logo: optionalUrl,
-  favicon: optionalUrl,
-  contactEmail: z.string().trim().email().or(z.literal("")).optional(),
-  contactPhone: z.string().trim().optional(),
-  maintenanceMode: z.boolean().optional(),
-});
+const updateSettingsSchema = z
+  .object({
+    siteTitle: z.string().trim().min(1).optional(),
+    siteDescription: z.string().trim().min(1).optional(),
+    seoTitle: z.string().trim().max(60).optional(),
+    seoDescription: z.string().trim().max(160).optional(),
+    keywords: z.array(z.string().trim()).optional(),
+    socialLinks: z
+      .object({
+        github: optionalUrl,
+        linkedin: optionalUrl,
+        twitter: optionalUrl,
+        youtube: optionalUrl,
+      })
+      .optional(),
+    theme: z.enum(SETTINGS_THEMES).optional(),
+    logo: optionalUrl,
+    favicon: optionalUrl,
+    contactEmail: z.string().trim().email().or(z.literal("")).optional(),
+    contactPhone: z.string().trim().optional(),
+    maintenanceMode: z.boolean().optional(),
+  })
+  .strict()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field is required",
+  });
 
 const validate = validateSchema;
 

@@ -25,7 +25,11 @@ blogRoutes.get(
   validate(listBlogQuerySchema, "query"),
   blogController.getPublishedPosts
 );
-blogRoutes.get("/featured", blogController.getFeaturedPosts);
+blogRoutes.get(
+  "/featured",
+  validate(listBlogQuerySchema, "query"),
+  blogController.getFeaturedPosts
+);
 blogRoutes.get(
   "/category/:category",
   validate(listBlogQuerySchema, "query"),
