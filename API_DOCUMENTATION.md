@@ -5,28 +5,34 @@ Base URL: `http://localhost:5000/api/v1`
 ## Authentication
 
 ### POST /auth/login
+
 **Auth:** Public
+
 ```json
 {
-  "email": "admin@example.com",
-  "password": "ChangeMe123!"
+  "email": "muhammamdumar.codes@gmail.com",
+  "password": "Umarkhan!Tiger4148"
 }
 ```
 
 ### GET /auth/profile
+
 **Auth:** Admin (Bearer token)
 
 ### POST /auth/logout
+
 **Auth:** Admin (Bearer token)
 The client should discard its access token. The API does not issue refresh tokens.
 
 ### PATCH /auth/change-password
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
-  "currentPassword": "ChangeMe123!",
-  "newPassword": "NewPass123!",
-  "confirmNewPassword": "NewPass123!"
+  "currentPassword": "Umarkhan!Tige4148",
+  "newPassword": "Umar!Tiger4148",
+  "confirmNewPassword": "Umar!Tiger4148"
 }
 ```
 
@@ -35,11 +41,14 @@ The client should discard its access token. The API does not issue refresh token
 ## Profile
 
 ### GET /profile
+
 **Auth:** Public
 Fetch portfolio profile (auto-tracks portfolio view analytics).
 
 ### PATCH /profile
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "name": "Muhammad Umar",
@@ -67,24 +76,31 @@ Fetch portfolio profile (auto-tracks portfolio view analytics).
 ## Projects
 
 ### GET /projects
+
 **Auth:** Public
 Query params: `page`, `limit`, `sort`, `status`, `category`, `featured`, `search`
 
 ### GET /projects/featured
+
 **Auth:** Public
 
 ### GET /projects/category/:category
+
 **Auth:** Public
 Categories: `frontend`, `backend`, `fullstack`, `mobile`, `devops`, `ai`, `open-source`
 
 ### GET /projects/slug/:slug
+
 **Auth:** Public
 
 ### GET /projects/:id
+
 **Auth:** Public
 
 ### POST /projects
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "title": "My Awesome Project",
@@ -104,10 +120,12 @@ Categories: `frontend`, `backend`, `fullstack`, `mobile`, `devops`, `ai`, `open-
 ```
 
 ### PATCH /projects/:id
+
 **Auth:** Admin (Bearer token)
 Partial update - send only fields to update.
 
 ### DELETE /projects/:id
+
 **Auth:** Admin (Bearer token)
 Soft delete.
 
@@ -116,18 +134,23 @@ Soft delete.
 ## Skills
 
 ### GET /skills
+
 **Auth:** Public
 Query params: `page`, `limit`, `category`, `level`, `sort`
 
 ### GET /skills/category/:category
+
 **Auth:** Public
 Categories: `frontend`, `backend`, `database`, `devops`, `cloud`, `testing`, `tools`, `mobile`, `ai`
 
 ### GET /skills/:id
+
 **Auth:** Public
 
 ### POST /skills
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "name": "React",
@@ -141,10 +164,12 @@ Categories: `frontend`, `backend`, `database`, `devops`, `cloud`, `testing`, `to
 ```
 
 ### PATCH /skills/:id
+
 **Auth:** Admin (Bearer token)
 Partial update.
 
 ### DELETE /skills/:id
+
 **Auth:** Admin (Bearer token)
 
 ---
@@ -152,14 +177,18 @@ Partial update.
 ## Experience
 
 ### GET /experience
+
 **Auth:** Public
 Query params: `page`, `limit`, `employmentType`, `isCurrent`, `technologies`, `sort`
 
 ### GET /experience/:id
+
 **Auth:** Public
 
 ### POST /experience
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "company": "Tech Corp",
@@ -177,10 +206,12 @@ Query params: `page`, `limit`, `employmentType`, `isCurrent`, `technologies`, `s
 ```
 
 ### PATCH /experience/:id
+
 **Auth:** Admin (Bearer token)
 Partial update.
 
 ### DELETE /experience/:id
+
 **Auth:** Admin (Bearer token)
 
 ---
@@ -188,18 +219,23 @@ Partial update.
 ## Education
 
 ### GET /education
+
 **Auth:** Public
 Query params: `page`, `limit`, `sort`, `search`, `institution`, `isCurrent`
 
 ### GET /education/current
+
 **Auth:** Public
 Get current education entry.
 
 ### GET /education/:id
+
 **Auth:** Public
 
 ### POST /education
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "degree": "Bachelor of Science",
@@ -215,10 +251,12 @@ Get current education entry.
 ```
 
 ### PATCH /education/:id
+
 **Auth:** Admin (Bearer token)
 Partial update.
 
 ### DELETE /education/:id
+
 **Auth:** Admin (Bearer token)
 
 ---
@@ -226,14 +264,18 @@ Partial update.
 ## Certificates
 
 ### GET /certificates
+
 **Auth:** Public
 Query params: `page`, `limit`, `sort`, `search`, `issuer`, `skill`, `expired`
 
 ### GET /certificates/:id
+
 **Auth:** Public
 
 ### POST /certificates
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "name": "AWS Solutions Architect",
@@ -249,10 +291,12 @@ Query params: `page`, `limit`, `sort`, `search`, `issuer`, `skill`, `expired`
 ```
 
 ### PATCH /certificates/:id
+
 **Auth:** Admin (Bearer token)
 Partial update.
 
 ### DELETE /certificates/:id
+
 **Auth:** Admin (Bearer token)
 
 ---
@@ -260,29 +304,37 @@ Partial update.
 ## Blog
 
 ### GET /blogs
+
 **Auth:** Public
 Query params: `page`, `limit`, `sort`, `search`, `category`, `featured`
 Only returns published posts.
 
 ### GET /blogs/featured
+
 **Auth:** Public
 
 ### GET /blogs/category/:category
+
 **Auth:** Public
 
 ### GET /blogs/tag/:tag
+
 **Auth:** Public
 
 ### GET /blogs/slug/:slug
+
 **Auth:** Public
 Auto-increments view count.
 
 ### GET /blogs/:id
+
 **Auth:** Admin (Bearer token)
 Can fetch drafts and soft-deleted posts.
 
 ### POST /blogs
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "title": "Getting Started with React Hooks",
@@ -299,10 +351,12 @@ Can fetch drafts and soft-deleted posts.
 ```
 
 ### PATCH /blogs/:id
+
 **Auth:** Admin (Bearer token)
 Partial update. Auto-calculates reading time. Auto-sets publishedAt when published=true.
 
 ### DELETE /blogs/:id
+
 **Auth:** Admin (Bearer token)
 Soft delete.
 
@@ -311,7 +365,9 @@ Soft delete.
 ## Contact
 
 ### POST /contact
+
 **Auth:** Public (Rate limited: 5 per hour)
+
 ```json
 {
   "name": "John Doe",
@@ -322,24 +378,30 @@ Soft delete.
 ```
 
 ### GET /contact
+
 **Auth:** Admin (Bearer token)
 Query params: `page`, `limit`, `sort`, `search`, `status`, `isRead`
 
 ### GET /contact/:id
+
 **Auth:** Admin (Bearer token)
 Auto-marks as read.
 
 ### PATCH /contact/:id
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "status": "replied"
 }
 ```
+
 Status: `unread`, `read`, `replied`
 Auto-sets repliedAt when status=replied.
 
 ### DELETE /contact/:id
+
 **Auth:** Admin (Bearer token)
 
 ---
@@ -347,18 +409,23 @@ Auto-sets repliedAt when status=replied.
 ## Upload
 
 ### POST /uploads
+
 **Auth:** Admin (Bearer token)
 **Content-Type:** multipart/form-data
+
 ```
 file: (binary)
 folder: "profile" | "projects" | "blogs" | "certificates" | "resume"
 ```
+
 Set `UPLOAD_STORAGE_DRIVER=vercel-blob` with `BLOB_READ_WRITE_TOKEN` for durable Vercel/serverless uploads.
 
 ### GET /uploads/:id
+
 **Auth:** Admin (Bearer token)
 
 ### DELETE /uploads/:id
+
 **Auth:** Admin (Bearer token)
 Deletes the stored file and DB record.
 
@@ -367,29 +434,37 @@ Deletes the stored file and DB record.
 ## Analytics
 
 ### GET /analytics/overview
+
 **Auth:** Admin (Bearer token)
 
 ### GET /analytics/projects
+
 **Auth:** Admin (Bearer token)
 
 ### GET /analytics/blogs
+
 **Auth:** Admin (Bearer token)
 
 ### GET /analytics/contact
+
 **Auth:** Admin (Bearer token)
 
 ### GET /analytics/monthly
+
 **Auth:** Admin (Bearer token)
 Query params: `months` (default: 6)
 
 ### POST /analytics/track
+
 **Auth:** Public
+
 ```json
 {
   "type": "portfolio_view",
   "resourceId": null
 }
 ```
+
 Types: `portfolio_view`, `project_view`, `blog_view`, `contact_submit`
 
 ---
@@ -397,11 +472,14 @@ Types: `portfolio_view`, `project_view`, `blog_view`, `contact_submit`
 ## Settings
 
 ### GET /settings
+
 **Auth:** Public
 Returns settings with defaults if none exist.
 
 ### PATCH /settings
+
 **Auth:** Admin (Bearer token)
+
 ```json
 {
   "siteTitle": "My Portfolio",
@@ -429,8 +507,10 @@ Returns settings with defaults if none exist.
 ## Search
 
 ### GET /search
+
 **Auth:** Public
 Query params:
+
 - `q` (required): search query
 - `type` (optional): `projects`, `blogs`, `skills`, `experience`, `education`, `certificates`
 - `page` (optional): default 1
@@ -445,6 +525,7 @@ Example: `/search?q=react&page=1&limit=5`
 Import the file `thunderclient/portfolio-backend.json` into ThunderClient.
 
 ### Setup Steps:
+
 1. Open ThunderClient
 2. Click "Import"
 3. Select "From File"
@@ -455,6 +536,7 @@ Import the file `thunderclient/portfolio-backend.json` into ThunderClient.
    - `projectId`, `skillId`, `experienceId`, `educationId`, `certificateId`, `blogId`, `contactId`, `uploadId`: (get from create responses)
 
 ### Test Flow:
+
 1. **Login** - POST `/api/v1/auth/login` → Save `accessToken`
 2. **Get Profile** - GET `/api/v1/profile`
 3. **Create Project** - POST `/api/v1/projects` → Save `projectId`
