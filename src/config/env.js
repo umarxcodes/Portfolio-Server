@@ -5,19 +5,13 @@ dotenv.config({ quiet: true });
 
 const envSchema = z
   .object({
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
+    NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     PORT: z.coerce.number().int().positive().default(5000),
     MONGO_URI: z.string().min(1),
     MONGO_MAX_POOL_SIZE: z.coerce.number().int().positive().default(10),
     MONGO_MIN_POOL_SIZE: z.coerce.number().int().min(0).default(0),
     MONGO_CONNECT_RETRIES: z.coerce.number().int().min(1).default(3),
-    MONGO_CONNECT_RETRY_DELAY_MS: z.coerce
-      .number()
-      .int()
-      .positive()
-      .default(2000),
+    MONGO_CONNECT_RETRY_DELAY_MS: z.coerce.number().int().positive().default(2000),
     ACCESS_TOKEN_SECRET: z.string().min(32),
     ACCESS_TOKEN_EXPIRES_IN: z.string().default("24h"),
     BCRYPT_SALT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12),
@@ -33,35 +27,37 @@ const envSchema = z
     CLIENT_URL: z.string().url().optional(),
     CORS_ORIGINS: z.string().optional(),
     UPLOAD_ROOT: z.string().default("uploads"),
-    UPLOAD_STORAGE_DRIVER: z.enum(["local", "vercel-blob"]).default("local"),
+    UPLOAD_STORAGE_DRIVER: z.enum(["local", "vercel-blob", "cloudinary"]).default("local"),
     BLOB_READ_WRITE_TOKEN: z.string().optional(),
+    CLOUDINARY_CLOUD_NAME: z.string().optional(),
+    CLOUDINARY_API_KEY: z.string().optional(),
+    CLOUDINARY_API_SECRET: z.string().optional(),
     IMAGE_UPLOAD_MAX_MB: z.coerce.number().positive().default(5),
     PDF_UPLOAD_MAX_MB: z.coerce.number().positive().default(10),
-    GLOBAL_RATE_LIMIT_WINDOW_MS: z.coerce
-      .number()
-      .int()
-      .positive()
-      .default(60000),
+    GLOBAL_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60000),
     GLOBAL_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(100),
-    CONTACT_RATE_LIMIT_WINDOW_MS: z.coerce
-      .number()
-      .int()
-      .positive()
-      .default(3600000),
+    CONTACT_RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(3600000),
     CONTACT_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(5),
-    LOG_LEVEL: z
-      .enum(["error", "warn", "info", "http", "debug"])
-      .default("info"),
+    LOG_LEVEL: z.enum(["error", "warn", "info", "http", "debug"]).default("info"),
   })
   .superRefine((value, ctx) => {
-    if (
-      value.UPLOAD_STORAGE_DRIVER === "vercel-blob" &&
-      !value.BLOB_READ_WRITE_TOKEN
-    ) {
+    if (value.UPLOAD_STORAGE_DRIVER === "vercel-blob" && !value.BLOB_READ_WRITE_TOKEN) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["BLOB_READ_WRITE_TOKEN"],
         message: "BLOB_READ_WRITE_TOKEN is required for vercel-blob uploads",
+      });
+    }
+
+    if (
+      value.UPLOAD_STORAGE_DRIVER === "cloudinary" &&
+      (!value.CLOUDINARY_CLOUD_NAME || !value.CLOUDINARY_API_KEY || !value.CLOUDINARY_API_SECRET)
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["CLOUDINARY_CLOUD_NAME"],
+        message:
+          "CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET are required for cloudinary uploads",
       });
     }
   });

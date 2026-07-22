@@ -3,6 +3,7 @@ import path from "node:path";
 import { del, put } from "@vercel/blob";
 import { UPLOAD_ROOT, UPLOAD_STORAGE_DRIVER } from "../../../config/upload.js";
 import { generateFileName } from "../../../shared/utils/upload.utils.js";
+import { uploadBuffer, deleteFileByPublicId } from "./cloudinary.adapter.js";
 
 const saveLocalFile = async (file, folder, fileName) => {
   const folderPath = path.join(UPLOAD_ROOT, folder);
@@ -20,19 +21,32 @@ const saveBlobFile = async (file, folder, fileName) => {
   return blob.url;
 };
 
+const saveCloudinaryFile = async (file, folder, fileName) => {
+  const result = await uploadBuffer({
+    buffer: file.buffer,
+    mimeType: file.mimetype,
+    folder,
+    fileName,
+  });
+
+  return result.url;
+};
+
 const saveFile = async (file, folder) => {
   const fileName = generateFileName(file.originalname);
-  const url =
-    UPLOAD_STORAGE_DRIVER === "vercel-blob"
-      ? await saveBlobFile(file, folder, fileName)
-      : await saveLocalFile(file, folder, fileName);
 
-  return {
-    fileName,
-    url,
-    size: file.size,
-    mimeType: file.mimetype,
-  };
+  if (UPLOAD_STORAGE_DRIVER === "vercel-blob") {
+    const url = await saveBlobFile(file, folder, fileName);
+    return { fileName, url, size: file.size, mimeType: file.mimetype };
+  }
+
+  if (UPLOAD_STORAGE_DRIVER === "cloudinary") {
+    const url = await saveCloudinaryFile(file, folder, fileName);
+    return { fileName, url, size: file.size, mimeType: file.mimetype };
+  }
+
+  const url = await saveLocalFile(file, folder, fileName);
+  return { fileName, url, size: file.size, mimeType: file.mimetype };
 };
 
 const deleteLocalFile = async (fileName, folder) => {
@@ -48,9 +62,22 @@ const deleteBlobFile = async (url) => {
   }
 };
 
+const deleteCloudinaryFile = async (url) => {
+  if (!url) return;
+  const match = url.match(/\/portfolio\/([^/]+)\/([^.]*)/);
+  if (!match) return;
+  const publicId = `portfolio/${match[1]}/${match[2]}`;
+  await deleteFileByPublicId(publicId);
+};
+
 const deleteFile = async ({ fileName, folder, url }) => {
   if (UPLOAD_STORAGE_DRIVER === "vercel-blob") {
     await deleteBlobFile(url);
+    return;
+  }
+
+  if (UPLOAD_STORAGE_DRIVER === "cloudinary") {
+    await deleteCloudinaryFile(url);
     return;
   }
 
